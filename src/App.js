@@ -7,11 +7,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 
 function App() {
-    const list = ['1', '2', '3', '4']
     return (
         <ThemeProvider breakpoints={['md']}>
-            <Header name='asdasd' list={list}></Header>
-            {/* <div>Your app...</div> */}
+            <Header></Header>
         </ThemeProvider >
         // <div className="App">
         //     <header className="App-header">
