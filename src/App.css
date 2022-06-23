@@ -7,6 +7,11 @@ html {
   margin: 0px;
 }
 
+p, span, h1, h2, h3, h4, h5, p, ul, li, textarea, input {
+  font-family: 'Baloo 2', cursive;
+  font-size: 20px;
+}
+
 .App {
   text-align: center;
 }
@@ -45,4 +50,8 @@ html {
   to {
     transform: rotate(360deg);
   }
+}
+
+.price {
+  color: red;
 }
