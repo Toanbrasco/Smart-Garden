@@ -7,7 +7,7 @@ import { faEnvelope, faPhone, faLocationArrow } from '@fortawesome/free-solid-sv
 
 function Footer() {
     return (
-        <div className="Footer mt-5 pb-4">
+        <div className="Footer mt-5 pb-4 bg-light">
             <Container>
                 <Row>
                     <Col md={12} className='pt-3 pb-3 border-bottom'>
