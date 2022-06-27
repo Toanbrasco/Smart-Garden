@@ -85,10 +85,95 @@ p, span, h1, h2, h3, h4, h5, h6, p, ul, li, textarea, input, label {
     outline: none;
 }
 
+/* Contact */
 .map-infor {
+    width: calc(100% - 1rem) !important;
+    margin-left: 1rem;
+}
+
+.map-infor>div {
     width: 35% !important;
 }
 
-.map-infor>span {
+.map-infor span {
     margin-top: 10px;
 }
+
+.img-map {
+    top: 0px;
+    left: 0px;
+}
+
+/* Responsive */
+/* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .map-infor {
+        width: 100% !important;
+        margin-left: 0px;
+        padding: 5px;
+    }
+
+    .map-infor>div {
+        margin-top: auto;
+        width: 100% !important;
+        padding: 10px !important;
+    }
+
+    .map-infor span {
+        margin-top: 0px;
+        font-size: 15px;
+    }
+
+    .cart-items-info span {
+        font-size: 15px;
+    }
+    .col-img-bec{
+        padding: 5px !important;
+    }
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .map-infor {
+        width: 100% !important;
+        margin-left: 0px;
+        padding: 5px;
+    }
+
+    .map-infor>div {
+        margin-top: auto;
+        width: 100% !important;
+        padding: 10px !important;
+    }
+
+    .map-infor span {
+        margin-top: 0px;
+        font-size: 15px;
+    }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .map-infor {
+        width: 100% !important;
+        margin-left: 0px;
+        padding: 5px;
+    }
+
+    .map-infor>div {
+        margin-top: auto;
+        width: 100% !important;
+        padding: 10px !important;
+    }
+
+    .map-infor span {
+        margin-top: 0px;
+        font-size: 15px;
+    }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}

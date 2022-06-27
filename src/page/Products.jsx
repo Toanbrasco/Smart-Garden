@@ -2,7 +2,6 @@ import React from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import Banner from '../assets/images/Banner.png'
 import Bec from '../assets/images/BEC-TR.png'
-import ONG from '../assets/images/ThungOng.png'
 import '../style/Product.css'
 
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
@@ -26,7 +25,7 @@ function Product() {
             </Container>
             <Container>
                 <Row>
-                    <Col md={2} className="mt-3">
+                    <Col md={2} className="mt-5">
                         <h5><strong>Category</strong></h5>
                         <div className='category__list' style={{ listStyle: 'none' }}>
                             <ul>
@@ -41,7 +40,7 @@ function Product() {
                     <Col md={10} >
                         <Row>
                             <Col md={12}>
-                                <div className="product__title d-flex justify-content-between mt-3">
+                                <div className="product__title d-flex justify-content-between mt-5">
                                     <h5><strong>Product</strong></h5>
                                     <span><strong>Sort By: </strong>Giảm</span>
                                 </div>

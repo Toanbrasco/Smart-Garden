@@ -1,20 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap'
-import Banner from '../assets/images/Banner.png'
-import Bec from '../assets/images/BEC-TR.png'
-import ONG from '../assets/images/ThungOng.png'
 
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 function Service() {
-    const [ServiceArr, setServiceArr] = useState([1, 2, 3])
+    const ServiceArr = [1, 2, 3]
     const Img = 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=874&q=80'
     return (
         <Container>
             <Row>
-                <Col md={12} className='mt-4'>
+                <Col md={12} className='mt-4 cursor-p'>
                     <span>Shop /<strong> Service</strong></span>
                 </Col>
             </Row>

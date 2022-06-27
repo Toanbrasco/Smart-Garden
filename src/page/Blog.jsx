@@ -1,15 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap'
-import Banner from '../assets/images/Banner.png'
-import Bec from '../assets/images/BEC-TR.png'
-import ONG from '../assets/images/ThungOng.png'
 
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 function Blog() {
-    const [BlogArr, setBlogArr] = useState([1, 2, 3, 4, 5, 6])
+    const BlogArr = [1, 2, 3, 4, 5, 6]
     const Img = 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=874&q=80'
     return (
         <Container>
@@ -29,7 +26,7 @@ function Blog() {
                                     <Card.Text>Some quick example text to build on the card title and make up the
                                         bulk of the card's content.
                                     </Card.Text>
-                                    <Card.Link href="#" className='float-right text-dark'>Xem chi tiết</Card.Link>
+                                    <Card.Link  className='float-right text-dark'>Xem chi tiết</Card.Link>
                                 </Card.Body>
                             </Card>
                         </Col>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import Banner from '../assets/images/Banner.png'
 import Bec from '../assets/images/BEC-TR.png'
@@ -46,11 +47,11 @@ function Home() {
                 <Row className='outstanding__title mt-5' >
                     <Col md={12} className='d-flex justify-content-between '>
                         <h5 className='cursor-d'>Sản phẩm nổi bật</h5>
-                        <span className='cursor-p'>Tất cả sản phẩm</span>
+                        <span className='cursor-p'><Link to='Products'>Tất cả sản phẩm</Link></span>
                     </Col>
                     {
                         [1, 2, 3, 4].map((item) =>
-                            <Col md={6} lg={3} className="outstanding__products mt-3">
+                            <Col md={6} lg={3} className="outstanding__products mt-3" key={item}>
                                 <Card style={{ width: '100%', border: 'none' }} className='shadow-lg hover-sh cursor-p'>
                                     <Card.Img variant="top" className="p-4" src={Bec} />
                                     <Card.Body className='px-3'>
@@ -69,8 +70,8 @@ function Home() {
                             <div className='position-absolute cursor-d'>
                                 <div className=' p-3 d-block d-flex justify-content-center flex-column h-100 shadow-sm rounded'>
                                     <h5>Dịch vụ</h5>
-                                    <span>Thiết kế và thi công các công trình về tưới tự động</span>
-                                    <div className='btn-service cursor-p'><span>Liên hệ ngay để được tư vấn</span></div>
+                                    <span className='mt-2'>Thiết kế và thi công các công trình về tưới tự động</span>
+                                    <div className='btn-service cursor-p mt-2'><span><Link to='/Service'>Tất cả dịch vụ</Link></span></div>
                                 </div>
                             </div>
                             <img src={Bec} alt="Bec" className='position-absolute d-none d-md-none d-lg-flex' />
@@ -80,7 +81,7 @@ function Home() {
                 <Row className="mt-5">
                     <Col md={12} className='d-flex justify-content-between'>
                         <h5 className='cursor-d'><strong>Blog</strong></h5>
-                        <span className='cursor-p'>All</span>
+                        <span className='cursor-p'><Link to='/Blog'>All</Link></span>
                     </Col>
                     {[1, 2, 3].map((item) =>
                         <Col md={4} key={item} className='mt-3 '>

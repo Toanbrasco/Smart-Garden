@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap'
-import Banner from '../assets/images/Banner.png'
+import { Link } from 'react-router-dom';
 import Bec from '../assets/images/BEC-TR.png'
-import ONG from '../assets/images/ThungOng.png'
+
 import '../style/Product.css'
 
 function ProductDetail() {
@@ -55,11 +55,11 @@ function ProductDetail() {
                 </Col>
             </Row>
             <Row>
-                <Col md={12} className='d-flex justify-content-center align-items-center mt-5'>
-                    <a className="mx-1 text-dark">Home</a>
-                    <a className="mx-1 text-dark">Product</a>
-                    <a className="mx-1 text-dark">About</a>
-                    <a className="mx-1 text-dark">Contact</a>
+                <Col md={12} className='d-flex justify-content-center align-items-center my-5'>
+                    <Link to='/' className="mx-1 text-dark">Home</Link>
+                    <Link to='/Products' className="mx-1 text-dark">Product</Link>
+                    {/* <a className="mx-1 text-dark">About</a> */}
+                    <Link to='/Contact' className="mx-1 text-dark">Contact</Link>
                 </Col>
             </Row>
         </Container>
