@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import Bec from '../assets/images/BEC-TR.png'
@@ -6,6 +6,9 @@ import Bec from '../assets/images/BEC-TR.png'
 import '../style/Product.css'
 
 function ProductDetail() {
+    useEffect(() => {
+        document.title = "Product"
+    }, []);
     return (
         <Container>
             <Row>

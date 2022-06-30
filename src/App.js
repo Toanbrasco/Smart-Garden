@@ -11,6 +11,9 @@ import Blog from './page/Blog.jsx'
 import Service from './page/Service.jsx'
 import Contact from './page/Contact.jsx'
 import Cart from './page/Cart.jsx'
+import Payment from './page/Payment.jsx'
+import Post from './page/Post.jsx'
+import Error from './page/Error.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -21,12 +24,15 @@ function App() {
             <Header></Header>
             <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route path="/Products" element={<Products />} />
-                <Route path="/ProductDetail" element={<ProductDetail />} />
-                <Route path="/Blog" element={<Blog />} />
-                <Route path="/Service" element={<Service />} />
-                <Route path="/Contact" element={<Contact />} />
-                <Route path="/Cart" element={<Cart />} />
+                <Route exact path="/products" element={<Products />} />
+                <Route exact path="/productDetail" element={<ProductDetail />} />
+                <Route exact path="/blog" element={<Blog />} />
+                <Route exact path="/service" element={<Service />} />
+                <Route exact path="/contact" element={<Contact />} />
+                <Route exact path="/cart" element={<Cart />} />
+                <Route exact path="/payment" element={<Payment />} />
+                <Route exact path="/post" element={<Post />} />
+                <Route path="*" element={<Error />} />
             </Routes>
             <Footer></Footer>
         </ThemeProvider >

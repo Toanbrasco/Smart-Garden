@@ -10,6 +10,11 @@ function Contact() {
     // console.log(`=> height`, height)
     const ref = useRef(null)
 
+
+    useEffect(() => {
+        document.title = "Contact"
+    }, []);
+
     useEffect(() => {
         setHeight(ref.current.clientHeight)
     })
@@ -22,7 +27,7 @@ function Contact() {
             </Row>
             <Row className=" d-flex">
                 <Col md={8} className='mt-4' style={{ height: height }}>
-                    <div className='position-relative w-100 h-100 bg-danger'>
+                    <div className='position-relative w-100 h-100'>
                         <div className='w-100 h-100 position-absolute img-map'>
                             <img src={Map} alt="Map" className='w-100 h-100 ' />
                         </div>
@@ -61,7 +66,7 @@ function Contact() {
                 </Col>
             </Row>
             <Row>
-                <Col md={12} className='d-flex justify-content-center align-items-center mt-4 cursor-p'>
+                <Col md={12} className='d-flex justify-content-center align-items-center mt-5 cursor-p'>
                     <Link to='/' className="mx-1 text-dark">Home</Link>
                     <Link to='/Products' className="mx-1 text-dark">Product</Link>
                     {/* <a className="mx-1 text-dark">About</a> */}

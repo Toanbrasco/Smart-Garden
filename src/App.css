@@ -2,14 +2,18 @@
 
 html {
     font-family: 'Baloo 2', cursive;
-    font-size: 20px;
+    font-size: 16px;
     padding: 0px;
     margin: 0px;
 }
 
 p, span, h1, h2, h3, h4, h5, h6, p, ul, li, textarea, input, label {
     font-family: 'Baloo 2', cursive;
-    font-size: 20px;
+    font-size: 16px;
+}
+
+textarea {
+    outline: none;
 }
 
 .hover-sh:hover {
@@ -29,8 +33,8 @@ p, span, h1, h2, h3, h4, h5, h6, p, ul, li, textarea, input, label {
 }
 
 .btn-nav {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,6 +108,36 @@ p, span, h1, h2, h3, h4, h5, h6, p, ul, li, textarea, input, label {
     left: 0px;
 }
 
+span>a {
+    color: black;
+
+}
+
+span>a:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.vh-80 {
+    height: 80vh;
+}
+
 /* Responsive */
 /* // Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
@@ -127,7 +161,8 @@ p, span, h1, h2, h3, h4, h5, h6, p, ul, li, textarea, input, label {
     .cart-items-info span {
         font-size: 15px;
     }
-    .col-img-bec{
+
+    .col-img-bec {
         padding: 5px !important;
     }
 }

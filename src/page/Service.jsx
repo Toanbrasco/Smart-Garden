@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 function Service() {
+    useEffect(() => {
+        document.title = "Service"
+    }, []);
     const ServiceArr = [1, 2, 3]
     const Img = 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=874&q=80'
     return (
@@ -18,10 +21,10 @@ function Service() {
             {
                 ServiceArr.map((item, index) =>
                     <Row key={index} className='mt-5'>
-                        <Col md={6}>
+                        <Col xs={6} lg={6}>
                             <img src={Img} alt="Img" className='w-100 h-100 ' />
                         </Col>
-                        <Col md={6}>
+                        <Col xs={6} lg={6}>
                             <Card style={{ width: '100%', border: 'none' }} className="cursor-p h-100" >
                                 {/* <Card.Img variant="top" src={Img} className='shadow-sm w-50 ' /> */}
                                 <Card.Body className='p-0 h-100 d-flex flex-column'>

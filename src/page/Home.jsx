@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import Banner from '../assets/images/Banner.png'
@@ -7,6 +7,9 @@ import ONG from '../assets/images/ThungOng.png'
 import '../style/Home.css'
 
 function Home() {
+    useEffect(() => {
+        document.title = "Smart Garden"
+    }, []);
     return (
         <>
             <Container fluid className='p-0 w-100 position-relative'>
@@ -51,7 +54,7 @@ function Home() {
                     </Col>
                     {
                         [1, 2, 3, 4].map((item) =>
-                            <Col md={6} lg={3} className="outstanding__products mt-3" key={item}>
+                            <Col xs={6} lg={3} className="outstanding__products mt-3" key={item}>
                                 <Card style={{ width: '100%', border: 'none' }} className='shadow-lg hover-sh cursor-p'>
                                     <Card.Img variant="top" className="p-4" src={Bec} />
                                     <Card.Body className='px-3'>
@@ -84,7 +87,7 @@ function Home() {
                         <span className='cursor-p'><Link to='/Blog'>All</Link></span>
                     </Col>
                     {[1, 2, 3].map((item) =>
-                        <Col md={4} key={item} className='mt-3 '>
+                        <Col md={4} key={item} className='mt-3'>
                             <Card style={{ width: '100%', border: 'none' }} className="cursor-p" >
                                 <Card.Img variant="top" src={Bec} className='shadow-sm p-4' />
                                 <Card.Body className='px-0'>

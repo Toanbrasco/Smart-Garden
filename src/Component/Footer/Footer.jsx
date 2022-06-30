@@ -8,13 +8,14 @@ import { faEnvelope, faPhone, faLocationArrow } from '@fortawesome/free-solid-sv
 
 function Footer() {
     const Location = useLocation()
-    console.log(`=> Location`, Location)
+    // console.log(`=> Location`, Location)
     return (
         <div className="Footer ">
             {
-                Location.pathname === '/Cart' || Location.pathname === '/Contact' || Location.pathname === '/ProductDetail' ?
+                Location.pathname === '/cart' || Location.pathname === '/contact' || Location.pathname === '/productDetail'
+                    || Location.pathname === '/payment' ?
                     <></> :
-                    <Container bg='light' className='mt-5 pb-4'>
+                    <Container bg='light' className='mt-5 pb-4 cursor-d'>
                         <Row>
                             <Col md={12} className='pt-3 pb-3 border-bottom'>
                                 <img src={logoFooter} alt="Footer" width='170px' />
@@ -31,11 +32,11 @@ function Footer() {
                             <Col md={3} className="d-flex flex-column mt-3 cursor-p">
                                 <h5><strong>Quick Link</strong></h5>
                                 <span><Link to="/">Home</Link></span>
-                                <span><Link to="/Products">Products</Link></span>
-                                <span><Link to="/Blog">Blog</Link></span>
-                                <span><Link to="/Service">Service</Link></span>
+                                <span><Link to="/products">Products</Link></span>
+                                <span><Link to="/blog">Blog</Link></span>
+                                <span><Link to="/service">Service</Link></span>
                                 {/* <span as={Link} to='/'>About</span> */}
-                                <span><Link to="/Contact">Contact</Link></span>
+                                <span><Link to="/contact">Contact</Link></span>
                             </Col>
                             <Col md={3} className="d-flex flex-column mt-3">
                                 <h5><strong>FanFage</strong></h5>
