@@ -138,6 +138,16 @@ span>a:hover {
     height: 80vh;
 }
 
+.btn-close {
+    background-color: white !important;
+    outline: none;
+    border: none;
+}
+
+.mySwiper2>img {
+    z-index: -1;
+}
+
 /* Responsive */
 /* // Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {

@@ -39,7 +39,7 @@ function Product() {
             </Container>
             <Container>
                 <Row>
-                    <Col md={4} className="mt-5">
+                    <Col md={4} className="mt-5 cursor-p">
                         <h5><strong>Category</strong></h5>
                         <div className='category__list mt-3' style={{ listStyle: 'none' }}>
                             {CategoryList.map((item, index) =>
