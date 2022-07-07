@@ -1,0 +1,502 @@
+[
+    {
+        "_id": {
+            "$oid": "615674eb5d27f4331cc3c82a"
+        },
+        "name": " Béc tưới cây bù áp AQ206PC 72 lít – Automat",
+        "images": [],
+        "desc": "Béc tưới cây bù áp AQ206PC 72 lít – Automat là béc tưới cục bộ cao cấ với độ đồng đều cao, hay tưới ở gốc các loại cây trồng từ tưới sầu riêng, tưới bơ, tưới cam, bưởi, tưới thanh long…, cho tới cây công nghiệp như tưới cà phê, hồ tiêu và rau màu các loại sản phẩm được  nhập khẩu 100% từ India với chất liệu nhựa bền bỉ theo thời gian.",
+        "price": {
+            "base": 15900,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "Béc tưới cây",
+            "detail": "Bù áp"
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615674ee5d27f4331cc3c82c"
+        },
+        "name": " Que cắm nhỏ giọt 8 tia điều chỉnh lưu lượng",
+        "images": [],
+        "desc": "Lưu lượng điều chỉnh: 0 – 70 lít/giờ Áp suất: 1 – 3 bar Bán kính: 0.3 – 1m Ứng dụng: Dùng trong hệ thống tưới gốc, tưới nhỏ giọt cây hồ tiêu, cà phê, tưới gốc cây ăn quả, tưới cây cảnh quan, chậu cây sân vườn…",
+        "price": {
+            "base": 2756,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615674f35d27f4331cc3c82e"
+        },
+        "name": " Béc tưới chỉnh van cây cắm 40cm VAN5000C",
+        "images": [],
+        "desc": "Béc tưới chỉnh van cây cắm 40cm VAN5000C chuyên tưới cây ăn quả, cây công nghiệp đặc biệt dùng cho bưởi da xanh và tưới thanh long… Một sản phẩm ổn định đến từ Trung Quốc.",
+        "price": {
+            "base": 9500,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615674f75d27f4331cc3c830"
+        },
+        "name": " Béc nhộng phun gốc 180 độ – VAN 4180",
+        "images": [],
+        "desc": "Béc nhộng tưới gốc vừa phun mưa hàng Nhập Khẩu là lựa chọn tối ưu hiện nay cho bà con trồng cây công nghiệp như hồ tiêu, cà phê… Độ bền cao, chất lượng phun ổn định.",
+        "price": {
+            "base": 0,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615674fb5d27f4331cc3c832"
+        },
+        "name": " Béc tưới cây cánh đập cao cấp 27mm – AQ46 Automat",
+        "images": [],
+        "desc": "Béc tưới cây cánh đập cao cấp 27mm – AQ46 Automat có 2 ốc xé nước, độ đồng đều cao, tương thích khi tưới cho tất cả các loại cây trồng. Liên hệ: 028 6678 4455",
+        "price": {
+            "base": 59500,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615674fe5d27f4331cc3c834"
+        },
+        "name": " Đầu nối từ uPVC sang dây tưới phun 34",
+        "images": [],
+        "desc": "Khớp nối ống nhựa ren ngoài 34mm uPVC ra dây tưới phun mưa Sanfu phi 34. Độ bền cao, cơ giới hóa cực kỳ thuận lợi. Liên hệ: 0934 191 445",
+        "price": {
+            "base": 10000,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615675025d27f4331cc3c836"
+        },
+        "name": " Béc cánh đập phi 27 chỉnh góc K1601 (Đài Loan)",
+        "images": [],
+        "desc": "Béc tưới cây có chỉnh góc răn 27mm (27 li) – Đài Loan",
+        "price": {
+            "base": 28620,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "Béc tưới cây",
+            "detail": "Góc bù áp"
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615675055d27f4331cc3c838"
+        },
+        "name": " Béc tưới gốc phun 12 tia – AQ 201",
+        "images": [],
+        "desc": "Béc tưới gốc xòe 12 tia phun – AQ Jet 201 là một sản phẩm mới nhất đến từ Ấn Độ. Với thiết kế nhỏ gọn và thích hợp với ống dẻo PE,LDPE 3 – 5mm. Bán kính phun rộng,áp suất thấp và độ đồng đều rất cao.",
+        "price": {
+            "base": 4775,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615675095d27f4331cc3c83a"
+        },
+        "name": " Béc phun xòe có cây cắm chỉnh lưu lượng VANX1",
+        "images": [],
+        "desc": "Béc phun xòe cây cắm có chỉnh lưu lượng từ 0 – 70l/h là hàng cao cấp, chất lượng ổn định với thời gian. Giá thành rẻ, phù hợp với nhiều mô hình tưới ở Việt Nam.",
+        "price": {
+            "base": 3500,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "6156750c5d27f4331cc3c83c"
+        },
+        "name": " Béc tưới chỉnh góc phi 21 – Đài Loan (K121)",
+        "images": [],
+        "desc": "Béc tưới cây chỉnh góc phi 21, màu xanh lá. Nhập khẩu Đài Loan. Chuyên tưới cây ăn quả có múi, cây thanh long. Liên hệ: 0934 191 445",
+        "price": {
+            "base": 21800,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "Béc tưới cây",
+            "detail": "Phun mưa"
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "6156750f5d27f4331cc3c83e"
+        },
+        "name": " Béc tưới cánh đập phi 27 có ốc xé nước – VAN27R",
+        "images": [],
+        "desc": "Béc tưới cánh đập phi 27 có ốc xé nước – VAN27R nhựa POM cao cấp. Lượng nước tưới đồng đều lên tới 95%. Hàng cao cấp, cam kết chính hãng và đổi trả thoải mái trong vòng 1 tuần.",
+        "price": {
+            "base": 36500,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615675125d27f4331cc3c840"
+        },
+        "name": " Béc tưới phun tỏa tròn kiểu bướm VAN0334",
+        "images": [],
+        "desc": "Béc tưới phun tỏa tròn kiểu bướm VAN0334 cho cây rau – hoa, cây công nghiệp, tưới cây ăn quả. Nhựa cao cấp POM, dùng tốt và bền trên 2 năm ngoài trời nắng.",
+        "price": {
+            "base": 8500,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615675155d27f4331cc3c842"
+        },
+        "name": " Béc tưới DKSC22 phi 27 – Hai nút đồng",
+        "images": [],
+        "desc": "Béc phun cánh đập phi 27, nhựa POM cao cấp. Lượng nước tưới đồng đều lên tới 95%.Ứng dụng nhiều trong tưới cây ăn quả có múi, cỏ chăn nuôi, các loại hoa màu có lá dày…",
+        "price": {
+            "base": 29800,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615675185d27f4331cc3c844"
+        },
+        "name": " Béc tưới chỉnh góc phi 34mm ốc xé nước VAN0410A",
+        "images": [],
+        "desc": "Béc tưới chỉnh góc phi 34mm ốc xé nước VAN0410A chuyên tưới cây ăn quả, cây thanh long và cây cà phê, rất phụ hợp để tưới phủ diện tích lớn tạo độ ẩm cao cho cây trồng phát triển vượt trội.",
+        "price": {
+            "base": 95000,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "6156751b5d27f4331cc3c846"
+        },
+        "name": " Béc cánh đập chỉnh góc phi 21 – VAN212B",
+        "images": [],
+        "desc": "Béc tưới cánh đập chỉnh góc 21mm. Hàng chất lương, nhựa cao cấp. Ứng dụng thiết thực cho mọi loại cây trồng, đặc biệt là cây ăn quả có múi.",
+        "price": {
+            "base": 18500,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "6156751e5d27f4331cc3c848"
+        },
+        "name": " Béc phun sương bọ Úc – Tưới gốc, tưới trên tán.",
+        "images": [],
+        "desc": "Béc bọ Úc, tưới gốc hồ tiêu, cà phê, cây ăn quả, châm dinh dưỡng hệ thống khí canh. Cung cấp theo bịch 100 cái giá 250.000đ. Liên hệ: 0934 191 445",
+        "price": {
+            "base": 250000,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615675215d27f4331cc3c84a"
+        },
+        "name": " Dây tưới phun mưa phi 34 – 5 lỗ phun – cuộn 200m",
+        "images": [],
+        "desc": "Dây tưới phun mưa phi 34, một cuộn 200m, có 5 lỗ phun trên 1 hàng zic zắc. Chuyên dùng tưới dưa, tưới rau, cây công nghiệp…Nhựa PE cao cấp, liên hệ ngay với chúng tôi: 028 668 53197",
+        "price": {
+            "base": 456750,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "",
+            "detail": ""
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615675245d27f4331cc3c84c"
+        },
+        "name": " Béc tưới phun sương kiểu bọ Úc",
+        "images": [],
+        "desc": "Béc phun sương bọ Úc, màu đen. Chất lượng vượt trội, hạt nước mịn đều, không làm hại cây và rải đều nước cho rễ hút.",
+        "price": {
+            "base": 250000,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "Béc tưới cây",
+            "detail": "Phun sương"
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "615675275d27f4331cc3c84e"
+        },
+        "name": " Đầu nối từ uPVC sang dây tưới phun 27",
+        "images": [],
+        "desc": "Khớp nối ống nhựa ren ngoài 27mm uPVC ra dây tưới phun mưa phi 27. Độ bền cao, cơ giới hóa cực kỳ thuận lợi. Liên hệ: 0934 191 445.",
+        "price": {
+            "base": 0,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "Ống dẫn nước",
+            "detail": ""
+        },
+        "type": "Ống dẫn nước",
+        "date": "2022-07-06T23:41:58.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "6156752a5d27f4331cc3c850"
+        },
+        "name": " Béc tưới cây hợp kim thau 21 – VANBR21",
+        "images": [],
+        "desc": "Tưới cỏ công viên, tưới cảnh quan lớn, tưới vườn cây ăn quả, tưới rau, tưới cây công nghiệp",
+        "price": {
+            "base": 0,
+            "discount": 0
+        },
+        "isPublic": true,
+        "infor": [
+            {
+                "title": "title",
+                "paramater": ""
+            }
+        ],
+        "category": {
+            "main": "Béc tưới cây",
+            "detail": "Phun sương"
+        },
+        "type": "Thiết bị tưới",
+        "date": "2022-07-06T23:41:58.000Z"
+    }
+]

@@ -1,31 +1,41 @@
-import React, { useEffect } from 'react'
-import { Container, Row, Col, Card } from 'react-bootstrap'
-import Banner from '../assets/images/Banner.png'
+import React, { useEffect, useState } from 'react'
+import { Container, Row, Col, Card, Form } from 'react-bootstrap'
+// import Banner from '../assets/images/Banner.png'
 import Bec from '../assets/images/BEC-TR.png'
 import '../style/Product.css'
-
+import { Link } from 'react-router-dom'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Products from '../assets/Data/test.json'
+import { convertViToEn, numberFormat, CategoryList } from '../Method.js'
 
 
 function Product() {
+    const products = [...Products]
+    // const [selectValue, setSelectValue] = useState(0)
+    const [productsFill, setProductsFill] = useState([...products])
+    const handleSelect = (value) => {
+        if (value === '0') {
+            setProductsFill([...products])
+        }
+        if (value === '1') {
+            const newFill = products.sort((a, b) => Number(a.price.base) - Number(b.price.base));
+            setProductsFill([...newFill])
+            return
+        }
+        if (value === '2') {
+            const newFill = products.sort((a, b) => Number(b.price.base) - Number(a.price.base));
+            setProductsFill([...newFill])
+            return
+        }
+    }
+
     useEffect(() => {
         document.title = "Products"
     }, []);
-    const CategoryList = [
-        { title: 'Béc tưới cây', list: ['Béc tưới góc bù áp', 'Béc tưới góc không bù áp', 'Béc tưới cánh đập', 'Béc tưới cây tỏa tròn', 'Dây tưới phun mưa', 'Béc tưới phun sương', 'Béc tưới khác'] },
-        { title: 'Tưới nhỏ giọt', list: ['Ống dây tưới nhỏ giọt', 'Béc tưới nhỏ giọt', 'Bộ châm phân dinh dưỡng', ' Phụ kiện nhỉ giọt'] },
-        { title: 'Bộ lọc nước tưới cây', list: [] },
-        { title: 'Súng tưới cây', list: ['Súng tưới cây NODOLINI Ý', 'Súng tưới cây AUTOMAT INDIA', 'Súng tưới cây Trung Quốc', 'Súng tưới cây khác'] },
-        { title: 'Van điện từ', list: [] },
-        { title: 'Thiết bị tưới sân vườn', list: [] },
-        { title: 'ống dẫn nước tưới cây', list: [] },
-        { title: 'Bộ hẹn giờ', list: [] },
-        { title: 'Phụ kiện tưới', list: [] },
-        { title: 'Thiết bị tưới khác', list: [] }]
     return (
         <>
-            <Container fluid className='p-0 w-100 position-relative'>
+            {/* <Container fluid className='p-0 w-100 position-relative'>
                 <Row className='p-0 w-100 m-0' style={{ zIndex: '-100' }}>
                     <Col className='p-0 w-100'>
                         <img className='p-0 w-100' src={Banner} alt="Banner" />
@@ -36,7 +46,7 @@ function Product() {
                         </span>
                     </Col>
                 </Row>
-            </Container>
+            </Container> */}
             <Container>
                 <Row>
                     <Col md={4} className="mt-5 cursor-p">
@@ -59,17 +69,29 @@ function Product() {
                             <Col md={12}>
                                 <div className="product__title d-flex justify-content-between mt-5">
                                     <h5><strong>Product</strong></h5>
-                                    <span><strong>Sort By: </strong>Giảm</span>
+                                    <div>
+                                        <span><strong>Sort By: </strong></span>
+                                        <Form.Select aria-label="Default select example" onChange={(e) => handleSelect(e.target.value)}>
+                                            <option value="0">Mặt định</option>
+                                            <option value="1">Giá tăng dần</option>
+                                            <option value="2">Giá giảm dần</option>
+                                            {/* <option value="3">Tên A - Z </option>
+                                            <option value="4">Tên Z - A</option> */}
+                                        </Form.Select>
+
+                                    </div>
+
                                 </div>
                             </Col>
                             {
-                                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) =>
-                                    <Col xs={6} lg={4} key={item}>
-                                        <Card style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
+                                // index < 12 &&
+                                productsFill.map((item, index) => index < 12 &&
+                                    <Col xs={6} lg={4} key={index}>
+                                        <Card as={Link} to={'/products/' + convertViToEn(item.name)} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
                                             <Card.Img variant="top" className="p-4 bg-light" src={Bec} />
-                                            <Card.Body className='px-3 text-center'>
-                                                <Card.Title style={{ fontSize: '20px' }} className="mb-1"><strong>Béc tưới 1234567890</strong></Card.Title>
-                                                <Card.Text className="text-danger"><strong>123.123.123 VND</strong></Card.Text>
+                                            <Card.Body className='px-3 text-center d-flex flex-column h-100'>
+                                                <Card.Title style={{ fontSize: '15px' }} className="mb-1 text-truncate"><strong>{item.name}</strong></Card.Title>
+                                                <Card.Text className="text-danger mt-auto"><strong>{numberFormat(item.price.base)}</strong></Card.Text>
                                                 {/* <Card.Link href="#" className='float-right text-dark'>Card Link</Card.Link> */}
                                             </Card.Body>
                                         </Card>
@@ -89,7 +111,7 @@ function Product() {
                         </Row>
                     </Col>
                 </Row>
-            </Container>
+            </Container >
         </>
     )
 }

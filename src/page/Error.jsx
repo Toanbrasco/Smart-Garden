@@ -1,18 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 function Error() {
+    useEffect(() => {
+        document.title = "Smart Garden"
+    }, []);
     return (
         <Container>
-            <div class="d-flex align-items-center justify-content-center vh-80">
-                <div class="text-center">
-                    <h1 class="display-1 fw-bold">404</h1>
-                    <p class="fs-3"> <span class="text-danger">Opps!</span> Không tìm thấy trang.</p>
-                    <p class="lead">
+            <div className="d-flex align-items-center justify-content-center vh-80">
+                <div className="text-center">
+                    <h1 className="display-1 fw-bold">404</h1>
+                    <p className="fs-3"> <span className="text-danger">Opps!</span> Không tìm thấy trang.</p>
+                    <p className="lead">
                         Trang mà bạn đang tìm kiếm không tồn tại.
                     </p>
-                    <Link to='/' class="btn btn-primary">Về trang chủ</Link>
+                    <Link to='/' className="btn btn-primary">Về trang chủ</Link>
                 </div>
             </div>
         </Container>

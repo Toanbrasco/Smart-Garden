@@ -17,7 +17,7 @@ function Contact() {
 
     useEffect(() => {
         setHeight(ref.current.clientHeight)
-    })
+    }, [])
     return (
         <Container>
             <Row>
@@ -66,7 +66,7 @@ function Contact() {
                 </Col>
             </Row>
             <Row>
-                <Col md={12} className='d-flex justify-content-center align-items-center mt-5 cursor-p'>
+                <Col md={12} className='d-flex justify-content-center align-items-center my-5 cursor-p'>
                     <Link to='/' className="mx-1 text-dark">Home</Link>
                     <Link to='/Products' className="mx-1 text-dark">Product</Link>
                     {/* <a className="mx-1 text-dark">About</a> */}

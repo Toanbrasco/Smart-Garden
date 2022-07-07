@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import React, {  useEffect } from 'react'
+// import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap'
 
 function Post() {

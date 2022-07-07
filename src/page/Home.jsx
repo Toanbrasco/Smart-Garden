@@ -5,8 +5,12 @@ import Banner from '../assets/images/Banner.png'
 import Bec from '../assets/images/BEC-TR.png'
 import ONG from '../assets/images/ThungOng.png'
 import '../style/Home.css'
+import Products from '../assets/Data/test.json'
+import { convertViToEn, numberFormat } from '../Method.js'
 
 function Home() {
+    const products = [...Products]
+
     useEffect(() => {
         document.title = "Smart Garden"
     }, []);
@@ -53,13 +57,13 @@ function Home() {
                         <span className='cursor-p'><Link to='Products'>Tất cả sản phẩm</Link></span>
                     </Col>
                     {
-                        [1, 2, 3, 4].map((item) =>
-                            <Col xs={6} lg={3} className="outstanding__products mt-3" key={item}>
-                                <Card style={{ width: '100%', border: 'none' }} className='shadow-lg hover-sh cursor-p'>
+                        products.map((item, index) => index < 4 &&
+                            <Col xs={6} lg={3} className="outstanding__products mt-3" key={index} >
+                                <Card style={{ width: '100%', border: 'none' }} className='shadow-lg hover-sh cursor-p' as={Link} to={'/products/' + convertViToEn(item.name)}>
                                     <Card.Img variant="top" className="p-4" src={Bec} />
                                     <Card.Body className='px-3'>
-                                        <Card.Title style={{ fontSize: '20px' }} className="mb-1"><strong>Béc tưới 1234567890</strong></Card.Title>
-                                        <Card.Text className="text-danger"><strong>123.123.123 VND</strong></Card.Text>
+                                        <Card.Title style={{ fontSize: '15px' }} className="mb-1 text-truncate"><strong>{item.name}</strong></Card.Title>
+                                        <Card.Text className="text-danger"><strong>{numberFormat(item.price.base)}</strong></Card.Text>
                                         {/* <Card.Link href="#" className='float-right text-dark'>Card Link</Card.Link> */}
                                     </Card.Body>
                                 </Card>
