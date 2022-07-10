@@ -29,7 +29,7 @@ function Service() {
                                 {/* <Card.Img variant="top" src={Img} className='shadow-sm w-50 ' /> */}
                                 <Card.Body className='p-0 h-100 d-flex flex-column'>
                                     <Card.Title><strong>Card Title{item}</strong></Card.Title>
-                                    <Card.Text>Some quick example text to build on the card title and make up the
+                                    <Card.Text className=''>Some quick example text to build on the card title and make up the
                                         bulk of the card's content.
                                     </Card.Text>
                                     <Card.Link href="#" className='text-right text-dark mt-auto'>Xem chi tiết</Card.Link>

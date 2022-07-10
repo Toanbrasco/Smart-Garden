@@ -6,7 +6,7 @@ import Bec from '../assets/images/BEC-TR.png'
 import ONG from '../assets/images/ThungOng.png'
 import '../style/Home.css'
 import Products from '../assets/Data/test.json'
-import { convertViToEn, numberFormat } from '../Method.js'
+import { convertViToEn, numberFormat } from '../Constants.js'
 
 function Home() {
     const products = [...Products]

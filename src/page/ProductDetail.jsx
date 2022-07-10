@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 
 import Products from '../assets/Data/test.json'
-import { convertViToEn, numberFormat, images } from '../Method.js'
+import { convertViToEn, numberFormat, images } from '../Constants.js'
 
 // Swiper styles
 import "swiper/css";
@@ -42,7 +42,7 @@ function ProductDetail() {
                 <Col md={12} className='mt-4'>
                     <span>Shop / Product / <strong>{product.name}</strong></span>
                 </Col>
-                <Col md={6}>
+                <Col md={6} className='mt-3'>
                     <Swiper
                         style={{
                             "--swiper-navigation-color": "#fff",
@@ -56,7 +56,7 @@ function ProductDetail() {
                     >
                         {
                             images.map((item, index) =>
-                                <SwiperSlide key={index}>
+                                <SwiperSlide key={'img' + index}>
                                     <img src={item} alt="images" className='w-100' />
                                 </SwiperSlide>
                             )
@@ -73,14 +73,14 @@ function ProductDetail() {
                     >
                         {
                             images.map((item, index) =>
-                                <SwiperSlide key={index}>
+                                <SwiperSlide key={'img2' + index}>
                                     <img src={item} alt="images" className='w-100' />
                                 </SwiperSlide>
                             )
                         }
                     </Swiper>
                 </Col>
-                <Col md={6} className='d-flex flex-column'>
+                <Col md={6} className='d-flex flex-column mt-3'>
                     <h5>{product.name}</h5>
                     <span className='text-danger'>{numberFormat(product.price)}</span>
                     <p>{product.desc}</p>
@@ -101,7 +101,7 @@ function ProductDetail() {
                     <Row>
                         {
                             products.map((item, index) => index < 6 &&
-                                <Col xs={6} md={4} lg={2} key={item}>
+                                <Col xs={6} md={4} lg={2} key={'product' + item.name}>
                                     <Card style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
                                         <Card.Img variant="top" className="p-4 bg-light" src={Bec} />
                                         <Card.Body className='p-2 text-center'>

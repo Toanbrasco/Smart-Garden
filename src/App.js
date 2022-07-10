@@ -13,6 +13,7 @@ import Contact from './page/Contact.jsx'
 import Cart from './page/Cart.jsx'
 import Payment from './page/Payment.jsx'
 import Post from './page/Post.jsx'
+import Admin from './page/Admin/Admin.jsx'
 import Error from './page/Error.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -32,6 +33,7 @@ function App() {
                 <Route exact path="/cart" element={<Cart />} />
                 <Route exact path="/payment" element={<Payment />} />
                 <Route exact path="/post" element={<Post />} />
+                <Route exact path="/admin" element={<Admin />} />
                 <Route path="*" element={<Error />} />
             </Routes>
             <Footer></Footer>

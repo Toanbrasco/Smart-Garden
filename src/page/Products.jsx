@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Products from '../assets/Data/test.json'
-import { convertViToEn, numberFormat, CategoryList } from '../Method.js'
+import { convertViToEn, numberFormat, CategoryList } from '../Constants.js'
 
 
 function Product() {

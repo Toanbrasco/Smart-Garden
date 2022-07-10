@@ -13,7 +13,7 @@ function Footer() {
         <div className="Footer ">
             {
                 Location.pathname === '/cart' || Location.pathname === '/contact' || Location.pathname === '/productDetail'
-                    || Location.pathname === '/payment' ?
+                    || Location.pathname === '/payment' || Location.pathname === '/admin' ?
                     <></> :
                     <Container bg='light' className='mt-5 pb-4 cursor-d'>
                         <Row>
