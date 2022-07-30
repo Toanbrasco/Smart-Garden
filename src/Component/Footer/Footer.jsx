@@ -7,13 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPhone, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
 function Footer() {
-    const Location = useLocation()
+    const Location = useLocation().pathname
     // console.log(`=> Location`, Location)
     return (
         <div className="Footer ">
             {
-                Location.pathname === '/cart' || Location.pathname === '/contact' || Location.pathname === '/productDetail'
-                    || Location.pathname === '/payment' || Location.pathname === '/admin' ?
+                Location.includes('/admin', '/cart', '/contact', '/productDetail',) === true ?
                     <></> :
                     <Container bg='light' className='mt-5 pb-4 cursor-d'>
                         <Row>

@@ -1,38 +1,70 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Container, Row, Col, Card, Form } from 'react-bootstrap'
-// import Banner from '../assets/images/Banner.png'
 import Bec from '../assets/images/BEC-TR.png'
 import '../style/Product.css'
+
 import { Link } from 'react-router-dom'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Products from '../assets/Data/test.json'
-import { convertViToEn, numberFormat, CategoryList } from '../Constants.js'
 
+import { convertViToEn, numberFormat, CategoryList } from '../Constants.js'
+import Loading from '../Component/Loading/Loading.jsx'
+
+// swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper";
+
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import "swiper/css/pagination";
+
+import { ProductContext } from '../Contexts/ProductContext'
 
 function Product() {
-    const products = [...Products]
-    // const [selectValue, setSelectValue] = useState(0)
-    const [productsFill, setProductsFill] = useState([...products])
+    const { products, getProducts } = useContext(ProductContext)
+
+    console.log(`=> products`, products)
+    const [productsFill, setProductsFill] = useState([])
+
+
     const handleSelect = (value) => {
         if (value === '0') {
-            setProductsFill([...products])
+            setProductsFill(products.data)
         }
         if (value === '1') {
-            const newFill = products.sort((a, b) => Number(a.price.base) - Number(b.price.base));
+            const newFill = productsFill.sort((a, b) => Number(a.price.base) - Number(b.price.base));
             setProductsFill([...newFill])
             return
         }
         if (value === '2') {
-            const newFill = products.sort((a, b) => Number(b.price.base) - Number(a.price.base));
+            const newFill = productsFill.sort((a, b) => Number(b.price.base) - Number(a.price.base));
             setProductsFill([...newFill])
             return
         }
     }
+    const handleCategory = (text) => {
+        let newFill = []
+        products.data.forEach((item, index) => {
+            if (item.category.detail.includes(text) || item.category.main.includes(text)) {
+                newFill.push(item)
+            }
+        })
+        setProductsFill([...newFill])
+    }
 
     useEffect(() => {
         document.title = "Products"
+        getProducts()
+        // 
+        setProductsFill(products.data)
     }, []);
+
+    console.log(`=> !productsFill`, productsFill)
+    if (products.loading) {
+        return <Loading />
+    }
     return (
         <>
             {/* <Container fluid className='p-0 w-100 position-relative'>
@@ -49,10 +81,69 @@ function Product() {
             </Container> */}
             <Container>
                 <Row>
-                    <Col md={4} className="mt-5 cursor-p">
+                    <Col md={4} className="mt-3 cursor-p d-none d-md-block">
                         <h5><strong>Category</strong></h5>
-                        <div className='category__list mt-3' style={{ listStyle: 'none' }}>
+                        <div className='category__list' style={{ listStyle: 'none' }}>
                             {CategoryList.map((item, index) =>
+                                <div key={index}>
+                                    <h6 onClick={() => handleCategory(item.title)}>{item.title}</h6>
+                                    {item.list.length !== 0 ?
+                                        <ul className='mb-2'>
+                                            {item.list.map((items, index) =>
+                                                <li key={index} onClick={() => handleCategory(items)}>{items}</li>
+                                            )}
+                                        </ul>
+                                        : <></>}
+                                </div>
+                            )}
+                        </div>
+                    </Col>
+                    <Col md={4} className="mt-3 cursor-p d-block d-md-none">
+                        <h5><strong>Category</strong></h5>
+                        <div className='category__list' style={{ listStyle: 'none' }}>
+                            <Swiper
+                                spaceBetween={30}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                modules={[Pagination]}
+                                className="mySwiper"
+                            >
+                                {CategoryList.map((item, index) => item.list.length !== 0 &&
+                                    <SwiperSlide key={index} >
+                                        <div key={index} className='py-3'>
+                                            <h6>{item.title}</h6>
+                                            {item.list.length !== 0 ?
+                                                <ul className='mb-2'>
+                                                    {item.list.map((items, index) =>
+                                                        <li key={index}>{items}</li>
+                                                    )}
+                                                </ul>
+                                                : <></>}
+                                        </div>
+                                    </SwiperSlide>
+                                )}
+                                <SwiperSlide >
+                                    {CategoryList.map((item, index) => item.list.length === 0 &&
+                                        <div key={index} className="w-100 h-100" data-toggle="collapse" href={`#Collapse${index}`} role="button" aria-expanded="false" aria-controls={`Collapse${index}`}>
+                                            <div className='d-flex justify-content-between align-items-center' >
+                                                <h6>{item.title}</h6>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* {item.list.length !== 0 ?
+                                                <div className="collapsep-3" id={`Collapse${index}`}>
+                                                    <ul className='mb-3'>
+                                                        {item.list.map((items, index) =>
+                                                            <li key={index}>{items}</li>
+                                                        )}
+                                                    </ul>
+                                                </div>
+                                                : <></>} */}
+                                </SwiperSlide>
+                            </Swiper>
+
+                            {/* {CategoryList.map((item, index) =>
                                 <div key={index}>
                                     <h6>{item.title}</h6>
                                     <ul className='mb-2'>
@@ -61,26 +152,27 @@ function Product() {
                                         )}
                                     </ul>
                                 </div>
-                            )}
+                            )} */}
                         </div>
+
                     </Col>
-                    <Col md={8} >
+                    <Col md={8}>
                         <Row>
                             <Col md={12}>
-                                <div className="product__title d-flex justify-content-between mt-5">
+                                <div className="w-100 product__title d-flex justify-content-between mt-3">
                                     <h5><strong>Product</strong></h5>
-                                    <div>
-                                        <span><strong>Sort By: </strong></span>
-                                        <Form.Select aria-label="Default select example" onChange={(e) => handleSelect(e.target.value)}>
-                                            <option value="0">Mặt định</option>
-                                            <option value="1">Giá tăng dần</option>
-                                            <option value="2">Giá giảm dần</option>
-                                            {/* <option value="3">Tên A - Z </option>
+                                    <div className='w-40 d-flex align-items-center justify-content-between'>
+                                        <span><strong>Sort By: </strong> </span>
+                                        <Form.Group controlId="ControlSelect2" className=''>
+                                            <Form.Control as="select" aria-label="Default select example" onChange={(e) => handleSelect(e.target.value)}>
+                                                <option value="0">Mặt định</option>
+                                                <option value="1">Giá tăng dần</option>
+                                                <option value="2">Giá giảm dần</option>
+                                                {/* <option value="3">Tên A - Z </option>
                                             <option value="4">Tên Z - A</option> */}
-                                        </Form.Select>
-
+                                            </Form.Control>
+                                        </Form.Group>
                                     </div>
-
                                 </div>
                             </Col>
                             {

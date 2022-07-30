@@ -19,7 +19,7 @@
         ],
         "category": {
             "main": "Béc tưới cây",
-            "detail": "Bù áp"
+            "detail": "Béc tưới góc bù áp"
         },
         "type": "Thiết bị tưới",
         "date": "2022-07-06T23:41:58.000Z"
@@ -35,7 +35,7 @@
             "base": 2756,
             "discount": 0
         },
-        "isPublic": true,
+        "isPublic": false,
         "infor": [
             {
                 "title": "title",
@@ -85,7 +85,7 @@
             "base": 0,
             "discount": 0
         },
-        "isPublic": true,
+        "isPublic": false,
         "infor": [
             {
                 "title": "title",
@@ -110,7 +110,7 @@
             "base": 59500,
             "discount": 0
         },
-        "isPublic": true,
+        "isPublic": false,
         "infor": [
             {
                 "title": "title",
@@ -135,7 +135,7 @@
             "base": 10000,
             "discount": 0
         },
-        "isPublic": true,
+        "isPublic": false,
         "infor": [
             {
                 "title": "title",
@@ -169,7 +169,7 @@
         ],
         "category": {
             "main": "Béc tưới cây",
-            "detail": "Góc bù áp"
+            "detail": "Béc tưới góc bù ápgóc bù áp"
         },
         "type": "Thiết bị tưới",
         "date": "2022-07-06T23:41:58.000Z"
@@ -185,7 +185,7 @@
             "base": 4775,
             "discount": 0
         },
-        "isPublic": true,
+        "isPublic": false,
         "infor": [
             {
                 "title": "title",
@@ -260,7 +260,7 @@
             "base": 36500,
             "discount": 0
         },
-        "isPublic": true,
+        "isPublic": false,
         "infor": [
             {
                 "title": "title",
@@ -393,8 +393,8 @@
             }
         ],
         "category": {
-            "main": "",
-            "detail": ""
+            "main": "Béc tưới cây",
+            "detail":"Béc tưới phun sương"
         },
         "type": "Thiết bị tưới",
         "date": "2022-07-06T23:41:58.000Z"
@@ -444,7 +444,7 @@
         ],
         "category": {
             "main": "Béc tưới cây",
-            "detail": "Phun sương"
+            "detail":"Béc tưới phun sương"
         },
         "type": "Thiết bị tưới",
         "date": "2022-07-06T23:41:58.000Z"
@@ -468,10 +468,10 @@
             }
         ],
         "category": {
-            "main": "Ống dẫn nước",
+            "main": "ống dẫn nước tưới cây",
             "detail": ""
         },
-        "type": "Ống dẫn nước",
+        "type": "Thiết bị tưới",
         "date": "2022-07-06T23:41:58.000Z"
     },
     {
@@ -494,7 +494,7 @@
         ],
         "category": {
             "main": "Béc tưới cây",
-            "detail": "Phun sương"
+            "detail":"Béc tưới phun sương"
         },
         "type": "Thiết bị tưới",
         "date": "2022-07-06T23:41:58.000Z"

@@ -1,46 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import React, { useContext, useEffect, useState } from 'react';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import Bec from '../assets/images/BEC-TR.png'
+import Bec from '../assets/images/BEC-TR.png';
+import Loading from '../Component/Loading/Loading';
 
-import '../style/Product.css'
+import '../style/Product.css';
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import Products from '../assets/Data/test.json';
+import { images, numberFormat } from '../Constants.js';
+
+// Swiper
 import { FreeMode, Navigation, Thumbs } from "swiper";
-
-import Products from '../assets/Data/test.json'
-import { convertViToEn, numberFormat, images } from '../Constants.js'
-
-// Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import { Swiper, SwiperSlide } from "swiper/react";
 
+import { ProductContext } from '../Contexts/ProductContext';
+// import { GET_PRODUCTS_DETAIL, GET_PRODUCTS } from '../Contexts/Reducers/type'
+// import Data from '../assets/Data/test.json'
 
 function ProductDetail() {
+    const { products, getProductDetail } = useContext(ProductContext)
     const { productname } = useParams()
-    const [product, setProduct] = useState({})
-    const products = [...Products]
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const addTocart = () => {
 
-    // const Location = useLocation().pathname
-    // console.log(`=> Location`, Location)
+    }
 
     useEffect(() => {
         document.title = "Product"
-        products.forEach((item) => {
-            if (convertViToEn(item.name) === productname) {
-                setProduct({ ...item })
-            }
-        })
+        getProductDetail(productname)
     }, []);
 
+    if (products.loading) {
+        return <Loading />
+    }
     return (
         <Container>
             <Row>
                 <Col md={12} className='mt-4'>
-                    <span>Shop / Product / <strong>{product.name}</strong></span>
+                    <span>Shop / Product / <strong>{products.data[0].name}</strong></span>
                 </Col>
                 <Col md={6} className='mt-3'>
                     <Swiper
@@ -81,15 +82,14 @@ function ProductDetail() {
                     </Swiper>
                 </Col>
                 <Col md={6} className='d-flex flex-column mt-3'>
-                    <h5>{product.name}</h5>
-                    <span className='text-danger'>{numberFormat(product.price)}</span>
-                    <p>{product.desc}</p>
+                    <h5>{products.data[0].name}</h5>
+                    <span className='text-danger'>{numberFormat(products.data[0].price.base)}</span>
+                    <p>{products.data[0].desc}</p>
                     <div className="parameter">
 
                     </div>
                     <div className='addToCart mt-auto cursor-p'>
                         <span>Add To Cart</span>
-
                     </div>
                 </Col>
             </Row >
@@ -100,14 +100,13 @@ function ProductDetail() {
                 <Col md={12}>
                     <Row>
                         {
-                            products.map((item, index) => index < 6 &&
+                            Products.map((item, index) => index < 6 &&
                                 <Col xs={6} md={4} lg={2} key={'product' + item.name}>
                                     <Card style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
                                         <Card.Img variant="top" className="p-4 bg-light" src={Bec} />
                                         <Card.Body className='p-2 text-center'>
                                             <Card.Title style={{ fontSize: '15px' }} className="mb-1"><strong>{item.name}</strong></Card.Title>
                                             <Card.Text className="text-danger" style={{ fontSize: '15px' }}><strong>{numberFormat(item.price.base)}</strong></Card.Text>
-                                            {/* <Card.Link href="#" className='float-right text-dark'>Card Link</Card.Link> */}
                                         </Card.Body>
                                     </Card>
                                 </Col>

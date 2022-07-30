@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import './Header.css'
+import { faClose, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
+import { Button, Container, Form, Modal, Nav, Navbar } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import { Container, Nav, Navbar, Modal, Button, Form, Offcanvas, NavDropdown } from 'react-bootstrap'
-import Logo from '../../assets/images/Logo.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart, faSearch, faClose } from '@fortawesome/free-solid-svg-icons'
+import Logo from '../../assets/images/Logo.png';
+import './Header.css';
 
 function Header() {
     const Location = useLocation().pathname
@@ -14,7 +14,7 @@ function Header() {
     return (
         <>
             {
-                Location !== '/admin' ? <>
+                !Location.includes('/admin') ? <>
                     <Navbar bg="light" expand="lg" className='p-0 Header' collapseOnSelect >
                         <Container className="position-relative w-100 h-100 d-flex justify-content-md-between " style={{ zIndex: '10' }}>
                             <Navbar.Brand as={Link} to='/' href="#home" className='d-none d-md-none d-lg-flex position-absolute translate-middle w-100 h-100 p-0 justify-content-center'><img className='img-brand' src={Logo} alt="Logo"></img></Navbar.Brand>
@@ -66,7 +66,7 @@ function Header() {
                         </Modal.Body>
                     </Modal></>
                     : <>
-   
+
                     </>
             }
             {/* <Container>

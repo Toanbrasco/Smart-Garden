@@ -134,6 +134,14 @@ span>a:hover {
     width: 40%;
 }
 
+.w-60 {
+    width: 70%;
+}
+
+.w-70 {
+    width: 70%;
+}
+
 .vh-80 {
     height: 80vh;
 }
@@ -176,6 +184,71 @@ span>a:hover {
 .card:hover {
     text-decoration: none;
     color: black;
+}
+
+.nav__side-btn>div {
+    width: 40px;
+    height: 40px;
+    background-color: #6987DF;
+    font-weight: bold;
+}
+
+.nav__side-btn>div:hover {
+    background-color: #768fdc;
+}
+
+.nav__header {
+    box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.1);
+}
+
+div>a {
+    text-decoration: none;
+    color: white;
+}
+
+div>a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.collapse-cus>div>a {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0px 5px;
+    color: black;
+}
+
+.collapse-cus>div>a:hover {
+    background-color: rgb(191, 191, 191);
+    border-radius: 5px;
+    color: black;
+}
+
+/* Admin */
+/* Dashboard */
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid #36b9cc;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e;
+}
+
+.Side__Nav {
+    min-height: 100vh;
+}
+
+.side__menu>div:hover, .side__menu>a:hover {
+    background-color: #385dcc;
 }
 
 /* Responsive */
