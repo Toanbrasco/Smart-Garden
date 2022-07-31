@@ -7,7 +7,7 @@ import { PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, P
 export const ProductContext = createContext()
 const ProductContextProvider = ({ children }) => {
     // const [products, setProducts] = useState(Data)
-    const [products, dispatch] = useReducer(productReducer, {
+    const [products, productDispatch] = useReducer(productReducer, {
         loading: true,
         data: [],
         error: null
@@ -15,24 +15,24 @@ const ProductContextProvider = ({ children }) => {
 
     const getProducts = () => {
         try {
-            dispatch({ type: PRODUCT_LOADED_SUCCESS, payload: Data })
+            productDispatch({ type: PRODUCT_LOADED_SUCCESS, payload: Data })
         } catch (error) {
-            dispatch({ type: PRODUCT_LOADED_FAIL })
+            productDispatch({ type: PRODUCT_LOADED_FAIL })
         }
     }
 
     const getProductDetail = (name) => {
         getProducts()
-        dispatch({ type: PRODUCT_DETAIL, payload: name })
+        productDispatch({ type: PRODUCT_DETAIL, payload: name })
     }
 
     const handleCategory = (category) => {
         getProducts()
-        dispatch({ type: PRODUCT_FILTER_CATEGORY, payload: category })
+        productDispatch({ type: PRODUCT_FILTER_CATEGORY, payload: category })
     }
 
     const handleSelect = (select) => {
-        dispatch({ type: PRODUCT_SORT, payload: select })
+        productDispatch({ type: PRODUCT_SORT, payload: select })
 
     }
 
@@ -42,7 +42,7 @@ const ProductContextProvider = ({ children }) => {
         getProductDetail,
         handleCategory,
         handleSelect,
-        dispatch
+        productDispatch
     }
 
     return (
