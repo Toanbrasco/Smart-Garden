@@ -1,14 +1,60 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import Bec from '../assets/images/BEC-TR.png'
+import Loading from '../Component/Loading/Loading';
+import { numberFormat } from '../Constants';
+
+import { CartContext } from '../Contexts/CartContext'
+import { ProductContext } from '../Contexts/ProductContext';
 
 function Payment() {
+    const { products, getProducts } = useContext(ProductContext)
+    const { cart, getCart } = useContext(CartContext)
+
+    const filterProduct = (carts) => {
+        let arr = []
+        if (carts.data && products.data) {
+            products.data.forEach(item => {
+                carts.data.forEach((item2) => {
+                    if (item._id.$oid === item2._id.$oid) {
+                        item['count'] = item2.count
+                        arr.push(item)
+                    }
+                })
+            })
+        } else {
+            return arr
+        }
+        return arr
+    }
+
+    const totalAmount = () => {
+        let total = 0
+        cart.data.forEach(item => {
+            total = total + item.count
+        })
+        return total
+    }
+
+    const totalPrice = () => {
+        let total = 0
+        filterProduct(cart).forEach(item => {
+            total = total + item.count * item.price.base
+        })
+        return total
+    }
     useEffect(() => {
         document.title = "Payment"
+        getProducts()
+        getCart()
     }, []);
     const cartArr = [1, 2, 3, 4]
     const Check = false
+
+    if (products.loading) {
+        return <Loading />
+    }
     return (
         <Container>
             <Row>
@@ -22,22 +68,22 @@ function Payment() {
             <Row className='f-flex flex-wrap mb-5'>
                 <Col md={7} className=' order-md-2 mt-4'>
                     {
-                        cartArr.map((item, index) =>
-                            <div key={item} className="w-100 d-flex border-bottom">
+                        filterProduct(cart).map((item, index) =>
+                            <div key={index} className="w-100 d-flex border-bottom">
                                 <div className='col-img-bec w-20 '>
                                     <img className='w-100 p-xs-0 p-md-3' src={Bec} alt="Bec" />
                                 </div>
                                 <div className='w-40 d-flex align-items-start flex-column justify-content-center p-3'>
-                                    <span className="m-0">Béc ascxv </span>
-                                    <small>Loại</small>
+                                    <span className="m-0">{item.name}</span>
+                                    <small>{item.category.main}</small>
                                 </div>
                                 <div className="w-20 d-flex justify-content-center align-items-center">
                                     <div className="btn-nav"><span>-</span></div>
-                                    <div className="btn-nav"><span>1</span></div>
+                                    <div className="btn-nav"><span>{item.count}</span></div>
                                     <div className="btn-nav"><span>+</span></div>
                                 </div>
                                 <div className='w-30 d-flex align-items-center justify-content-end'>
-                                    <span className='m-0'>123.123.123 VNĐ</span>
+                                    <span className='m-0'>{numberFormat(item.price.base)}</span>
                                 </div>
                                 <div className='w-10 d-flex align-items-center justify-content-end cursor-p'>
                                     <div>X</div>
@@ -68,7 +114,7 @@ function Payment() {
                             <h6><strong>Thông tin giỏ hàng</strong></h6>
                             <div className="w-100 d-flex justify-content-between">
                                 <span>Quantity: </span>
-                                <span> 3</span>
+                                <span> {totalAmount()}</span>
                             </div>
                             {/* <div className="w-100 d-flex justify-content-between">
                                     <span>Giảm giá: </span>
@@ -76,11 +122,11 @@ function Payment() {
                                 </div> */}
                             <div className="w-100 d-flex justify-content-between">
                                 <span>Discount: </span>
-                                <span>0 VNĐ</span>
+                                <span>0</span>
                             </div>
                             <div className="w-100 d-flex justify-content-between">
                                 <span>Total: </span>
-                                <span><strong>123.123.123 VNĐ</strong></span>
+                                <span><strong>{numberFormat(totalPrice())}</strong></span>
                             </div>
                         </div>
                         <div className="w-100 input-group input-group-sm my-3">

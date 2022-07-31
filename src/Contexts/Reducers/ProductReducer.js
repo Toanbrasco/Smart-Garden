@@ -20,14 +20,14 @@ export const productReducer = (state, action) => {
                 error: payload
             }
         case PRODUCT_DETAIL:
-            console.log(PRODUCT_DETAIL)
+            // console.log(PRODUCT_DETAIL)
             return {
                 ...state,
                 loading: false,
                 data: state.data.filter((item) => { return convertViToEn(item.name) === payload })
             }
         case PRODUCT_SORT:
-            console.log(PRODUCT_SORT)
+            // console.log(PRODUCT_SORT)
             if (payload === '0') {
                 return {
                     ...state,

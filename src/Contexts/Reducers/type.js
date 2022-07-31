@@ -1,8 +1,3 @@
-export const GET_CARTS = 'GET_CARTS'
-export const SAVE_CARTS = 'SAVE_CARTS'
-export const DELETE_CART = 'DELETE_CART'
-export const ADD_CART = 'ADD_CART'
-
 export const TOGGLE_AUTH = 'TOGGLE_AUTH'
 
 export const PRODUCT_LOADED_SUCCESS = 'PRODUCT_LOADED_SUCCESS'
@@ -14,3 +9,9 @@ export const FIND_PRODUCT = 'FIND_PRODUCT'
 export const PRODUCT_DETAIL = 'PRODUCT_DETAIL'
 export const PRODUCT_FILTER_CATEGORY = 'PRODUCT_FILTER_CATEGORY'
 export const PRODUCT_SORT = 'PRODUCT_SORT'
+
+
+export const GET_CARTS = 'GET_CARTS'
+export const ADD_CART = 'ADD_CART'
+export const SAVE_CARTS = 'SAVE_CARTS'
+export const DELETE_CART = 'DELETE_CART'

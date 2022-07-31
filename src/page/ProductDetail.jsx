@@ -18,20 +18,19 @@ import "swiper/css/thumbs";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { ProductContext } from '../Contexts/ProductContext';
-// import { GET_PRODUCTS_DETAIL, GET_PRODUCTS } from '../Contexts/Reducers/type'
-// import Data from '../assets/Data/test.json'
+import { CartContext } from '../Contexts/CartContext'
 
 function ProductDetail() {
     const { products, getProductDetail } = useContext(ProductContext)
+    const { cart, addToCart, getCart } = useContext(CartContext)
+
     const { productname } = useParams()
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const addTocart = () => {
-
-    }
 
     useEffect(() => {
         document.title = "Product"
         getProductDetail(productname)
+        getCart()
     }, []);
 
     if (products.loading) {
@@ -41,7 +40,7 @@ function ProductDetail() {
         <Container>
             <Row>
                 <Col md={12} className='mt-4'>
-                    <span>Shop / Product / <strong>{products.data[0].name}</strong></span>
+                    <span><Link to='/'>Shop</Link> / <Link to='/products'>Products /</Link> <strong>{products.data[0].name}</strong></span>
                 </Col>
                 <Col md={6} className='mt-3'>
                     <Swiper
@@ -88,7 +87,7 @@ function ProductDetail() {
                     <div className="parameter">
 
                     </div>
-                    <div className='addToCart mt-auto cursor-p'>
+                    <div className='addToCart mt-auto cursor-p' onClick={() => addToCart(products.data[0]._id)}>
                         <span>Add To Cart</span>
                     </div>
                 </Col>

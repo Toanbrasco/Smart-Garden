@@ -24,7 +24,7 @@ import { ProductContext } from '../Contexts/ProductContext'
 
 function Product() {
     const { products, getProducts, handleSelect, handleCategory } = useContext(ProductContext)
-    console.log(`=> products_main`, products)
+    // console.log(`=> products_main`, products)
 
     useEffect(() => {
         document.title = "Products"

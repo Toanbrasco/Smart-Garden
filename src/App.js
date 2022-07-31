@@ -25,37 +25,40 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AdProduct from './page/Admin/AdProduct';
 
-import ProdcutContextProvider from './Contexts/ProductContext.js'
+import ProdcutContextProvider from './Contexts/ProductContext'
+import CartContextProvider from './Contexts/CartContext'
 
 function App() {
     // const PageArr = ['Products', 'ProductDetail', 'Blog', 'Service', 'Contact', 'Cart']
     return (
         <ThemeProvider>
             <ProdcutContextProvider>
-                <Header></Header>
-                <Routes>
-                    <Route exact path="/" element={<Home />} >
-                    </Route>
-                    <Route path="products" element={<Products />} />
-                    <Route path="products/:productname" element={<ProductDetail />} />
-                    <Route path="blog" element={<Blog />} />
-                    <Route path="service" element={<Service />} />
-                    <Route path="contact" element={<Contact />} />
-                    <Route path="cart" element={<Cart />} />
-                    <Route path="payment" element={<Payment />} />
-                    <Route path="post" element={<Post />} />
-                    <Route path="/admin" element={<Admin />} >
-                        <Route index element={<Dashboard />} />
-                        <Route path="products" element={<AdProduct />} />
-                        <Route path="product-upload" element={<UploadProduct />} />
-                        <Route path="user" element={<User />} />
-                        <Route path="order" element={<Order />} />
-                        <Route path="config" element={<Config />} />
+                <CartContextProvider>
+                    <Header></Header>
+                    <Routes>
+                        <Route exact path="/" element={<Home />} >
+                        </Route>
+                        <Route path="products" element={<Products />} />
+                        <Route path="products/:productname" element={<ProductDetail />} />
+                        <Route path="blog" element={<Blog />} />
+                        <Route path="service" element={<Service />} />
+                        <Route path="contact" element={<Contact />} />
+                        <Route path="cart" element={<Cart />} />
+                        <Route path="payment" element={<Payment />} />
                         <Route path="post" element={<Post />} />
-                    </Route>
-                    <Route path="*" element={<Error />} />
-                </Routes>
-                <Footer></Footer>
+                        <Route path="/admin" element={<Admin />} >
+                            <Route index element={<Dashboard />} />
+                            <Route path="products" element={<AdProduct />} />
+                            <Route path="product-upload" element={<UploadProduct />} />
+                            <Route path="user" element={<User />} />
+                            <Route path="order" element={<Order />} />
+                            <Route path="config" element={<Config />} />
+                            <Route path="post" element={<Post />} />
+                        </Route>
+                        <Route path="*" element={<Error />} />
+                    </Routes>
+                    <Footer></Footer>
+                </CartContextProvider>
             </ProdcutContextProvider>
         </ThemeProvider >
     );
