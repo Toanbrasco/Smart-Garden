@@ -12,7 +12,7 @@ function Footer() {
     return (
         <div className="Footer ">
             {
-                Location.includes('/admin', '/cart', '/contact', '/productDetail',) === true ?
+                Location.includes('/admin') || Location.includes('/cart') || Location.includes('/contact') || Location.includes('/products/') === true ?
                     <></> :
                     <Container bg='light' className='mt-5 pb-4 cursor-d'>
                         <Row>

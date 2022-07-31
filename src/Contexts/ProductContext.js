@@ -1,7 +1,7 @@
-import React, { useState, createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer } from "react";
 import Data from '../assets/Data/test.json'
 import { productReducer } from './Reducers/ProductReducer'
-import { ADD_PRODUCT, DELETE_PRODUCT, FIND_PRODUCT, UPDATE_PRODUCT, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_FILTER } from './Reducers/type'
+import { PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SORT } from './Reducers/type'
 
 
 export const ProductContext = createContext()
@@ -12,6 +12,7 @@ const ProductContextProvider = ({ children }) => {
         data: [],
         error: null
     })
+
     const getProducts = () => {
         try {
             dispatch({ type: PRODUCT_LOADED_SUCCESS, payload: Data })
@@ -19,21 +20,28 @@ const ProductContextProvider = ({ children }) => {
             dispatch({ type: PRODUCT_LOADED_FAIL })
         }
     }
+
     const getProductDetail = (name) => {
         getProducts()
-        dispatch({ type: PRODUCT_FILTER, payload: name })
+        dispatch({ type: PRODUCT_DETAIL, payload: name })
     }
-    // useEffect(() => {
-    //     console.log('useEffect Get')
-    //     dispatch({
-    //         type: GET_PRODUCTS,
-    //         payload: Data
-    //     })
-    // }, [])
+
+    const handleCategory = (category) => {
+        getProducts()
+        dispatch({ type: PRODUCT_FILTER_CATEGORY, payload: category })
+    }
+
+    const handleSelect = (select) => {
+        dispatch({ type: PRODUCT_SORT, payload: select })
+
+    }
+
     const ProductContextData = {
         products,
         getProducts,
         getProductDetail,
+        handleCategory,
+        handleSelect,
         dispatch
     }
 

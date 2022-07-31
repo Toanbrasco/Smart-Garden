@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Form } from 'react-bootstrap'
 import Bec from '../assets/images/BEC-TR.png'
 
 function Payment() {
@@ -46,7 +46,7 @@ function Payment() {
                         )
                     }
                 </Col>
-                <Col md={5} className=' order-md-1 mt-4'>
+                <Col md={5} className='order-md-1 mt-4'>
                     <div className=''>
                         <div className="w-100">
                             <form action="" className="w-100 d-flex flex-column">
@@ -57,7 +57,11 @@ function Payment() {
                                 <label className='mt-2 cursor-d'>Địa chỉ</label>
                                 <input type="text" name="" id="" className='input-cus mt-2' />
                                 <label className='mt-2 cursor-d'>Ghi chú</label>
-                                <textarea name="Note" id="" className='w-100' rows="5"></textarea>
+                                <Form.Control
+                                    as="textarea"
+                                    placeholder="Ghi chú tại đây"
+                                    style={{ height: '100px' }}
+                                />
                             </form>
                         </div>
                         <div className='w-100 d-flex justify-content-end flex-column cursor-d p-3 bg-light mt-3'>

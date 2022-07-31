@@ -6,7 +6,7 @@ import Bec from '../assets/images/BEC-TR.png'
 
 
 function Cart() {
-    const cartArr = []
+    const cartArr = [1, 2, 3, 4, 5]
 
     useEffect(() => {
         document.title = "Cart"
@@ -15,14 +15,14 @@ function Cart() {
     return (
         <Container>
             <Row>
-                <Col md={12} className='mt-4 cursor-p'>
+                <Col md={12} className='mt-4 mb-3 cursor-p'>
                     <span><Link to='/'>Shop</Link> / Cart </span>
                 </Col>
 
             </Row>
 
             <Row className='border-bottom' style={cartArr.length !== 0 ? { display: 'block' } : { display: 'none' }}>
-                <Col md={12} lg={9} className='mt-3'>
+                <Col md={12} lg={9} className='mt-1'>
                     <div className="w-100 d-flex ">
                         <div className='col-img-bec w-20 '>
                             <span>Product</span>
@@ -41,7 +41,7 @@ function Cart() {
                         </div>
                     </div>
                 </Col>
-                <Col md={0} lg={3} className='mt-3 '>
+                <Col md={0} lg={3} className='mt-1'>
 
                 </Col>
             </Row>
@@ -51,12 +51,12 @@ function Cart() {
                         <Col lg={9} className=''>
                             {
                                 cartArr.map((item, index) =>
-                                    <div key={item} className="w-100 d-flex border-bottom">
+                                    <div key={index} className="w-100 d-flex border-bottom">
                                         <div className='col-img-bec w-20 '>
                                             <img className='w-100 p-xs-0 p-sm-2 p-md-3' src={Bec} alt="Bec" />
                                         </div>
                                         <div className='w-40 d-flex align-items-start flex-column justify-content-center p-3'>
-                                            <span className="m-0">Béc ascxv </span>
+                                            <span className="m-0">Béc ascxv{' '} {item} </span>
                                             <small>Loại</small>
                                         </div>
                                         <div className="w-20 d-flex justify-content-center align-items-center">
@@ -82,15 +82,10 @@ function Cart() {
                                         <span>SL: </span>
                                         <span> 3</span>
                                     </div>
-                                    {/* <div className="w-100 d-flex justify-content-between">
-                                    <span>Giảm giá: </span>
-                                    <span>0</span>
-                                </div> */}
                                     <div className="w-100 d-flex justify-content-between">
                                         <span>Total: </span>
                                         <span>123.123.123 VNĐ</span>
                                     </div>
-
                                 </div>
                                 <div className="Btn-Payment w-100 p-2 mt-3 cursor-p">
                                     <span><Link to='/payment' className='text-white'>Thanh toán</Link></span>
@@ -101,8 +96,8 @@ function Cart() {
                     </Row>
                     : <Row>
                         <Col md={12} className='d-flex flex-column align-items-center justify-content-center vh-80'>
-                            <h3  className='text-center'>Giỏ hàng của bạn không có sản phẩm nào</h3>
-                            <span><Link to='/products'>Về lại trang sản phẩm</Link></span>
+                            <h3 className='text-center'>Giỏ hàng của bạn không có sản phẩm nào</h3>
+                            <span><Link to='/products' className='text-primary'>Về lại trang sản phẩm</Link></span>
                         </Col>
                     </Row>
             }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Container, Row } from 'react-bootstrap'
+import { Button, Col, Container, Row, Form } from 'react-bootstrap'
 import products from '../../assets/Data/test.json'
 import { DayFormat, fakeOrderArr } from '../../Constants.js'
 
@@ -98,6 +98,16 @@ function Order() {
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <span>Date: </span>
                                         <span>{DayFormat(item.date)}</span>
+                                    </div>
+                                    <div>
+                                        <span>Note: </span>
+                                        <Form.Control
+                                            as="textarea"
+                                            placeholder="Không có ghi chú gì"
+                                            style={{ height: '100px' }}
+                                            value={item.note}
+                                            disabled
+                                        />
                                     </div>
                                     <div className='d-flex align-items-start flex-column'>
                                         <span>Action </span>
