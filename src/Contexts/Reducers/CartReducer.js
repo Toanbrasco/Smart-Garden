@@ -5,25 +5,27 @@ export const cartReducer = (state, action) => {
 
     switch (type) {
         case GET_CARTS:
-            console.log(GET_CARTS)
+            // console.log(GET_CARTS)
             // const cart = localStorage.getItem('cart')
+            console.log(`=> Get cart payload`, payload)
             if (payload) {
                 return {
                     ...state,
                     loading: false,
-                    data: payload.data
+                    data: payload
+                }
+            } else {
+                return {
+                    ...state,
+                    loading: true,
+                    data: []
                 }
             }
-            return {
-                ...state,
-                loading: true,
-                data: []
-            }
 
-        // case SAVE_CARTS:
-        //     console.log('saving carts')
-        //     localStorage.setItem('carts', JSON.stringify(payload.carts))
-        //     return state
+        case SAVE_CARTS:
+            console.log('Saving Carts', payload)
+            localStorage.setItem('cart', JSON.stringify(payload))
+            return state
 
         case ADD_CART:
             console.log(ADD_CART)
@@ -35,7 +37,10 @@ export const cartReducer = (state, action) => {
         // return [...state, payload.cart]
 
         case DELETE_CART:
-            return state.filter(cart => cart.id !== payload.id)
+            return {
+                ...state,
+                data: state.data.filter(cart => JSON.stringify(cart._id) !== JSON.stringify(payload))
+            }
 
         default:
             return state

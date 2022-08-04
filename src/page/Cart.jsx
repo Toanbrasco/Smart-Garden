@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap'
 import Bec from '../assets/images/BEC-TR.png'
 import Loading from '../Component/Loading/Loading';
-import { numberFormat } from '../Constants';
+import { numberFormat, totalAmount, totalPrice, filterCart } from '../Constants';
 
 import { CartContext } from '../Contexts/CartContext'
 import { ProductContext } from '../Contexts/ProductContext';
@@ -11,45 +11,15 @@ import { ProductContext } from '../Contexts/ProductContext';
 
 function Cart() {
     const { products, getProducts } = useContext(ProductContext)
-    const { cart, getCart } = useContext(CartContext)
-
-    const filterProduct = (carts) => {
-        let arr = []
-        if (carts.data && products.data) {
-            products.data.forEach(item => {
-                carts.data.forEach((item2) => {
-                    if (item._id.$oid === item2._id.$oid) {
-                        item['count'] = item2.count
-                        arr.push(item)
-                    }
-                })
-            })
-        } else {
-            return arr
-        }
-        console.log(arr)
-        return arr
-    }
-    const totalAmount = () => {
-        let total = 0
-        cart.data.forEach(item => {
-            total = total + item.count
-        })
-        return total
-    }
-    const totalPrice = () => {
-        let total = 0
-        filterProduct(cart).forEach(item => {
-            total = total + item.count * item.price.base
-        })
-        return total
-    }
+    const { cart, getCart, removeCartItem, handleCount } = useContext(CartContext)
+    console.log(`=> cart`, cart)
 
     useEffect(() => {
         document.title = "Cart"
         getProducts()
         getCart()
     }, []);
+
 
     if (products.loading && cart.loading) {
         return <Loading />
@@ -64,7 +34,7 @@ function Cart() {
 
             </Row>
 
-            <Row className='border-bottom' style={cart.length !== 0 ? { display: 'block' } : { display: 'none' }}>
+            <Row className='border-bottom' style={cart.data.length !== 0 ? { display: 'block' } : { display: 'none' }}>
                 <Col md={12} lg={9} className='mt-1'>
                     <div className="w-100 d-flex ">
                         <div className='col-img-bec w-20 '>
@@ -89,11 +59,11 @@ function Cart() {
                 </Col>
             </Row>
             {
-                cart.length !== 0 ?
+                cart.data.length !== 0 ?
                     <Row>
                         <Col lg={9} className=''>
                             {
-                                filterProduct(cart).map((item, index) =>
+                                filterCart(cart, products).map((item, index) =>
                                     <div key={index} className="w-100 d-flex border-bottom">
                                         <div className='col-img-bec w-20 '>
                                             <img className='w-100 p-xs-0 p-sm-2 p-md-3' src={Bec} alt="Bec" />
@@ -103,15 +73,15 @@ function Cart() {
                                             <small>{item.category.main}</small>
                                         </div>
                                         <div className="w-20 d-flex justify-content-center align-items-center">
-                                            <div className="btn-nav"><span>-</span></div>
+                                            <div className="btn-nav" onClick={() => handleCount(item._id, 1)}><span>-</span></div>
                                             <div className="btn-nav"><span>{item.count}</span></div>
-                                            <div className="btn-nav"><span>+</span></div>
+                                            <div className="btn-nav" onClick={() => handleCount(item._id, 0)}><span>+</span></div>
                                         </div>
                                         <div className='w-30 d-flex align-items-center justify-content-end'>
                                             <span className='m-0'>{numberFormat(item.price.base * item.count)}</span>
                                         </div>
                                         <div className='w-10 d-flex align-items-center justify-content-end cursor-p'>
-                                            <div>X</div>
+                                            <div onClick={() => removeCartItem(item._id)}>X</div>
                                         </div>
                                     </div>
                                 )
@@ -123,11 +93,11 @@ function Cart() {
                                     <h6><strong>Thông tin giỏ hàng</strong></h6>
                                     <div className="w-100 d-flex justify-content-between">
                                         <span>SL: </span>
-                                        <span> {totalAmount()}</span>
+                                        <span> {totalAmount(cart, products)}</span>
                                     </div>
                                     <div className="w-100 d-flex justify-content-between">
                                         <span>Total: </span>
-                                        <span>{numberFormat(totalPrice())}</span>
+                                        <span>{numberFormat(totalPrice(cart, products))}</span>
                                     </div>
                                 </div>
                                 <div className="Btn-Payment w-100 p-2 mt-3 cursor-p">
@@ -144,7 +114,7 @@ function Cart() {
                         </Col>
                     </Row>
             }
-            <Row style={cart.length !== 0 ? { display: 'block' } : { display: 'none' }}>
+            <Row style={cart.data.length !== 0 ? { display: 'block' } : { display: 'none' }}>
                 <Col md={12} className='d-flex justify-content-center align-items-center my-5'>
                     <Link to='/' className="mx-1 text-dark">Home</Link>
                     <Link to='/products' className="mx-1 text-dark">Product</Link>

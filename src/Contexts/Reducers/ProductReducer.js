@@ -6,14 +6,14 @@ export const productReducer = (state, action) => {
 
     switch (type) {
         case PRODUCT_LOADED_SUCCESS:
-            console.log(PRODUCT_LOADED_SUCCESS)
+            // console.log(PRODUCT_LOADED_SUCCESS)
             return {
                 ...state,
                 loading: false,
                 data: payload
             }
         case PRODUCT_LOADED_FAIL:
-            console.log(PRODUCT_LOADED_FAIL)
+            // console.log(PRODUCT_LOADED_FAIL)
             return {
                 ...state,
                 loading: true,

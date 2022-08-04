@@ -88,3 +88,37 @@ export const fakeOrderArr = [
 //     { name: 'Order', icon: faClipboardCheck, component: 1, path: 'order' },
 //     { name: 'User', icon: faUser, component: 1, path: 'user' }
 // ]
+
+export const totalAmount = (cart, products) => {
+    let total = 0
+    filterCart(cart, products).forEach(item => {
+        total = total + item.count
+    })
+    return total
+}
+export const totalPrice = (cart, products) => {
+    let total = 0
+    filterCart(cart, products).forEach(item => {
+        total = total + item.count * item.price.base
+    })
+    return total
+}
+
+export const filterCart = (carts, product) => {
+    // console.log('Test:', carts.data, product.data)
+    let arr = []
+    if (carts.data && product.data) {
+        product.data.forEach(item => {
+            carts.data.forEach((cart) => {
+                if (JSON.stringify(item._id) === JSON.stringify(cart._id)) {
+                    item['count'] = cart.count
+                    arr.push(item)
+                }
+            })
+        })
+    } else {
+        return arr
+    }
+    // console.log("arr", arr)
+    return arr
+}
