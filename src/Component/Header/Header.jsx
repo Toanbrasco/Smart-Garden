@@ -1,24 +1,48 @@
 import { faClose, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, Container, Form, Modal, Nav, Navbar } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '../../assets/images/Logo.png';
 import './Header.css';
+import { CartContext } from '../../Contexts/CartContext'
 
 function Header() {
     const Location = useLocation().pathname
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
-    const fakeList = []
+
+    const { cart, getCart } = useContext(CartContext)
+    const [href, setHref] = useState('/blog')
+
+    const handleLink = (value) => {
+        switch (value) {
+            case "0":
+                setHref('/products')
+                break;
+            case "1":
+                setHref('/blog')
+                break;
+            case "2":
+                setHref('/service')
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    useEffect(() => {
+        getCart()
+    }, [])
     return (
         <>
             {
                 !Location.includes('/admin') ? <>
                     <Navbar bg="light" expand="lg" className='p-0 Header' collapseOnSelect >
                         <Container className="position-relative w-100 h-100 d-flex justify-content-md-between " style={{ zIndex: '10' }}>
-                            <Navbar.Brand as={Link} to='/' href="#home" className='d-none d-md-none d-lg-flex position-absolute translate-middle w-100 h-100 p-0 justify-content-center'><img className='img-brand' src={Logo} alt="Logo"></img></Navbar.Brand>
-                            <Navbar.Brand as={Link} to='/' href="#home" className='d-lg-none d-md-flex m-0 h-100 p-0' ><img className='img-brand' src={Logo} alt="Logo"></img></Navbar.Brand>
+                            <Navbar.Brand className='brand d-none d-md-none d-lg-flex position-absolute translate-middle w-100 h-100 m-0 mr-0 p-0 justify-content-center'><Link to='/'><img className='img-brand' src={Logo} alt="Logo"></img></Link></Navbar.Brand>
+                            <Navbar.Brand className='d-lg-none d-md-flex m-0 mr-0 h-100 p-0' ><Link to='/'><img className='img-brand' src={Logo} alt="Logo"></img></Link></Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav" className="bg-light">
                                 <Nav className="mr-auto h-100 text-center" style={{ zIndex: '10' }}>
@@ -33,7 +57,7 @@ function Header() {
                                     <Nav.Link className='text-dark' onClick={() => handleShow()} style={{ zIndex: '10' }} eventKey="1"><FontAwesomeIcon icon={faSearch} /></Nav.Link>
                                     <Nav.Link as={Link} to='/cart' className='text-dark position-relative' eventKey="1"><FontAwesomeIcon icon={faShoppingCart} />
                                         <div className='position-absolute badge-custom d-none d-lg-flex' >
-                                            <span style={fakeList.length === 0 ? { display: 'none' } : { display: 'flex' }}>{fakeList.length}</span>
+                                            <span style={cart.data.length === 0 ? { display: 'none' } : { display: 'flex' }}>{cart.data.length}</span>
                                         </div>
                                     </Nav.Link>
                                 </Nav>
@@ -59,8 +83,13 @@ function Header() {
                             <Form>
                                 <Form.Group controlId="formBasicEmail" className="d-flex ">
                                     {/* <Form.Label>Search</Form.Label> */}
-                                    <Form.Control type="text" placeholder="Search..." />
-                                    <Button>Search</Button>
+                                    <Form.Control as="select" className='w-20' onChange={(e) => handleLink(e.target.value)}>
+                                        <option value="0">Sản Phẩm</option>
+                                        <option value="1">Blog</option>
+                                        <option value="2">Service</option>
+                                    </Form.Control>
+                                    <Form.Control type="text" placeholder="Search..." className='w-70' />
+                                    <Button as={Link} to={href}>Search</Button>
                                 </Form.Group>
                             </Form>
                         </Modal.Body>
