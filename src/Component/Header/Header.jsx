@@ -6,35 +6,79 @@ import { Link, useLocation } from 'react-router-dom';
 import Logo from '../../assets/images/Logo.png';
 import './Header.css';
 import { CartContext } from '../../Contexts/CartContext'
+import { ProductContext } from '../../Contexts/ProductContext'
 
 function Header() {
     const Location = useLocation().pathname
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
+    // const [isActive, setIsActive] = useState(false)
+    // console.log(`=> isActive`, isActive)
 
     const { cart, getCart } = useContext(CartContext)
-    const [href, setHref] = useState('/blog')
+    const { products, productSearch } = useContext(ProductContext)
+    const [href, setHref] = useState('#')
+    console.log(`=> href`, href)
 
-    const handleLink = (value) => {
-        switch (value) {
-            case "0":
-                setHref('/products')
-                break;
-            case "1":
-                setHref('/blog')
-                break;
-            case "2":
-                setHref('/service')
-                break;
+    // const handleLink = (value) => {
+    //     console.log(`=> value-12345679`, value)
+    //     switch (value) {
+    //         case "0":
+    //             setHref('/products')
+    //             break;
+    //         case "1":
+    //             setHref('/blog')
+    //             break;
+    //         case "2":
+    //             setHref('/service')
+    //             break;
 
-            default:
-                break;
+    //         default:
+    //             setHref('/products')
+    //             break;
+    //     }
+    //     // setHref('/products')
+    // }
+
+    const handleSearch = (text) => {
+        console.log(`=> text`, text)
+        const searchInput = document.getElementById('searchInput').value
+        const SelectSearch = document.getElementById('SelectSearch').value
+        const waringSearch = document.getElementById('waringSearch')
+        console.log(`=> searchInput`, searchInput)
+        if (searchInput.length !== 0) {
+            // console.log('setIsActive: true')
+            switch (SelectSearch) {
+                case "0":
+                    setHref('/products')
+                    break;
+                case "1":
+                    setHref('/blog')
+                    break;
+                case "2":
+                    setHref('/service')
+                    break;
+
+                default:
+                    setHref('/products')
+                    break;
+            }
+            waringSearch.innerHTML = ""
+            productSearch(searchInput)
+            // setShow(false)
+            // setIsActive(true)
+        } else {
+            console.log('SetHref: #')
+            setHref('#')
+            waringSearch.innerHTML = "Không có từ khoá để tìm kiếm"
         }
+
     }
 
     useEffect(() => {
         getCart()
     }, [])
+
     return (
         <>
             {
@@ -77,20 +121,21 @@ function Header() {
 
                             </Modal.Title>
                             {/* <CloseButton></CloseButton> */}
-                            <button type="button" className="btn-close" aria-label="Close" onClick={() => setShow(false)}><FontAwesomeIcon icon={faClose} /></button>
+                            <button type="button" className="btn-close" aria-label="Close" onClick={() => { setShow(false); handleSearch('onChange') }}><FontAwesomeIcon icon={faClose} /></button>
                         </Modal.Header>
                         <Modal.Body>
                             <Form>
-                                <Form.Group controlId="formBasicEmail" className="d-flex ">
+                                <Form.Group className="d-flex ">
                                     {/* <Form.Label>Search</Form.Label> */}
-                                    <Form.Control as="select" className='w-20' onChange={(e) => handleLink(e.target.value)}>
+                                    <Form.Control as="select" className='w-20' id='SelectSearch'>
                                         <option value="0">Sản Phẩm</option>
                                         <option value="1">Blog</option>
                                         <option value="2">Service</option>
                                     </Form.Control>
-                                    <Form.Control type="text" placeholder="Search..." className='w-70' />
-                                    <Button as={Link} to={href}>Search</Button>
+                                    <Form.Control type="text" placeholder="Search..." className='w-70' id='searchInput' />
+                                    <Button as={Link} to={href} onClick={() => handleSearch('onClick')}>Search</Button>
                                 </Form.Group>
+                                <small className='text-danger' id='waringSearch'></small>
                             </Form>
                         </Modal.Body>
                     </Modal></>

@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import Data from '../assets/Data/test.json'
 import { productReducer } from './Reducers/ProductReducer'
-import { PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SORT } from './Reducers/type'
+import { PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SORT, PRODUCT_SEARCH } from './Reducers/type'
 
 
 export const ProductContext = createContext()
@@ -35,6 +35,10 @@ const ProductContextProvider = ({ children }) => {
         productDispatch({ type: PRODUCT_SORT, payload: select })
 
     }
+    const productSearch = (SearchText) => {
+        getProducts()
+        productDispatch({ type: PRODUCT_SEARCH, payload: SearchText })
+    }
 
     const ProductContextData = {
         products,
@@ -42,6 +46,7 @@ const ProductContextProvider = ({ children }) => {
         getProductDetail,
         handleCategory,
         handleSelect,
+        productSearch,
         productDispatch
     }
 

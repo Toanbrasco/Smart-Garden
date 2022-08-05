@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, DELETE_PRODUCT, PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SORT } from './type'
+import { ADD_PRODUCT, DELETE_PRODUCT, PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SORT, PRODUCT_SEARCH } from './type'
 import { convertViToEn } from '../../Constants'
 
 export const productReducer = (state, action) => {
@@ -59,6 +59,15 @@ export const productReducer = (state, action) => {
                 ...state,
                 data: newFill,
                 loading: false
+            }
+        case PRODUCT_SEARCH:
+            if (!payload) return this.fruits;
+            return {
+                ...state,
+                data: state.data.filter((item) => {
+                    let reg = new RegExp(payload, "ig");
+                    return item.name.match(reg) != null
+                })
             }
 
         case ADD_PRODUCT:

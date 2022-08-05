@@ -1,7 +1,8 @@
-import { faClipboardList, faComments, faDollarSign } from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from 'react'
+import { faClipboardList, faComments, faDollarSign} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+
 
 function Dashboard() {
     const Dbarr = [
@@ -9,6 +10,7 @@ function Dashboard() {
         { name: 'EARNINGS (ANNUAL)', icon: faDollarSign },
         { name: 'EARNINGS (MONTHLY)', icon: faClipboardList },
         { name: 'PENDING REQUESTS', icon: faComments }]
+
     return (
         <Container fluid bg="light">
             <Row className='mt-3'>
