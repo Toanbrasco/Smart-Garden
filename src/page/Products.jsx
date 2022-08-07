@@ -3,11 +3,11 @@ import { Container, Row, Col, Card, Form } from 'react-bootstrap'
 import Bec from '../assets/images/BEC-TR.png'
 import '../style/Product.css'
 
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { convertViToEn, numberFormat, CategoryList } from '../Constants.js'
+import { convertViToEn, numberFormat, CategoryList, makeNumArr, countPaging } from '../Constants.js'
 import Loading from '../Component/Loading/Loading.jsx'
 
 // swiper
@@ -24,35 +24,26 @@ import { ProductContext } from '../Contexts/ProductContext'
 
 function Product() {
     const { products, getProducts, handleSelect, handleCategory } = useContext(ProductContext)
-    // console.log(`=> products_main`, products)
+    const { page } = useParams()
+    console.log(`=> page`, page)
 
-    const [pagingActive, setPagingActive] = useState(1)
-    const PagingArr = [1, 2, 3, 4, 5, 6, 7, 8]
-    const [arrCenter, SetArrCenter] = useState(1)
-    const countPaging = (num) => {
-        switch (num) {
-            case 0:
-                if (arrCenter !== 0) {
-                    SetArrCenter(arrCenter - 1)
-                }
-                setPagingActive(pagingActive - 1)
-                break;
-            case 1:
-                setPagingActive(pagingActive + 1)
-                if (arrCenter !== PagingArr.length) {
-                    SetArrCenter(arrCenter + 1)
-                }
-                break;
-            default:
-                break;
-        }
-
+    const pagiantion = {
+        page: 1,
+        limit: 12,
+        totalPage: 10
     }
+    const { limit, totalPage } = pagiantion
+    const [pagingActive, setPagingActive] = useState(1)
+    const [itemCenter, SetitemCenter] = useState(1)
     useEffect(() => {
         document.title = "Products"
-        // console.log('getPRoduct')
-        getProducts()
     }, []);
+
+    useEffect(() => {
+        getProducts()
+        setPagingActive(parseInt(page) || 1)
+        SetitemCenter(parseInt(page) || 1)
+    }, [page])
 
     if (products.loading) {
         return <Loading />
@@ -127,8 +118,6 @@ function Product() {
                                                 <option value="0">Mặt định</option>
                                                 <option value="1">Giá tăng dần</option>
                                                 <option value="2">Giá giảm dần</option>
-                                                {/* <option value="3">Tên A - Z </option>
-                                            <option value="4">Tên Z - A</option> */}
                                             </Form.Control>
                                         </Form.Group>
                                     </div>
@@ -137,7 +126,7 @@ function Product() {
                             {
                                 products.data.map((item, index) => index < 12 &&
                                     <Col xs={6} lg={4} key={index}>
-                                        <Card as={Link} to={'/products/' + convertViToEn(item.name)} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
+                                        <Card as={Link} to={'/product/' + convertViToEn(item.name)} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
                                             <Card.Img variant="top" className="p-4 bg-light" src={Bec} />
                                             <Card.Body className='px-3 text-center d-flex flex-column h-100'>
                                                 <Card.Title style={{ fontSize: '15px' }} className="mb-1 text-truncate"><strong>{item.name}</strong></Card.Title>
@@ -153,29 +142,21 @@ function Product() {
                                         <h5 className="mb-1 text-truncate">Hiện chúng tôi Không còn sản phẩm nào loại này</h5>
                                         <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts()} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
                                     </div>
-                                    {/* <Card style={{ width: '100%', height: '300px', border: 'none' }} className='cursor-d mt-3 bg-light'>
-                                        <Card.Body className='px-3 text-center d-flex flex-column h-100'>
-                                            <Card.Title style={{ fontSize: '15px' }} className="mb-1 text-truncate">Hiện chúng tôi Không còn sản phẩm nào loại này</Card.Title>
-                                            <Card.Text className="">Vui lòng chọn các loại sản phẩm khác hoặc <span onClick={() => getProducts()} className='cursor-p text-primary'>xem tất cả sản phẩm</span></Card.Text>
-                                        </Card.Body>
-                                    </Card> */}
-                                </Col>
-                                :
-                                <Col md={12} className="d-flex justify-content-center mt-5">
-                                    <div className={PagingArr[0] === pagingActive ? "d-none" : "btn-nav hover-sh"} onClick={() => countPaging(0)}><strong><FontAwesomeIcon icon={faAngleLeft} /> </strong></div>
-                                    <div className={PagingArr[0] + 2 >= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{PagingArr[0]}</span></div>
-                                    <div className={PagingArr[0] + 2 >= pagingActive ? "d-none" : "btn-nav"}><span>...</span></div>
+                                </Col> :
+                                <Col md={12} className="d-flex justify-content-center mt-3 mb-5">
+                                    <Link to={`/products/${pagingActive - 1}`}><div className={1 === pagingActive ? "d-none" : "btn-nav hover-sh"} ><strong><FontAwesomeIcon icon={faAngleLeft} /> </strong></div></Link>
+                                    <Link to={`/products/${1}`} ><div className={1 + 2 >= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{1}</span></div></Link>
+                                    <div className={pagingActive <= 3 ? "d-none" : "btn-nav"}><span>...</span></div>
                                     {
-                                        PagingArr.map((item, index) => item <= (arrCenter + 2) && item >= (arrCenter - 2) &&
-                                            <div div key={index} className={pagingActive === item ? "btn-nav active" : "btn-nav hover-sh"}><span>{item}</span></div>
+                                        makeNumArr(totalPage).map((item, index) => item <= (itemCenter + 2) && item >= (itemCenter - 2) &&
+                                            <Link key={index} to={`/products/${index + 1}`}><div className={pagingActive === item ? "btn-nav active" : "btn-nav hover-sh"}><span>{item}</span></div></Link>
                                         )
                                     }
-                                    <div className={PagingArr[PagingArr.length - 1] - 2 <= pagingActive ? "d-none" : "btn-nav "}><span>...</span></div>
-                                    <div className={PagingArr[PagingArr.length - 1] - 2 <= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{PagingArr[PagingArr.length - 1]}</span></div>
-                                    <div className={PagingArr[PagingArr.length - 1] === pagingActive ? "d-none" : "btn-nav hover-sh"} onClick={() => countPaging(1)}><strong><FontAwesomeIcon icon={faAngleRight} /> </strong></div>
+                                    <div className={totalPage - 2 <= pagingActive ? "d-none" : "btn-nav "}><span>...</span></div>
+                                    <Link to={`/products/${totalPage}`} ><div className={totalPage - 2 <= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{totalPage}</span></div></Link>
+                                    <Link to={`/products/${pagingActive + 1}`}><div className={totalPage === pagingActive ? "d-none" : "btn-nav hover-sh"} ><strong><FontAwesomeIcon icon={faAngleRight} /> </strong></div></Link>
                                 </Col>
                             }
-
                         </Row>
                     </Col>
                 </Row>

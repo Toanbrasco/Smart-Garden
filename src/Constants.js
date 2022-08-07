@@ -122,3 +122,4 @@ export const filterCart = (carts, product) => {
     // console.log("arr", arr)
     return arr
 }
+export const makeNumArr = num => new Array(num).fill("").map((_, i) => i + 1);
