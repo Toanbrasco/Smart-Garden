@@ -12,40 +12,15 @@ function Header() {
     const Location = useLocation().pathname
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
-    // const [isActive, setIsActive] = useState(false)
-    // console.log(`=> isActive`, isActive)
 
     const { cart, getCart } = useContext(CartContext)
-    const { products, productSearch } = useContext(ProductContext)
+    const { productSearch } = useContext(ProductContext)
     const [href, setHref] = useState('#')
-    console.log(`=> href`, href)
-
-    // const handleLink = (value) => {
-    //     console.log(`=> value-12345679`, value)
-    //     switch (value) {
-    //         case "0":
-    //             setHref('/products')
-    //             break;
-    //         case "1":
-    //             setHref('/blog')
-    //             break;
-    //         case "2":
-    //             setHref('/service')
-    //             break;
-
-    //         default:
-    //             setHref('/products')
-    //             break;
-    //     }
-    //     // setHref('/products')
-    // }
 
     const handleSearch = (text) => {
-        console.log(`=> text`, text)
         const searchInput = document.getElementById('searchInput').value
         const SelectSearch = document.getElementById('SelectSearch').value
         const waringSearch = document.getElementById('waringSearch')
-        console.log(`=> searchInput`, searchInput)
         if (searchInput.length !== 0) {
             // console.log('setIsActive: true')
             switch (SelectSearch) {
@@ -78,11 +53,11 @@ function Header() {
     useEffect(() => {
         getCart()
     }, [])
-
     return (
         <>
             {
-                !Location.includes('/admin') ? <>
+                Location.includes('/admin') || Location.includes('/login') ? <></>:
+                <>
                     <Navbar bg="light" expand="lg" className='p-0 Header' collapseOnSelect >
                         <Container className="position-relative w-100 h-100 d-flex justify-content-md-between " style={{ zIndex: '10' }}>
                             <Navbar.Brand className='brand d-none d-md-none d-lg-flex position-absolute translate-middle w-100 h-100 m-0 mr-0 p-0 justify-content-center'><Link to='/'><img className='img-brand' src={Logo} alt="Logo"></img></Link></Navbar.Brand>
@@ -139,11 +114,9 @@ function Header() {
                             </Form>
                         </Modal.Body>
                     </Modal></>
-                    : <>
-
-                    </>
-            }
-            {/* <Container>
+                    
+}
+{/* <Container>
                     <Row>
                         <Col md={12}>
                             <div class="collapse" id="collapseExample">

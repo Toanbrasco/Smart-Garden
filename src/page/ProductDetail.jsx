@@ -22,7 +22,8 @@ import { CartContext } from '../Contexts/CartContext'
 
 function ProductDetail() {
     const { products, getProductDetail } = useContext(ProductContext)
-    const { cart, addToCart, getCart } = useContext(CartContext)
+    // console.log(`=> products`, products)
+    const {  addToCart, getCart } = useContext(CartContext)
 
     const { productname } = useParams()
     const [thumbsSwiper, setThumbsSwiper] = useState(null);

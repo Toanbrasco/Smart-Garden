@@ -123,3 +123,5 @@ export const filterCart = (carts, product) => {
     return arr
 }
 export const makeNumArr = num => new Array(num).fill("").map((_, i) => i + 1);
+
+export const UrlApi = 'http://localhost:5000'

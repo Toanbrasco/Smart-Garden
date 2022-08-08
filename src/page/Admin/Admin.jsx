@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import Logo from '../../assets/images/Logo.png'
 import { personImage } from '../../Constants'
@@ -6,10 +6,14 @@ import { personImage } from '../../Constants'
 import { faBars, faBox, faChevronLeft, faChevronRight, faClipboardCheck, faGauge, faNewspaper, faUser, faWrench } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { Link, Outlet } from "react-router-dom"
+import { Link, Navigate, Outlet } from "react-router-dom"
 // import Dashboard from './Dashboard'
 
+import { UserContext } from '../../Contexts/UserContext'
+
 function Admin() {
+    const { user } = useContext(UserContext)
+    console.log(`=> user`, user)
     const [navSize, setNavSize] = useState(200)
     const arrMenu2 = [
         { name: 'Config', icon: faWrench, component: 1, path: 'config' },
@@ -32,29 +36,21 @@ function Admin() {
                 break;
         }
     }
+
     const handledropdown = () => {
         const prodcut = document.getElementById('Product')
         const post = document.getElementById('Post')
         post.classList.remove('d-block')
         prodcut.classList.toggle('d-block')
-        // const productinter = setInterval(() => {
-        //     prodcut.classList.remove('d-block')
-        // }, 3000)
-
-        // clearInterval(productinter)
-        // console.log(element)
     }
+
     const handledropdown2 = () => {
         const prodcut = document.getElementById('Product')
         const post = document.getElementById('Post')
         prodcut.classList.remove('d-block')
         post.classList.toggle('d-block')
-        // const postinter = setInterval(() => {
-        //     post.classList.remove('d-block')
-        // }, 3000)
-        // clearInterval(postinter)
-        // console.log(element)
     }
+
     const activeSideMenu = () => {
         const sideMenu = document.getElementById('side-menu')
         setNavSize(100)
@@ -64,14 +60,17 @@ function Admin() {
         justifyContent: navSize === 100 ? 'center' : 'space-between'
         // height: '40px'
     }
+
     const iconStyle = {
         fontSize: '1.2rem',
         with: navSize === 100 ? '100%' : '30%'
 
     }
+
     const side__navBtn = {
         height: '60px'
     }
+
     const collapse = {
         width: '200px',
         position: 'absolute',
@@ -80,6 +79,14 @@ function Admin() {
         zIndex: '10',
         color: 'black',
     }
+
+    useEffect(() => {
+        document.title = "Admin"
+    }, []);
+
+    // if (!user.login) {
+    //     return <Navigate to="/login"></Navigate>
+    // }
     return (
         <>
             <div className="d-flex">
@@ -196,7 +203,10 @@ function Admin() {
                         </Col>
                         <Col md={12}>
                             {/* <Row> */}
-                            <Outlet />
+                            {
+                                user.login ? <Outlet /> : <Navigate to='/login' />
+                            }
+
                             {/* </Row> */}
                         </Col>
                     </Row>

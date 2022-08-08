@@ -10,9 +10,15 @@ export const PRODUCT_DETAIL = 'PRODUCT_DETAIL'
 export const PRODUCT_FILTER_CATEGORY = 'PRODUCT_FILTER_CATEGORY'
 export const PRODUCT_SORT = 'PRODUCT_SORT'
 export const PRODUCT_SEARCH = 'PRODUCT_SEARCH'
+// export const PRODUCT_D = 'PRODUCT_SEARCH'
 
 
 export const GET_CARTS = 'GET_CARTS'
 export const ADD_CART = 'ADD_CART'
 export const SAVE_CARTS = 'SAVE_CARTS'
 export const DELETE_CART = 'DELETE_CART'
+
+export const USER_LOGIN = 'USER_LOGIN'
+// export const ADD_CART = 'ADD_CART'
+// export const SAVE_CARTS = 'SAVE_CARTS'
+// export const DELETE_CART = 'DELETE_CART'

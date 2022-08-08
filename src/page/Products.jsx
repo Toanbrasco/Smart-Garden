@@ -25,27 +25,28 @@ import { ProductContext } from '../Contexts/ProductContext'
 function Product() {
     const { products, getProducts, handleSelect, handleCategory } = useContext(ProductContext)
     const { page } = useParams()
-    console.log(`=> page`, page)
+    const limit = 12
+    const { totalPage } = products.pagination
 
-    const pagiantion = {
-        page: 1,
-        limit: 12,
-        totalPage: 10
-    }
-    const { limit, totalPage } = pagiantion
     const [pagingActive, setPagingActive] = useState(1)
     const [itemCenter, SetitemCenter] = useState(1)
+
     useEffect(() => {
         document.title = "Products"
+        console.log('get Products')
+        getProducts(parseInt(page) || 1, limit)
+        setPagingActive(parseInt(page) || 1)
+        SetitemCenter(parseInt(page) || 1)
     }, []);
 
     useEffect(() => {
-        getProducts()
+        getProducts(parseInt(page) || 1, limit)
         setPagingActive(parseInt(page) || 1)
         SetitemCenter(parseInt(page) || 1)
     }, [page])
 
-    if (products.loading) {
+
+    if (products.loading || products.pagination === undefined) {
         return <Loading />
     }
     return (

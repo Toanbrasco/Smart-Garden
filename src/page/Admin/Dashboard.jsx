@@ -12,40 +12,6 @@ function Dashboard() {
         { name: 'EARNINGS (MONTHLY)', icon: faClipboardList },
         { name: 'PENDING REQUESTS', icon: faComments }]
 
-    const { page } = useParams()
-    console.log(`=> page`, page)
-    const [pagingActive, setPagingActive] = useState(1)
-    const PagingArr = [1, 2, 3, 4, 5, 6, 7, 8]
-    const [arrCenter, SetArrCenter] = useState(1)
-    const pagiantion = {
-        page: 1,
-        limit: 12,
-        totalPage: 10
-    }
-    const makeNumArr = num => new Array(num).fill("").map((_, i) => i + 1);
-    const countPaging = (num) => {
-        switch (num) {
-            case 0:
-                if (arrCenter !== 0) {
-                    SetArrCenter(arrCenter - 1)
-                }
-                setPagingActive(pagingActive - 1)
-                break;
-            case 1:
-                setPagingActive(pagingActive + 1)
-                if (arrCenter !== PagingArr.length) {
-                    SetArrCenter(arrCenter + 1)
-                }
-                break;
-            default:
-                break;
-        }
-
-    }
-    useEffect(() => {
-        setPagingActive(parseInt(page))
-        SetArrCenter(parseInt(page))
-    }, [page])
     return (
         <Container fluid bg="light">
             <Row className='mt-3'>
@@ -53,7 +19,7 @@ function Dashboard() {
                     <h1>Dashboard</h1>
                 </Col>
             </Row>
-            {/* <Row>
+            <Row>
                 <Col md={3} className='mt-3'>
                     <div className='d-flex align-items-center justify-content-between p-3 shadow rounded border-left-primary'>
                         <div className='d-flex  justify-content-between flex-column'>
@@ -98,26 +64,8 @@ function Dashboard() {
                         </div>
                     </div>
                 </Col>
-            </Row> */}
-            <Row>
-                <Col md={12} className="d-flex justify-content-center mt-3 mb-5">
-                    <div className={PagingArr[0] === pagingActive ? "d-none" : "btn-nav hover-sh"} onClick={() => countPaging(0)}><strong><FontAwesomeIcon icon={faAngleLeft} /> </strong></div>
-                    <div className={PagingArr[0] + 2 >= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{PagingArr[0]}</span></div>
-                    <div className={PagingArr[0] + 2 >= pagingActive ? "d-none" : "btn-nav"}><span>...</span></div>
-                    {/* {
-                        PagingArr.map((item, index) => item <= (arrCenter + 2) && item >= (arrCenter - 2) &&
-                            <div key={index} className={pagingActive === item ? "btn-nav active" : "btn-nav hover-sh"}><span>{item}</span></div>
-                        )
-                    } */}
-                    {
-                        makeNumArr(pagiantion.totalPage).map((item, index) => item <= (arrCenter + 2) && item >= (arrCenter - 2) &&
-                            <div key={index} className={pagingActive === item ? "btn-nav active" : "btn-nav hover-sh"}><span>{item}</span></div>)
-                    }
-                    <div className={PagingArr[PagingArr.length - 1] - 2 <= pagingActive ? "d-none" : "btn-nav "}><span>...</span></div>
-                    <div className={PagingArr[PagingArr.length - 1] - 2 <= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{PagingArr[PagingArr.length - 1]}</span></div>
-                    <div className={PagingArr[PagingArr.length - 1] === pagingActive ? "d-none" : "btn-nav hover-sh"} onClick={() => countPaging(1)}><strong><FontAwesomeIcon icon={faAngleRight} /> </strong></div>
-                </Col>
             </Row>
+
         </Container >
     )
 }

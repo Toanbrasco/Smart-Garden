@@ -10,7 +10,8 @@ export const productReducer = (state, action) => {
             return {
                 ...state,
                 loading: false,
-                data: payload
+                data: payload.data,
+                pagination: payload.pagination
             }
         case PRODUCT_LOADED_FAIL:
             // console.log(PRODUCT_LOADED_FAIL)
@@ -24,7 +25,7 @@ export const productReducer = (state, action) => {
             return {
                 ...state,
                 loading: false,
-                data: state.data.filter((item) => { return convertViToEn(item.name) === payload })
+                data: payload.data
             }
         case PRODUCT_SORT:
             // console.log(PRODUCT_SORT)
