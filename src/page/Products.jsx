@@ -3,11 +3,11 @@ import { Container, Row, Col, Card, Form } from 'react-bootstrap'
 import Bec from '../assets/images/BEC-TR.png'
 import '../style/Product.css'
 
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useLocation, useSearchParams } from 'react-router-dom'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { convertViToEn, numberFormat, CategoryList, makeNumArr, countPaging } from '../Constants.js'
+import { convertViToEn, numberFormat, CategoryList, makeNumArr } from '../Constants.js'
 import Loading from '../Component/Loading/Loading.jsx'
 
 // swiper
@@ -24,27 +24,73 @@ import { ProductContext } from '../Contexts/ProductContext'
 
 function Product() {
     const { products, getProducts, handleSelect, handleCategory } = useContext(ProductContext)
-    const { page } = useParams()
     const limit = 12
     const { totalPage } = products.pagination
 
     const [pagingActive, setPagingActive] = useState(1)
     const [itemCenter, SetitemCenter] = useState(1)
 
+    // const [objParam, setObjParam] = useState({})
+    // console.log(`=> objParam`, objParam)
+    // const [category, setCategory] = useState()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const page = searchParams.get('page') || ''
+    const category = searchParams.get('category')
+    console.log(`=> page`, page)
+
+    const handleCategoryProduct = (category) => {
+        handleCategory(category, pagingActive, limit)
+    }
+
+    const handlePageParam = (num) => {
+        if (category === null) {
+            switch (num) {
+                case -1:
+                    setSearchParams({ page: pagingActive - 1 || 1 })
+                    break;
+
+                case 1:
+                    setSearchParams({ page: pagingActive + 1 || 1 })
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (num) {
+                case -1:
+                    setSearchParams({ category: category, page: pagingActive - 1 || 1 })
+                    break;
+
+                case 1:
+                    setSearchParams({ category: category, page: pagingActive + 1 || 1 })
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    const handleQueryParam = (num) => {
+        if (category !== null) {
+            setSearchParams({ category: category, page: num })
+
+        } else {
+            setSearchParams({ page: num })
+        }
+    }
+
     useEffect(() => {
         document.title = "Products"
-        console.log('get Products')
         getProducts(parseInt(page) || 1, limit)
-        setPagingActive(parseInt(page) || 1)
-        SetitemCenter(parseInt(page) || 1)
     }, []);
 
     useEffect(() => {
-        getProducts(parseInt(page) || 1, limit)
         setPagingActive(parseInt(page) || 1)
         SetitemCenter(parseInt(page) || 1)
+        if (category !== null) {
+            handleCategory(category, page, limit)
+        }
     }, [page])
-
 
     if (products.loading || products.pagination === undefined) {
         return <Loading />
@@ -58,12 +104,12 @@ function Product() {
                         <div className='category__list cursor-p' style={{ listStyle: 'none' }}>
                             {CategoryList.map((item, index) =>
                                 <div key={index}>
-                                    <h6 onClick={() => handleCategory(item.title)}>{item.title}</h6>
+                                    <Link to={`/products?category=${item.title}&page=1`}><h6 onClick={() => handleCategoryProduct(item.title)}>{item.title}</h6></Link>
                                     {item.list.length !== 0 ?
                                         <ul className='mb-2'>
                                             {
                                                 item.list.map((items, index) =>
-                                                    <li key={index} onClick={() => handleCategory(items)}>{items}</li>
+                                                    <li key={index} onClick={() => handleCategoryProduct(items)}>{items}</li>
                                                 )
                                             }
                                         </ul>
@@ -145,17 +191,17 @@ function Product() {
                                     </div>
                                 </Col> :
                                 <Col md={12} className="d-flex justify-content-center mt-3 mb-5">
-                                    <Link to={`/products/${pagingActive - 1}`}><div className={1 === pagingActive ? "d-none" : "btn-nav hover-sh"} ><strong><FontAwesomeIcon icon={faAngleLeft} /> </strong></div></Link>
-                                    <Link to={`/products/${1}`} ><div className={1 + 2 >= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{1}</span></div></Link>
+                                    <div onClick={() => handlePageParam(-1)} className={1 === pagingActive ? "d-none" : "btn-nav hover-sh"} ><strong><FontAwesomeIcon icon={faAngleLeft} /> </strong></div>
+                                    <div onClick={() => handleQueryParam(1)} className={1 + 2 >= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{1}</span></div>
                                     <div className={pagingActive <= 3 ? "d-none" : "btn-nav"}><span>...</span></div>
                                     {
                                         makeNumArr(totalPage).map((item, index) => item <= (itemCenter + 2) && item >= (itemCenter - 2) &&
-                                            <Link key={index} to={`/products/${index + 1}`}><div className={pagingActive === item ? "btn-nav active" : "btn-nav hover-sh"}><span>{item}</span></div></Link>
+                                            <div key={index} onClick={() => handleQueryParam(item)} className={pagingActive === item ? "btn-nav active" : "btn-nav hover-sh"}><span>{item}</span></div>
                                         )
                                     }
                                     <div className={totalPage - 2 <= pagingActive ? "d-none" : "btn-nav "}><span>...</span></div>
-                                    <Link to={`/products/${totalPage}`} ><div className={totalPage - 2 <= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{totalPage}</span></div></Link>
-                                    <Link to={`/products/${pagingActive + 1}`}><div className={totalPage === pagingActive ? "d-none" : "btn-nav hover-sh"} ><strong><FontAwesomeIcon icon={faAngleRight} /> </strong></div></Link>
+                                    <div onClick={() => handleQueryParam(totalPage)} className={totalPage - 2 <= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{totalPage}</span></div>
+                                    <div onClick={() => handlePageParam(1)} className={totalPage === pagingActive ? "d-none" : "btn-nav hover-sh"} ><strong><FontAwesomeIcon icon={faAngleRight} /> </strong></div>
                                 </Col>
                             }
                         </Row>

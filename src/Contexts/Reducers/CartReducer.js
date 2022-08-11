@@ -7,7 +7,7 @@ export const cartReducer = (state, action) => {
         case GET_CARTS:
             // console.log(GET_CARTS)
             // const cart = localStorage.getItem('cart')
-            console.log(`=> Get cart payload`, payload)
+            // console.log(`=> Get cart payload`, payload)
             if (payload) {
                 return {
                     ...state,
@@ -23,7 +23,7 @@ export const cartReducer = (state, action) => {
             }
 
         case SAVE_CARTS:
-            console.log('Saving Carts', payload)
+            // console.log('Saving Carts', payload)
             localStorage.setItem('cart', JSON.stringify(payload))
             return state
 

@@ -13,7 +13,7 @@ const CartContextProvider = ({ children }) => {
     })
 
     const getCart = async () => {
-        console.log('Get Cart')
+        // console.log('Get Cart')
         const Carts = await localStorage.getItem('cart')
         cartDispart({ type: GET_CARTS, payload: JSON.parse(Carts) })
     }
@@ -21,11 +21,11 @@ const CartContextProvider = ({ children }) => {
     const addToCart = (id) => {
         // console.log('addToCart')
         if (cart.data.length === 0) {
-            console.log('Add Cart First')
+            // console.log('Add Cart First')
             const newItem = { _id: id, count: 1 }
             cartDispart({ type: ADD_CART, payload: newItem })
         } else {
-            console.log('Add Cart Count')
+            // console.log('Add Cart Count')
             let repeat = false;
             for (let i = 0; i < cart.data.length; i++) {
                 // console.log("Cart_i", cart.data[i]._id.$oid, "||", id.$oid, '||', cart.data[i]._id.$oid === id.$oid)
@@ -36,7 +36,7 @@ const CartContextProvider = ({ children }) => {
                 }
             }
             if (!repeat) {
-                console.log('Add CartNot dup')
+                // console.log('Add CartNot dup')
                 const newItem = { _id: id, count: 1 }
                 // cartState.push(newItem)
                 cartDispart({ type: ADD_CART, payload: newItem })
@@ -77,7 +77,6 @@ const CartContextProvider = ({ children }) => {
     }
 
     const removeCartItem = (id) => {
-        console.log(`=> id`, id)
         cartDispart({ type: DELETE_CART, payload: id })
         // console.log('Before SAVE', cart.data)
         // setTimeout(() => { cartDispart({ type: SAVE_CARTS, payload: cart.data }) }, 500)

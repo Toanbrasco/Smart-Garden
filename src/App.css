@@ -226,6 +226,10 @@ div>a:hover {
     color: white;
 }
 
+div>a>h6 {
+    color: black;
+}
+
 .collapse-cus>div>a {
     height: 30px;
     display: flex;

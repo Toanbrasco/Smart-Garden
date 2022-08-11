@@ -50,17 +50,13 @@ export const productReducer = (state, action) => {
                 }
             }
         case PRODUCT_FILTER_CATEGORY:
-            let newFill = []
-            state.data.forEach((item) => {
-                if (item.category.detail.includes(payload) || item.category.main.includes(payload)) {
-                    newFill.push(item)
-                }
-            });
             return {
                 ...state,
-                data: newFill,
-                loading: false
+                loading: false,
+                pagination: payload.pagination,
+                data: payload.data
             }
+            
         case PRODUCT_SEARCH:
             if (!payload) return this.fruits;
             return {

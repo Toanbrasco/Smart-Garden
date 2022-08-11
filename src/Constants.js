@@ -28,13 +28,14 @@ export const CategoryList = [
     { title: 'Béc tưới cây', list: ['Béc tưới góc bù áp', 'Béc tưới góc không bù áp', 'Béc tưới cánh đập', 'Béc tưới cây tỏa tròn', 'Dây tưới phun mưa', 'Béc tưới phun sương', 'Béc tưới khác'] },
     { title: 'Tưới nhỏ giọt', list: ['Ống dây tưới nhỏ giọt', 'Béc tưới nhỏ giọt', 'Bộ châm phân dinh dưỡng', ' Phụ kiện nhỉ giọt'] },
     { title: 'Súng tưới cây', list: ['Súng tưới cây NODOLINI Ý', 'Súng tưới cây AUTOMAT INDIA', 'Súng tưới cây Trung Quốc', 'Súng tưới cây khác'] },
-    { title: 'Bộ lọc nước tưới cây', list: [] },
+    { title: 'Bộ lọc nước', list: [] },
     { title: 'Van điện từ', list: [] },
     { title: 'Thiết bị tưới sân vườn', list: [] },
-    { title: 'ống dẫn nước tưới cây', list: [] },
+    { title: 'Ống dẫn nước', list: [] },
     { title: 'Bộ hẹn giờ', list: [] },
     { title: 'Phụ kiện tưới', list: [] },
-    { title: 'Thiết bị tưới khác', list: [] }]
+    // { title: 'Thiết bị tưới khác', list: [] }
+]
 
 export const images = [
     'https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',

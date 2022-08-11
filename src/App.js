@@ -43,7 +43,8 @@ function App() {
                             <Route exact path="/" element={<Home />} >
                             </Route>
                             <Route path="products" element={<Products />} />
-                            <Route path="products/:page" element={<Products />} />
+                            {/* <Route path="products/:page" element={<Products />} /> */}
+                            {/* <Route path="products/:categoryPage" element={<Products />} /> */}
                             <Route path="product/:productname" element={<ProductDetail />} />
                             <Route path="blog" element={<Blog />} />
                             <Route path="service" element={<Service />} />
@@ -51,7 +52,7 @@ function App() {
                             <Route path="cart" element={<Cart />} />
                             <Route path="payment" element={<Payment />} />
                             <Route path="post" element={<Post />} />
-                            <Route path="login" element={<Login />} />
+                            {/* <Route path="login" element={<Login />} /> */}
                             <Route path="/admin" element={<Admin />} >
                                 <Route index element={<Dashboard />} />
                                 <Route path="products" element={<AdProduct />} />
