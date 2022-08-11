@@ -23,7 +23,7 @@ import "swiper/css/pagination";
 import { ProductContext } from '../Contexts/ProductContext'
 
 function Product() {
-    const { products, getProducts, handleSelect, handleCategory } = useContext(ProductContext)
+    const { products, getProducts, handleSelect, handleCategory, productSearch } = useContext(ProductContext)
     const limit = 12
     const { totalPage } = products.pagination
 
@@ -36,6 +36,8 @@ function Product() {
     const [searchParams, setSearchParams] = useSearchParams()
     const page = searchParams.get('page') || ''
     const category = searchParams.get('category')
+    const search = searchParams.get('search')
+    console.log(`=> search`, search)
     console.log(`=> page`, page)
 
     const handleCategoryProduct = (category) => {
@@ -43,29 +45,40 @@ function Product() {
     }
 
     const handlePageParam = (num) => {
-        if (category === null) {
-            switch (num) {
-                case -1:
-                    setSearchParams({ page: pagingActive - 1 || 1 })
-                    break;
-
-                case 1:
-                    setSearchParams({ page: pagingActive + 1 || 1 })
-                    break;
-                default:
-                    break;
-            }
-        } else {
+        if (category !== null) {
             switch (num) {
                 case -1:
                     setSearchParams({ category: category, page: pagingActive - 1 || 1 })
                     break;
-
                 case 1:
                     setSearchParams({ category: category, page: pagingActive + 1 || 1 })
                     break;
                 default:
                     break;
+            }
+        } else {
+            if (search !== null) {
+                switch (num) {
+                    case -1:
+                        setSearchParams({ search: search, page: pagingActive - 1 || 1 })
+                        break;
+                    case 1:
+                        setSearchParams({ search: search, page: pagingActive + 1 || 1 })
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                switch (num) {
+                    case -1:
+                        setSearchParams({ page: pagingActive - 1 || 1 })
+                        break;
+                    case 1:
+                        setSearchParams({ page: pagingActive + 1 || 1 })
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -73,22 +86,38 @@ function Product() {
     const handleQueryParam = (num) => {
         if (category !== null) {
             setSearchParams({ category: category, page: num })
-
         } else {
-            setSearchParams({ page: num })
+            if (search !== null) {
+                setSearchParams({ search: search, page: num })
+            } else {
+                setSearchParams({ page: num })
+            }
         }
     }
 
     useEffect(() => {
         document.title = "Products"
-        getProducts(parseInt(page) || 1, limit)
+        if (search !== null) {
+            productSearch(search, page || 1, limit)
+        } else {
+            getProducts(parseInt(page) || 1, limit)
+        }
     }, []);
+
+    useEffect(() => {
+        if (search !== null) {
+            productSearch(search, page || 1, limit)
+        }
+    }, [search])
 
     useEffect(() => {
         setPagingActive(parseInt(page) || 1)
         SetitemCenter(parseInt(page) || 1)
         if (category !== null) {
-            handleCategory(category, page, limit)
+            handleCategory(category, page || 1, limit)
+        }
+        if (search !== null) {
+            productSearch(search, page || 1, limit)
         }
     }, [page])
 
@@ -157,7 +186,7 @@ function Product() {
                         <Row>
                             <Col md={12}>
                                 <div className="w-100 product__title d-flex justify-content-between mt-3 cursor-d">
-                                    <h5><strong>Product</strong></h5>
+                                    <Link to="/products"><h5 onClick={() => getProducts(1, limit)}><strong>Product</strong></h5></Link>
                                     <div className=' d-flex align-items-center justify-content-between'>
                                         <span><strong>Sort By: </strong> </span>
                                         <Form.Group controlId="ControlSelect2" className='cursor-p ml-2'>
@@ -184,12 +213,19 @@ function Product() {
                                 )
                             }
                             {products.data.length === 0 ?
-                                <Col xs={12} lg={12} className=' mt-3'>
-                                    <div className="w-100 d-flex flex-column justify-content-center align-items-center bg-light rounded" style={{ width: '100%', height: '250px' }}>
-                                        <h5 className="mb-1 text-truncate">Hiện chúng tôi Không còn sản phẩm nào loại này</h5>
-                                        <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts()} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
-                                    </div>
-                                </Col> :
+                                search !== null ?
+                                    <Col xs={12} lg={12} className=' mt-3'>
+                                        <div className="w-100 d-flex flex-column justify-content-center align-items-center bg-light rounded" style={{ width: '100%', height: '250px' }}>
+                                            <h5 className="mb-1 text-truncate">Không tìm thấy sản phẩm</h5>
+                                            <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts()} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
+                                        </div>
+                                    </Col> :
+                                    <Col xs={12} lg={12} className=' mt-3'>
+                                        <div className="w-100 d-flex flex-column justify-content-center align-items-center bg-light rounded" style={{ width: '100%', height: '250px' }}>
+                                            <h5 className="mb-1 text-truncate">Hiện chúng tôi Không còn sản phẩm nào loại này</h5>
+                                            <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts()} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
+                                        </div>
+                                    </Col> :
                                 <Col md={12} className="d-flex justify-content-center mt-3 mb-5">
                                     <div onClick={() => handlePageParam(-1)} className={1 === pagingActive ? "d-none" : "btn-nav hover-sh"} ><strong><FontAwesomeIcon icon={faAngleLeft} /> </strong></div>
                                     <div onClick={() => handleQueryParam(1)} className={1 + 2 >= pagingActive ? "d-none" : "btn-nav hover-sh"}><span>{1}</span></div>

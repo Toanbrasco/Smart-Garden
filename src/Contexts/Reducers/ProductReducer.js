@@ -56,15 +56,13 @@ export const productReducer = (state, action) => {
                 pagination: payload.pagination,
                 data: payload.data
             }
-            
+
         case PRODUCT_SEARCH:
-            if (!payload) return this.fruits;
             return {
                 ...state,
-                data: state.data.filter((item) => {
-                    let reg = new RegExp(payload, "ig");
-                    return item.name.match(reg) != null
-                })
+                loading: false,
+                pagination: payload.pagination,
+                data: payload.data
             }
 
         case ADD_PRODUCT:

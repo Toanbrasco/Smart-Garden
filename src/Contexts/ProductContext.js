@@ -59,9 +59,19 @@ const ProductContextProvider = ({ children }) => {
         productDispatch({ type: PRODUCT_SORT, payload: select })
 
     }
-    const productSearch = (SearchText) => {
-        getProducts()
-        productDispatch({ type: PRODUCT_SEARCH, payload: SearchText })
+    const productSearch = async (searchText, page, limit) => {
+        console.log('productSearch', page, "|", limit)
+        try {
+            const products = await axios.get(`${UrlApi}/api/products/search?page=${page}&limit=${limit}&searchtext=${searchText}`)
+            console.log(`=> products productSearch`, products.data)
+            if (products.data.success) {
+                productDispatch({ type: PRODUCT_SEARCH, payload: products.data })
+            }
+        } catch (error) {
+            productDispatch({ type: PRODUCT_LOADED_FAIL })
+        }
+        // getProducts()
+        // productDispatch({ type: PRODUCT_SEARCH, payload: SearchText })
     }
 
     const ProductContextData = {

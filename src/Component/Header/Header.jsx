@@ -2,7 +2,7 @@ import { faClose, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-i
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, Container, Form, Modal, Nav, Navbar } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/images/Logo.png';
 import './Header.css';
 import { CartContext } from '../../Contexts/CartContext'
@@ -11,44 +11,46 @@ import { ProductContext } from '../../Contexts/ProductContext'
 function Header() {
     const Location = useLocation().pathname
     const [show, setShow] = useState(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true)
+        setSelectValue(0)
+    };
+    const navigate = useNavigate()
 
     const { cart, getCart } = useContext(CartContext)
     const { productSearch } = useContext(ProductContext)
-    const [href, setHref] = useState('#')
+    // const [href, setHref] = useState('#')
     const [inputText, SetInputText] = useState('')
+    const [selectValue, setSelectValue] = useState(0)
 
-    const handleSearch = (text) => {
-        const searchInput = document.getElementById('searchInput').value
-        const SelectSearch = document.getElementById('SelectSearch').value
+    const searchSubmit = (event) => {
+        event.preventDefault()
         const waringSearch = document.getElementById('waringSearch')
-        if (searchInput.length !== 0) {
-            // console.log('setIsActive: true')
-            switch (SelectSearch) {
-                case "0":
-                    setHref('/products')
+        if (inputText.length !== 0) {
+            switch (parseInt(selectValue)) {
+                case 0:
+                    navigate(`/products?search=${inputText}`)
+                    setShow(false)
+                    console.log('case_0')
                     break;
-                case "1":
-                    setHref('/blog')
+                case 1:
+                    navigate(`/blog?search=${inputText}`)
+                    setShow(false)
+                    console.log('case_1')
                     break;
-                case "2":
-                    setHref('/service')
+                case 2:
+                    navigate(`/service?search=${inputText}`)
+                    setShow(false)
+                    console.log('case_2')
                     break;
 
                 default:
-                    setHref('/products')
                     break;
             }
-            waringSearch.innerHTML = ""
-            productSearch(searchInput)
-            // setShow(false)
-            // setIsActive(true)
         } else {
-            console.log('SetHref: #')
-            setHref('#')
-            waringSearch.innerHTML = "Không có từ khoá để tìm kiếm"
-        }
+            waringSearch.innerHTML = 'Không có từ khoá để tìm kiếm'
 
+        }
     }
 
     useEffect(() => {
@@ -97,23 +99,23 @@ function Header() {
 
                                 </Modal.Title>
                                 {/* <CloseButton></CloseButton> */}
-                                <button type="button" className="btn-close" aria-label="Close" onClick={() => { setShow(false); handleSearch('onChange') }}><FontAwesomeIcon icon={faClose} /></button>
+                                <button type="button" className="btn-close" aria-label="Close" onClick={() => setShow(false)}><FontAwesomeIcon icon={faClose} /></button>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form>
+                                <Form onSubmit={e => { e.preventDefault() }}>
                                     <Form.Group className="d-flex ">
                                         {/* <Form.Label>Search</Form.Label> */}
-                                        <Form.Control as="select" className='w-20' id='SelectSearch'>
+                                        <Form.Control as="select" className='w-20' id='SelectSearch' onChange={(e) => setSelectValue(e.target.value)}>
                                             <option value="0">Sản Phẩm</option>
                                             <option value="1">Blog</option>
                                             <option value="2">Service</option>
                                         </Form.Control>
-                                        <Form.Control type="text" placeholder="Search..." className='w-70' id='searchInput' onChange={(e) => SetInputText(e.target.value)} />
-                                        <Button as={Link} to={href} onClick={() => handleSearch('onClick')}>Search</Button>
+                                        <Form.Control type="text" placeholder="Search..." className='w-70' id='searchInput' onChange={(e) => SetInputText(e.target.value)} onkeypress="return event.keyCode != 13;" />
                                     </Form.Group>
                                     <small className='text-danger' id='waringSearch'></small>
                                 </Form>
                             </Modal.Body>
+                            <Button type='button' onClick={(event) => searchSubmit(event)}>Search</Button>
                         </Modal></>
 
             }
