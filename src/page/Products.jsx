@@ -23,7 +23,7 @@ import "swiper/css/pagination";
 import { ProductContext } from '../Contexts/ProductContext'
 
 function Product() {
-    const { products, getProducts, handleSelect, handleCategory, productSearch } = useContext(ProductContext)
+    const { products, getProducts, handleCategory, productSearch } = useContext(ProductContext)
     const limit = 12
     const { totalPage } = products.pagination
 
@@ -40,8 +40,13 @@ function Product() {
     console.log(`=> search`, search)
     console.log(`=> page`, page)
 
+    const [selectValue, setSelectValue] = useState(0)
+    console.log(`=> selectValue`, selectValue)
+
+
     const handleCategoryProduct = (category) => {
-        handleCategory(category, pagingActive, limit)
+        handleCategory(category, pagingActive, limit, parseInt(selectValue))
+        // setSelectValue(0)
     }
 
     const handlePageParam = (num) => {
@@ -96,17 +101,31 @@ function Product() {
     }
 
     useEffect(() => {
+        // getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
+        console.log(selectValue)
+        if (category !== null) {
+            handleCategory(category, page || 1, limit, parseInt(selectValue))
+        } else {
+            if (search !== null) {
+                productSearch(search, page || 1, limit, parseInt(selectValue))
+            } else {
+                getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
+            }
+        }
+    }, [selectValue])
+
+    useEffect(() => {
         document.title = "Products"
         if (search !== null) {
-            productSearch(search, page || 1, limit)
+            productSearch(search, page || 1, limit, parseInt(selectValue))
         } else {
-            getProducts(parseInt(page) || 1, limit)
+            getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
         }
     }, []);
 
     useEffect(() => {
         if (search !== null) {
-            productSearch(search, page || 1, limit)
+            productSearch(search, page || 1, limit, parseInt(selectValue))
         }
     }, [search])
 
@@ -114,10 +133,13 @@ function Product() {
         setPagingActive(parseInt(page) || 1)
         SetitemCenter(parseInt(page) || 1)
         if (category !== null) {
-            handleCategory(category, page || 1, limit)
-        }
-        if (search !== null) {
-            productSearch(search, page || 1, limit)
+            handleCategory(category, page || 1, limit, parseInt(selectValue))
+        } else {
+            if (search !== null) {
+                productSearch(search, page || 1, limit, parseInt(selectValue))
+            } else {
+                getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
+            }
         }
     }, [page])
 
@@ -186,11 +208,11 @@ function Product() {
                         <Row>
                             <Col md={12}>
                                 <div className="w-100 product__title d-flex justify-content-between mt-3 cursor-d">
-                                    <Link to="/products"><h5 onClick={() => getProducts(1, limit)}><strong>Product</strong></h5></Link>
+                                    <Link to="/products"><h5 onClick={() => getProducts(1, limit, selectValue)}><strong>Product</strong></h5></Link>
                                     <div className=' d-flex align-items-center justify-content-between'>
                                         <span><strong>Sort By: </strong> </span>
                                         <Form.Group controlId="ControlSelect2" className='cursor-p ml-2'>
-                                            <Form.Control as="select" aria-label="Default select example" onChange={(e) => handleSelect(e.target.value)}>
+                                            <Form.Control as="select" aria-label="Default select example" defaultValue={selectValue} onChange={(e) => setSelectValue(e.target.value)}>
                                                 <option value="0">Mặt định</option>
                                                 <option value="1">Giá tăng dần</option>
                                                 <option value="2">Giá giảm dần</option>
@@ -217,13 +239,13 @@ function Product() {
                                     <Col xs={12} lg={12} className=' mt-3'>
                                         <div className="w-100 d-flex flex-column justify-content-center align-items-center bg-light rounded" style={{ width: '100%', height: '250px' }}>
                                             <h5 className="mb-1 text-truncate">Không tìm thấy sản phẩm</h5>
-                                            <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts()} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
+                                            <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts(1, limit, selectValue)} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
                                         </div>
                                     </Col> :
                                     <Col xs={12} lg={12} className=' mt-3'>
                                         <div className="w-100 d-flex flex-column justify-content-center align-items-center bg-light rounded" style={{ width: '100%', height: '250px' }}>
                                             <h5 className="mb-1 text-truncate">Hiện chúng tôi Không còn sản phẩm nào loại này</h5>
-                                            <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts()} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
+                                            <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts(1, limit, selectValue)} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
                                         </div>
                                     </Col> :
                                 <Col md={12} className="d-flex justify-content-center mt-3 mb-5">

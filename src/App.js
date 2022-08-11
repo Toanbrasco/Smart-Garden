@@ -52,7 +52,7 @@ function App() {
                             <Route path="cart" element={<Cart />} />
                             <Route path="payment" element={<Payment />} />
                             <Route path="post" element={<Post />} />
-                            {/* <Route path="login" element={<Login />} /> */}
+                            <Route path="login" element={<Login />} />
                             <Route path="/admin" element={<Admin />} >
                                 <Route index element={<Dashboard />} />
                                 <Route path="products" element={<AdProduct />} />

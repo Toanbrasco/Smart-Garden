@@ -15,10 +15,10 @@ const ProductContextProvider = ({ children }) => {
         pagination: {},
         error: null
     })
-    const getProducts = async (page, limit) => {
+    const getProducts = async (page, limit, sort) => {
         // console.log(`page ${page} - limit ${limit}`)
         try {
-            const products = await axios.get(`${UrlApi}/api/products?page=${page}&limit=${limit}`)
+            const products = await axios.get(`${UrlApi}/api/products?page=${page}&limit=${limit}&sort=${sort}`)
             console.log(`=> products getProducts`, products.data)
             if (products.data.success) {
                 productDispatch({ type: PRODUCT_LOADED_SUCCESS, payload: products.data })
@@ -40,11 +40,11 @@ const ProductContextProvider = ({ children }) => {
         }
         // productDispatch({ type: PRODUCT_DETAIL, payload: productName })
     }
-    const handleCategory = async (category, page, limit) => {
-        // console.log(`=> category, page, limit`, category, page, limit)
+    const handleCategory = async (category, page, limit, sort) => {
+        console.log(`=> category, page, limit`, category, page, limit, sort)
         // /api/products/category?category=
         try {
-            const products = await axios.get(`${UrlApi}/api/products/category?page=${page}&limit=${limit}&category=${category}`)
+            const products = await axios.get(`${UrlApi}/api/products/category?page=${page}&limit=${limit}&sort=${sort}&category=${category}`)
             console.log(`=> products handleCategory`, products.data)
             if (products.data.success) {
                 productDispatch({ type: PRODUCT_FILTER_CATEGORY, payload: products.data })
@@ -59,10 +59,10 @@ const ProductContextProvider = ({ children }) => {
         productDispatch({ type: PRODUCT_SORT, payload: select })
 
     }
-    const productSearch = async (searchText, page, limit) => {
+    const productSearch = async (searchText, page, limit, sort) => {
         console.log('productSearch', page, "|", limit)
         try {
-            const products = await axios.get(`${UrlApi}/api/products/search?page=${page}&limit=${limit}&searchtext=${searchText}`)
+            const products = await axios.get(`${UrlApi}/api/products/search?page=${page}&limit=${limit}&sort=${sort}&searchtext=${searchText}`)
             console.log(`=> products productSearch`, products.data)
             if (products.data.success) {
                 productDispatch({ type: PRODUCT_SEARCH, payload: products.data })
