@@ -13,7 +13,7 @@ function Login() {
         <Container fluid>
             <Row>
                 <Col md={12} className='w-100 vh-100 d-flex justify-content-center align-items-center'>
-                    <Form.Group className="w-20 mb-3 rounded shadow p-3" controlId="formBasicEmail">
+                    <Form.Group className="w-20 sm-w-80 mb-3 rounded shadow p-3" controlId="formBasicEmail">
                         <Form.Label>Tên sản phẩm</Form.Label>
                         <Form.Control type="text" placeholder="Tên sản phẩm" />
                         <Form.Label>Tên sản phẩm</Form.Label>

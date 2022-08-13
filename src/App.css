@@ -301,6 +301,10 @@ a>h5 {
     .col-img-bec {
         padding: 5px !important;
     }
+
+    .sm-w-80 {
+        width: 80% !important;
+    }
 }
 
 /* // Small devices (landscape phones, 576px and up) */

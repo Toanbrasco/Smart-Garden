@@ -27,28 +27,6 @@ export const productReducer = (state, action) => {
                 loading: false,
                 data: payload.data
             }
-        case PRODUCT_SORT:
-            // console.log(PRODUCT_SORT)
-            if (payload === '0') {
-                return {
-                    ...state,
-                    loading: false
-                }
-            }
-            if (payload === '1') {
-                return {
-                    ...state,
-                    data: state.data.sort((a, b) => Number(a.price.base) - Number(b.price.base)),
-                    loading: false
-                }
-            }
-            if (payload === '2') {
-                return {
-                    ...state,
-                    data: state.data.sort((a, b) => Number(b.price.base) - Number(a.price.base)),
-                    loading: false
-                }
-            }
         case PRODUCT_FILTER_CATEGORY:
             return {
                 ...state,
