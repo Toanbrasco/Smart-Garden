@@ -12,7 +12,6 @@ function Loading() {
 
     }
     const [switchComponet, setSwitchComponet] = useState(false)
-    console.log(`=> switchComponet`, switchComponet)
     useEffect(() => {
         const timeOut = setTimeout(() => {
             setSwitchComponet(true)
@@ -24,7 +23,6 @@ function Loading() {
     return (
         <>
             {!switchComponet ?
-
                 <div style={LoadingStyle}>
                     <div className="w-100 h-100 d-flex justify-content-center align-items-center bg-white">
                         <div className="spinner-border" role="status" style={{ width: '50px', height: '50px' }}>

@@ -29,19 +29,12 @@ function Product() {
 
     const [pagingActive, setPagingActive] = useState(1)
     const [itemCenter, SetitemCenter] = useState(1)
-
-    // const [objParam, setObjParam] = useState({})
-    // console.log(`=> objParam`, objParam)
-    // const [category, setCategory] = useState()
     const [searchParams, setSearchParams] = useSearchParams()
     const page = searchParams.get('page') || ''
     const category = searchParams.get('category')
     const search = searchParams.get('search')
-    console.log(`=> search`, search)
-    console.log(`=> page`, page)
 
     const [selectValue, setSelectValue] = useState(0)
-    console.log(`=> selectValue`, selectValue)
 
 
     const handleCategoryProduct = (category) => {

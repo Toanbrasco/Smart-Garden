@@ -23,7 +23,7 @@ import { CartContext } from '../Contexts/CartContext'
 function ProductDetail() {
     const { products, getProductDetail } = useContext(ProductContext)
     // console.log(`=> products`, products)
-    const {  addToCart, getCart } = useContext(CartContext)
+    const { addToCart, getCart } = useContext(CartContext)
 
     const { productname } = useParams()
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -85,7 +85,14 @@ function ProductDetail() {
                     <h5>{products.data[0].name}</h5>
                     <span className='text-danger'>{numberFormat(products.data[0].price.base)}</span>
                     <p>{products.data[0].desc}</p>
-                    <div className="parameter">
+                    <h6>Thông số kỹ thuật</h6>
+                    <div className="parameter d-flex flex-wrap justify-content-between">
+                        {products.data[0].info.map((item, index) =>
+                            <div key={index} className='d-flex w-50 '>
+                                <span className='w-50'>{item.title}:</span>
+                                <span className=' w-50'> {item.paramater}</span>
+                            </div>
+                        )}
 
                     </div>
                     <div className='addToCart mt-auto cursor-p' onClick={() => addToCart(products.data[0]._id)}>

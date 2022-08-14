@@ -30,6 +30,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import ProdcutContextProvider from './Contexts/ProductContext'
 import CartContextProvider from './Contexts/CartContext'
 import UserartContextProvider from './Contexts/UserContext'
+import EditProduct from './page/Admin/EditProduct';
 
 function App() {
     // const PageArr = ['Products', 'ProductDetail', 'Blog', 'Service', 'Contact', 'Cart']
@@ -61,6 +62,7 @@ function App() {
                                 <Route path="order" element={<Order />} />
                                 <Route path="config" element={<Config />} />
                                 <Route path="post" element={<Post />} />
+                                <Route path="edit-product/:productname" element={<EditProduct />} />
                             </Route>
                             <Route path="*" element={<Error />} />
                         </Routes>
