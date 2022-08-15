@@ -1,20 +1,43 @@
-import { USER_LOGIN } from './type'
+import { SET_USER, USER_LOGOUT, SET_USER_FAIL, USER_GET, USER_LOGIN_FAIL } from './type'
 // import { convertViToEn } from '../../Constants'
 
 export const userReducer = (state, action) => {
     const { type, payload } = action
 
     switch (type) {
-        case USER_LOGIN:
-            // console.log(PRODUCT_LOADED_SUCCESS)
+        case SET_USER:
             return {
                 ...state,
-                loading: false,
-                login: true
+                isAuthenticated: true,
+                user: payload.user.name
+            }
+
+        case SET_USER_FAIL:
+            return state
+
+        case USER_LOGIN_FAIL:
+            console.log('payload', payload)
+            return {
+                ...state,
+                message: payload.message
+            }
+
+        case USER_LOGOUT:
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: null
+            }
+
+        case USER_GET:
+            console.log(`=> USER_GET`, USER_GET)
+            return {
+                ...state,
+                authLoading: false,
+                data: payload.user
             }
 
         default:
-            console.log('Default')
             return
     }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Container, Row, Col, Table, Form } from 'react-bootstrap'
+import { Container, Row, Col, Table, Form, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare, faCheck, faXmark, faAngleLeft, faAngleRight, faArrowDownLong, faArrowUpLong } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare, faCheck, faXmark, faAngleLeft, faAngleRight, faArrowDownLong, faArrowUpLong, faMagnifyingGlass, faRotateRight } from '@fortawesome/free-solid-svg-icons'
 import { Link, useSearchParams } from 'react-router-dom'
 import { makeNumArr, convertViToEn } from '../../Constants'
 import { ProductContext } from '../../Contexts/ProductContext'
@@ -117,41 +117,63 @@ function AdProduct() {
             }
         }
     }, [page])
+    const handleSort = (text) => {
+        switch (text) {
+            case 'NAME':
+                if (Sort === 0) {
+                    setSort(5)
+                } else {
+                    if (Sort === 5) {
+                        setSort(6)
+                    } else {
+                        setSort(0)
+                    }
+                }
+                break;
+            case 'PRICE':
+                if (Sort === 0) {
+                    setSort(1)
+                } else {
+                    if (Sort === 1) {
+                        setSort(2)
+                    } else {
+                        setSort(0)
+                    }
+                }
+                break;
+            case 'DISCOUNT':
+                if (Sort === 0) {
+                    setSort(3)
+                } else {
+                    if (Sort === 3) {
+                        setSort(4)
+                    } else {
+                        setSort(0)
+                    }
+                }
+                break;
 
-    const handlePriceSort = () => {
-        if (Sort === 0) {
-            setSort(1)
-        } else {
-            if (Sort === 1) {
-                setSort(2)
-            } else {
+            default:
                 setSort(0)
-            }
+                break;
         }
     }
-    const handleDiscountSort = () => {
-        if (Sort === 0) {
-            setSort(3)
-        } else {
-            if (Sort === 3) {
-                setSort(4)
-            } else {
-                setSort(0)
-            }
+    const checkParams = () => {
+        const searchInput = document.getElementById('searchInput')
+        if (searchParams.has('search')) {
+            searchParams.delete('search');
         }
+        if (searchParams.has('page')) {
+            searchParams.delete('page');
+        }
+        setSearchParams(searchParams);
+        getProducts(parseInt(page) || 1, limit, parseInt(Sort))
+        searchInput.value = ''
     }
-    const handleNameSort = () => {
-        if (Sort !== 5 && Sort !== 6) {
-            setSort(0)
-        }
-        if (Sort === 0) {
-            setSort(5)
-        } else {
-            if (Sort === 5) {
-                setSort(6)
-            } else {
-                setSort(0)
-            }
+    const [searchText, setSearchText] = useState('')
+    const handleSearch = () => {
+        if (searchText.length !== 0) {
+            setSearchParams({ search: searchText, page: 1 })
         }
     }
 
@@ -161,9 +183,9 @@ function AdProduct() {
     return (
         <Container fluid bg="light">
             <Row className='mt-3'>
-                <Col md={12} className='' >
-                    <h2>Product</h2>
-
+                <Col md={12} className='d-flex align-items-center' >
+                    <h2 className='m-0'>Product</h2>
+                    <Button className='ml-3' onClick={() => checkParams()}><FontAwesomeIcon icon={faRotateRight} /></Button>
                 </Col>
             </Row>
             <Row>
@@ -180,9 +202,12 @@ function AdProduct() {
                         </Form.Group>
                         <span>sản phẩm</span>
                     </div>
-                    <Form.Group className=" d-flex justify-content-center align-items-center" controlId="formBasicEmail">
-                        <Form.Control type="text" placeholder="Search..." />
-                    </Form.Group>
+                    <div className='d-flex justify-content-center align-items-center'>
+                        <Form.Group className="mr-3" controlId="formBasicEmail">
+                            <Form.Control type="text" placeholder="Search..." onChange={(e) => setSearchText(e.target.value)} id='searchInput' />
+                        </Form.Group>
+                        <Button onClick={() => handleSearch()}><FontAwesomeIcon icon={faMagnifyingGlass} /></Button>
+                    </div>
                 </Col>
             </Row>
             <Row>
@@ -191,7 +216,7 @@ function AdProduct() {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th className='cursor-p' onClick={() => handleNameSort()}>
+                                <th className='cursor-p' onClick={() => handleSort('NAME')}>
                                     <div className="d-flex align-items-center">
                                         Tên sản phẩm
                                         <div className='ml-1 d-flex justify-content-center align-items-center'>
@@ -200,7 +225,7 @@ function AdProduct() {
                                         </div>
                                     </div>
                                 </th>
-                                <th className='cursor-p' onClick={() => handlePriceSort()}>
+                                <th className='cursor-p' onClick={() => handleSort('PRICE')}>
                                     <div className="d-flex align-items-center">
                                         Giá
                                         <div className='ml-1 d-flex justify-content-center align-items-center'>
@@ -209,7 +234,7 @@ function AdProduct() {
                                         </div>
                                     </div>
                                 </th>
-                                <th className='cursor-p' onClick={() => handleDiscountSort()}>
+                                <th className='cursor-p' onClick={() => handleSort('DISCOUNT')}>
                                     <div className="d-flex align-items-center">
                                         Discount
                                         <div className='ml-1 d-flex justify-content-center align-items-center'>

@@ -65,13 +65,13 @@ function EditProduct() {
                         <Form.Control type="number" placeholder="Discount của sản phẩm" value={products.data[0].price.discount} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Tên sản phẩm</Form.Label>
+                        <Form.Label>Thông số sản phẩm</Form.Label>
                         <div id='addZone'>
                             {
                                 products.data[0].info.map((item, index) =>
                                     <div key={index} className="d-flex flex-sm-row flex-column mt-1" id='info-row'>
-                                        <Form.Control type="text" placeholder="Tên sản phẩm" value={item.title} />
-                                        <Form.Control type="text" placeholder="Tên sản phẩm" value={item.paramater} />
+                                        <Form.Control type="text" placeholder="Title" value={item.title} />
+                                        <Form.Control type="text" placeholder="Paramater" value={item.paramater} />
                                     </div>
                                 )
                             }

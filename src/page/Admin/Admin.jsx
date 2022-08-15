@@ -3,16 +3,18 @@ import { Col, Row } from 'react-bootstrap'
 import Logo from '../../assets/images/Logo.png'
 import { personImage } from '../../Constants'
 
-import { faBars, faBox, faChevronLeft, faChevronRight, faClipboardCheck, faGauge, faNewspaper, faUser, faWrench } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBox, faChevronLeft, faChevronRight, faClipboardCheck, faGauge, faNewspaper, faUser, faWrench, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Link, Navigate, Outlet } from "react-router-dom"
 // import Dashboard from './Dashboard'
 
 import { UserContext } from '../../Contexts/UserContext'
+import Loading from '../../Component/Loading/Loading'
 
 function Admin() {
-    const { user } = useContext(UserContext)
+    const { user, loadUser, logoutUser } = useContext(UserContext)
+    console.log(`=> user`, user)
     const [navSize, setNavSize] = useState(200)
     // const arrMenu2 = [
     //     { name: 'Config', icon: faWrench, component: 1, path: 'config' },
@@ -73,6 +75,7 @@ function Admin() {
     useEffect(() => {
         document.title = "Admin"
         setItemDropdown(document.querySelectorAll('#itemDropdown'))
+        loadUser()
     }, []);
     const [itemDropdown, setItemDropdown] = useState([])
 
@@ -86,9 +89,11 @@ function Admin() {
             itemDropdown[index].classList.add("d-block");
         }
     }
-
     // if (!user.login) {
     //     return <Navigate to="/login"></Navigate>
+    // }
+    // if (user.authLoading) {
+    //     return <Loading />
     // }
     return (
         <>
@@ -156,15 +161,20 @@ function Admin() {
                                 <FontAwesomeIcon icon={faBars} style={{ fontSize: '1.5rem' }} className='d-block d-md-none' />
                             </div>
                             <div className='h-100 d-flex justify-content-between align-items-center py-2 pl-3 border-left'>
-                                <span>Admin</span>
-                                <div className='h-50 rounded-circle shadowml ml-3' style={{ width: '25px' }}>
+                                <span>{user.user}</span>
+                                {/* <div className='h-50 rounded-circle shadowml ml-3' style={{ width: '25px' }}>
                                     <img src={personImage} alt="personImage" className='W-100 h-100 rounded-circle shadow' />
+
+                                </div> */}
+                                <div className='ml-3' onClick={() => logoutUser()}>
+                                    <FontAwesomeIcon icon={faArrowRightFromBracket} />
                                 </div>
                             </div>
                         </Col>
                         <Col md={12}>
+
                             {
-                                user.login ? <Outlet /> : <Navigate to='/login' />
+                                user.isAuthenticated ? <Outlet /> : <Navigate to='/login' />
                             }
                         </Col>
                     </Row>

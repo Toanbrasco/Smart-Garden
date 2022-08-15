@@ -55,11 +55,11 @@ function UploadProdcut() {
                         <Form.Control type="number" placeholder="Discount của sản phẩm" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Tên sản phẩm</Form.Label>
+                        <Form.Label>Thông số sản phẩm</Form.Label>
                         <div id='addZone'>
                             <div className="d-flex flex-sm-row flex-column" id='info-row'>
-                                <Form.Control type="text" placeholder="Tên sản phẩm" />
-                                <Form.Control type="text" placeholder="Tên sản phẩm" />
+                                <Form.Control type="text" placeholder="Tên thông số" />
+                                <Form.Control type="text" placeholder="Thông số" />
                             </div>
                         </div>
                         <button className="btn btn-primary mt-3" onClick={() => addNewRow()}>Add</button>

@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap'
+import Loading from '../../Component/Loading/Loading.jsx'
 import { DayFormat } from '../../Constants.js'
+import { UserContext } from '../../Contexts/UserContext.js'
 
 function User() {
+    const { user, getUser } = useContext(UserContext)
     const userData = [
         { username: 'admin', password: '123456789', date: "2022-07-06T23:41:58.000Z" },
         { username: 'admin', password: '123456789', date: "2022-07-06T23:41:58.000Z" },
@@ -54,6 +57,15 @@ function User() {
         col.append(card)
         addZone.append(col)
     }
+
+    useEffect(() => {
+        getUser()
+    }, [])
+
+    if (user.authLoading) {
+        return <Loading />
+    }
+
     return (
         <Container fluid>
             <Row className='mt-3'>
@@ -64,11 +76,14 @@ function User() {
             </Row>
             <Row id='account' className='mb-5'>
                 {
-                    userData.map((item, index) =>
-                        <Col sm={6} lg={3} key={index}>
+                    user.data.map((item, index) =>
+                        <Col key={index} sm={6} lg={3}>
                             <Card className='w-100 mt-3' >
-                                {/* <Card.Header>Tài khoản</Card.Header> */}
                                 <Card.Body >
+                                    <Form.Group className="mb-3" >
+                                        <Form.Label>Name</Form.Label>
+                                        <Form.Control type="text" placeholder="Tài Khoản" value={item.name} />
+                                    </Form.Group>
                                     <Form.Group className="mb-3" >
                                         <Form.Label>Tài Khoản</Form.Label>
                                         <Form.Control type="text" placeholder="Tài Khoản" value={item.username} />
@@ -78,7 +93,7 @@ function User() {
                                         <Form.Control type="password" placeholder="Mật khẩu" value={item.password} />
                                     </Form.Group>
                                     <div className="w-100 d-flex justify-content-between align-items-center">
-                                        <span>Ngày tạo:<br /> {DayFormat(item.date)}</span>
+                                        <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
                                         <div><button className='btn btn-primary'>chỉnh sửa</button></div>
                                     </div>
                                 </Card.Body>
