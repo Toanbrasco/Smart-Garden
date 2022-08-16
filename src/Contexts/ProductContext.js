@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer } from "react";
 import axios from "axios";
 // import Data from '../assets/Data/test.json'
 import { productReducer } from './Reducers/ProductReducer'
-import { PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SORT, PRODUCT_SEARCH } from './Reducers/type'
+import { PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_LOADED_ALL, PRODUCT_SEARCH } from './Reducers/type'
 import { UrlApi, convertViToEn } from "../Constants";
 
 
@@ -14,6 +14,16 @@ const ProductContextProvider = ({ children }) => {
         pagination: {},
         error: null
     })
+    const getProductsAll = async () => {
+        try {
+            const products = await axios.get(`${UrlApi}/api/products/all`)
+            if (products.data.success) {
+                productDispatch({ type: PRODUCT_LOADED_ALL, payload: products.data })
+            }
+        } catch (error) {
+            productDispatch({ type: PRODUCT_LOADED_FAIL })
+        }
+    }
     const getProducts = async (page, limit, sort) => {
         // console.log(`=> getProducts`, page,'|', limit,'|', sort)
         try {
@@ -68,6 +78,7 @@ const ProductContextProvider = ({ children }) => {
         getProductDetail,
         handleCategory,
         productSearch,
+        getProductsAll,
         productDispatch
     }
 

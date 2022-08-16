@@ -1,10 +1,16 @@
-import { ADD_PRODUCT, DELETE_PRODUCT, PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SORT, PRODUCT_SEARCH } from './type'
+import { ADD_PRODUCT, DELETE_PRODUCT, PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SEARCH, PRODUCT_LOADED_ALL } from './type'
 import { convertViToEn } from '../../Constants'
 
 export const productReducer = (state, action) => {
     const { type, payload } = action
 
     switch (type) {
+        case PRODUCT_LOADED_ALL:
+            return {
+                ...state,
+                loading: false,
+                data: payload.data
+            }
         case PRODUCT_LOADED_SUCCESS:
             // console.log(PRODUCT_LOADED_SUCCESS)
             return {
