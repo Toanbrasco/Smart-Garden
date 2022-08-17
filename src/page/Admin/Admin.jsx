@@ -14,7 +14,6 @@ import Loading from '../../Component/Loading/Loading'
 
 function Admin() {
     const { user, loadUser, logoutUser } = useContext(UserContext)
-    console.log(`=> user`, user)
     const [navSize, setNavSize] = useState(200)
     // const arrMenu2 = [
     //     { name: 'Config', icon: faWrench, component: 1, path: 'config' },

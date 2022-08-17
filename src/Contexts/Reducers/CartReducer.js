@@ -24,7 +24,7 @@ export const cartReducer = (state, action) => {
 
         case SAVE_CARTS:
             // console.log('Saving Carts', payload)
-            localStorage.setItem('cart', JSON.stringify(payload))
+            sessionStorage.setItem('cart', JSON.stringify(payload))
             return state
 
         case ADD_CART:

@@ -1,4 +1,4 @@
-import { SET_USER, USER_LOGOUT, SET_USER_FAIL, USER_GET, USER_LOGIN_FAIL } from './type'
+import { SET_USER, USER_LOGOUT, SET_USER_FAIL, USER_GET, USER_FAIL, USER_REGISTER, USER_DELETE } from './type'
 // import { convertViToEn } from '../../Constants'
 
 export const userReducer = (state, action) => {
@@ -15,8 +15,7 @@ export const userReducer = (state, action) => {
         case SET_USER_FAIL:
             return state
 
-        case USER_LOGIN_FAIL:
-            console.log('payload', payload)
+        case USER_FAIL:
             return {
                 ...state,
                 message: payload.message
@@ -28,13 +27,23 @@ export const userReducer = (state, action) => {
                 isAuthenticated: false,
                 user: null
             }
+        case USER_REGISTER:
+            return {
+                ...state,
+                message: payload.message
+            }
 
         case USER_GET:
-            console.log(`=> USER_GET`, USER_GET)
             return {
                 ...state,
                 authLoading: false,
                 data: payload.user
+            }
+        case USER_DELETE:
+            return {
+                ...state,
+                deleteUser: payload.user,
+                message: payload.message
             }
 
         default:

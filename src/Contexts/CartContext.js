@@ -14,7 +14,7 @@ const CartContextProvider = ({ children }) => {
 
     const getCart = async () => {
         // console.log('Get Cart')
-        const Carts = await localStorage.getItem('cart')
+        const Carts = await sessionStorage.getItem('cart')
         cartDispart({ type: GET_CARTS, payload: JSON.parse(Carts) })
     }
 
