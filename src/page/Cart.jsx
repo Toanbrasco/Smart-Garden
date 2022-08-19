@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import Bec from '../assets/images/BEC-TR.png'
 import Loading from '../Component/Loading/Loading';
 import { numberFormat, totalAmount, totalPrice, filterCart } from '../Constants';
@@ -11,9 +11,7 @@ import { ProductContext } from '../Contexts/ProductContext';
 
 function Cart() {
     const { products, getProducts, getProductsAll } = useContext(ProductContext)
-    console.log(`=> products`, products)
     const { cart, getCart, removeCartItem, handleCount } = useContext(CartContext)
-    console.log(`=> cart`, cart)
 
     useEffect(() => {
         document.title = "Cart"
@@ -101,11 +99,8 @@ function Cart() {
                                         <span>{numberFormat(totalPrice(cart, products))}</span>
                                     </div>
                                 </div>
-                                <div className="Btn-Payment w-100 p-2 mt-3 cursor-p">
-                                    <span><Link to='/payment' className='text-white'>Thanh toán</Link></span>
-                                </div>
+                                <Button as={Link} to='/payment' className="w-100 p-2 mt-3 cursor-p">Thanh toán</Button>
                             </div>
-
                         </Col>
                     </Row>
                     : <Row>

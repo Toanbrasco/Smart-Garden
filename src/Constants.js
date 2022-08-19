@@ -122,7 +122,14 @@ export const filterCart = (carts, product) => {
             })
         })
     } else {
-        return arr
+        product.data.forEach(item => {
+            carts.forEach((cart) => {
+                if (JSON.stringify(item._id) === JSON.stringify(cart._id)) {
+                    item['count'] = cart.count
+                    arr.push(item)
+                }
+            })
+        })
     }
     // console.log("arr", arr)
     return arr

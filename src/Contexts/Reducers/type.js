@@ -28,4 +28,6 @@ export const USER_DELETE = 'USER_DELETE'
 
 
 export const GET_ORDER = 'GET_ORDER'
+export const ORDER_MESSAGE = 'ORDER_MESSAGE'
 export const GET_ORDER_FAIL = 'GET_ORDER_FAIL'
+export const ADD_ORDER_FAIL = 'ADD_ORDER_FAIL'
