@@ -18,7 +18,11 @@ export const convertViToEn = (str, toUpperCase = false) => {
 export const numberFormat = (value) =>
     new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(value);
 
-export const DayFormat = (value) => value.toLocaleString('en-GB', { year: 'numeric', day: 'numeric', month: 'numeric', hour12: false }).replace('T', " | ").slice(0, -5)
+export const DayFormat = (date) => {
+    const value = new Date(date);
+    return `${value.toLocaleDateString("vi-VN")} | ${value.toLocaleTimeString("vi-VN")}`
+}
+// value.toLocaleString('en-GB', { year: 'numeric', day: 'numeric', month: 'numeric', hour12: false }).replace('T', " | ").slice(0, -5)
 
 // let day = d.toLocaleString('en-us', { year: 'numeric', month: '2-digit', day: '2-digit' }).
 //     replace(/(\d+)\/(\d+)\/(\d+)/, '$2-$1-$3');
@@ -47,37 +51,37 @@ export const personImage = 'https://eitrawmaterials.eu/wp-content/uploads/2016/0
 
 export const fakeOrderArr = [
     {
-        "name": 'Nguyễn Văn A',
-        "adress": 'Số 1A, HCM',
-        "phone": '0123456789',
-        "note": 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam maiores itaque, aliquam mollitia reiciendis eos sapiente incidunt ut aliquid odio porro voluptatem.Aliquid placeat soluta laboriosam qui vel, veritatis consectetur!',
-        "shipping": 'Giao hàng tận nhà',
-        "payment": 'Thanh toán bằng thẻ',
-        "product_id": ['615675185d27f4331cc3c844', '615675215d27f4331cc3c84a', '6156752a5d27f4331cc3c850'],
-        "status": 'Đang giao hàng',
-        "date": "2022-07-06T23:41:58.000Z"
+        name: 'Nguyễn Văn A',
+        adress: 'Số 1A, HCM',
+        phone: '0123456789',
+        note: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam maiores itaque, aliquam mollitia reiciendis eos sapiente incidunt ut aliquid odio porro voluptatem.Aliquid placeat soluta laboriosam qui vel, veritatis consectetur!',
+        shipping: 'Giao hàng tận nhà',
+        payment: 'Thanh toán bằng thẻ',
+        cart: ['615675185d27f4331cc3c844', '615675215d27f4331cc3c84a', '6156752a5d27f4331cc3c850'],
+        status: 'Đang giao hàng',
+        createdAt: "2022-07-06T23:41:58.000Z"
     },
     {
-        "name": 'Nguyễn Văn A',
-        "adress": 'Số 1A, HCM',
-        "phone": '0123456789',
-        "note": 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam maiores itaque, aliquam mollitia reiciendis eos sapiente incidunt ut aliquid odio porro voluptatem.Aliquid placeat soluta laboriosam qui vel, veritatis consectetur!',
-        "shipping": 'Giao hàng tận nhà',
-        "payment": 'Thanh toán bằng thẻ',
-        "product_id": ['615675185d27f4331cc3c844', '6156752a5d27f4331cc3c850'],
-        "status": 'Chưa giải quết',
-        "date": "2022-07-06T23:41:58.000Z"
+        name: 'Nguyễn Văn A',
+        adress: 'Số 1A, HCM',
+        phone: '0123456789',
+        note: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam maiores itaque, aliquam mollitia reiciendis eos sapiente incidunt ut aliquid odio porro voluptatem.Aliquid placeat soluta laboriosam qui vel, veritatis consectetur!',
+        shipping: 'Giao hàng tận nhà',
+        payment: 'Thanh toán bằng thẻ',
+        cart: ['615675185d27f4331cc3c844', '6156752a5d27f4331cc3c850'],
+        status: 'Chưa giải quết',
+        createdAt: "2022-07-06T23:41:58.000Z"
     },
     {
-        "name": 'Nguyễn Văn A',
-        "adress": 'Số 1A, HCM',
-        "phone": '0123456789',
-        "note": 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam maiores itaque, aliquam mollitia reiciendis eos sapiente incidunt ut aliquid odio porro voluptatem.Aliquid placeat soluta laboriosam qui vel, veritatis consectetur!',
-        "shipping": 'Giao hàng tận nhà',
-        "payment": 'Thanh toán bằng thẻ',
-        "product_id": ['615675185d27f4331cc3c844', '615675215d27f4331cc3c84a'],
-        "status": 'Hoàn thành',
-        "date": "2022-07-06T23:41:58.000Z"
+        name: 'Nguyễn Văn A',
+        adress: 'Số 1A, HCM',
+        phone: '0123456789',
+        note: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam maiores itaque, aliquam mollitia reiciendis eos sapiente incidunt ut aliquid odio porro voluptatem.Aliquid placeat soluta laboriosam qui vel, veritatis consectetur!',
+        shipping: 'Giao hàng tận nhà',
+        payment: 'Thanh toán bằng thẻ',
+        cart: ['615675185d27f4331cc3c844', '615675215d27f4331cc3c84a'],
+        status: 'Hoàn thành',
+        createdAt: "2022-07-06T23:41:58.000Z"
     }
 ]
 // export const arrMenu = [

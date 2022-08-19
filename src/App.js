@@ -31,6 +31,7 @@ import ProdcutContextProvider from './Contexts/ProductContext'
 import CartContextProvider from './Contexts/CartContext'
 import UserartContextProvider from './Contexts/UserContext'
 import EditProduct from './page/Admin/EditProduct';
+import OrderContextProvider from './Contexts/OrderContext';
 
 function App() {
     // const PageArr = ['Products', 'ProductDetail', 'Blog', 'Service', 'Contact', 'Cart']
@@ -39,34 +40,36 @@ function App() {
             <ProdcutContextProvider>
                 <CartContextProvider>
                     <UserartContextProvider>
-                        <Header></Header>
-                        <Routes>
-                            <Route exact path="/" element={<Home />} >
-                            </Route>
-                            <Route path="products" element={<Products />} />
-                            {/* <Route path="products/:page" element={<Products />} /> */}
-                            {/* <Route path="products/:categoryPage" element={<Products />} /> */}
-                            <Route path="product/:productname" element={<ProductDetail />} />
-                            <Route path="blog" element={<Blog />} />
-                            <Route path="service" element={<Service />} />
-                            <Route path="contact" element={<Contact />} />
-                            <Route path="cart" element={<Cart />} />
-                            <Route path="payment" element={<Payment />} />
-                            <Route path="post" element={<Post />} />
-                            <Route path="login" element={<Login />} />
-                            <Route path="/admin" element={<Admin />} >
-                                <Route index element={<Dashboard />} />
-                                <Route path="products" element={<AdProduct />} />
-                                <Route path="product-upload" element={<UploadProduct />} />
-                                <Route path="user" element={<User />} />
-                                <Route path="order" element={<Order />} />
-                                <Route path="config" element={<Config />} />
+                        <OrderContextProvider>
+                            <Header></Header>
+                            <Routes>
+                                <Route exact path="/" element={<Home />} >
+                                </Route>
+                                <Route path="products" element={<Products />} />
+                                {/* <Route path="products/:page" element={<Products />} /> */}
+                                {/* <Route path="products/:categoryPage" element={<Products />} /> */}
+                                <Route path="product/:productname" element={<ProductDetail />} />
+                                <Route path="blog" element={<Blog />} />
+                                <Route path="service" element={<Service />} />
+                                <Route path="contact" element={<Contact />} />
+                                <Route path="cart" element={<Cart />} />
+                                <Route path="payment" element={<Payment />} />
                                 <Route path="post" element={<Post />} />
-                                <Route path="edit-product/:productname" element={<EditProduct />} />
-                            </Route>
-                            <Route path="*" element={<Error />} />
-                        </Routes>
-                        <Footer></Footer>
+                                <Route path="login" element={<Login />} />
+                                <Route path="/admin" element={<Admin />} >
+                                    <Route index element={<Dashboard />} />
+                                    <Route path="products" element={<AdProduct />} />
+                                    <Route path="product-upload" element={<UploadProduct />} />
+                                    <Route path="user" element={<User />} />
+                                    <Route path="order" element={<Order />} />
+                                    <Route path="config" element={<Config />} />
+                                    <Route path="post" element={<Post />} />
+                                    <Route path="edit-product/:productname" element={<EditProduct />} />
+                                </Route>
+                                <Route path="*" element={<Error />} />
+                            </Routes>
+                            <Footer></Footer>
+                        </OrderContextProvider>
                     </UserartContextProvider>
                 </CartContextProvider>
             </ProdcutContextProvider>

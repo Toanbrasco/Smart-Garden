@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useEffect } from 'react'
 import { Button, Col, Container, Row, Form } from 'react-bootstrap'
 import products from '../../assets/Data/test.json'
 import { DayFormat, fakeOrderArr } from '../../Constants.js'
+import { OrderContext } from '../../Contexts/OrderContext'
+import Loading from '../../Component/Loading/Loading'
 
 function Order() {
+    const { order, getOrder } = useContext(OrderContext)
+    console.log(`=> order`, order)
     // const [open, setOpen] = useState(false);
     // const productid = ['615675185d27f4331cc3c844', '615675215d27f4331cc3c84a', '6156752a5d27f4331cc3c850']
     const filterProduct = (productid) => {
@@ -16,6 +21,13 @@ function Order() {
             })
         })
         return arr
+    }
+    useEffect(() => {
+        getOrder()
+    }, [])
+
+    if (order.loading) {
+        <Loading />
     }
 
     return (
@@ -37,13 +49,13 @@ function Order() {
                         {/* <span className='w-10'>Action</span> */}
                     </div>
                 </Col>
-                {fakeOrderArr.map((item, index) =>
+                {order.data.map((item, index) =>
                     <Col key={index} md={12} className="mt-3" data-toggle="collapse" href={`#Collapse${index}`} role="button" aria-expanded="false" aria-controls={`Collapse${index}`}>
                         <div className='d-flex justify-content-between align-items-center p-3 bg-light' >
                             <span className='w-10'>{index + 1}</span>
                             <span className='w-20'>{item.name}</span>
                             <span className='w-30'>{item.adress}</span>
-                            <span className='w-20'>{DayFormat(item.date)}</span>
+                            <span className='w-20'>{DayFormat(item.createdAt)}</span>
                             <span className='w-10'>123.123.123 VND</span>
                             <span className='w-10'>{item.status}</span>
                             {/* <span className='w-10'>Action</span> */}
@@ -59,7 +71,7 @@ function Order() {
                                         <span className='w-20'>Total price</span>
                                     </div>
                                     {
-                                        filterProduct(item.product_id).map((item, index) =>
+                                        filterProduct(item.cart).map((item, index) =>
                                             <div key={index} className='d-flex justify-content-between align-items-center'>
                                                 <span className='w-50'>{item.name}</span>
                                                 <span className='w-20'>{index + 1 * 10000}</span>
@@ -97,7 +109,7 @@ function Order() {
                                     </div>
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <span>Date: </span>
-                                        <span>{DayFormat(item.date)}</span>
+                                        <span>{DayFormat(item.createdAt)}</span>
                                     </div>
                                     <div>
                                         <span>Note: </span>

@@ -24,8 +24,10 @@ function User() {
     const [userForm, setUserForm] = useState({
         name: '',
         username: '',
-        password: ''
+        password: '',
+        password2: '',
     })
+    console.log(`=> userForm`, userForm)
     const handleUserForm = event =>
         setUserForm({ ...userForm, [event.target.name]: event.target.value })
 
@@ -34,20 +36,38 @@ function User() {
             setModalText('Tài khoản và mật khẩu phải dài hơn 4 ký tự')
             setShow(true)
         } else {
-            if (userForm.name.length !== 0) {
-                setShowForm(false)
-                registerUser(userForm)
-                setShow2(true)
-                setUserForm({ name: '', username: '', password: '' })
+            if (userForm.password === userForm.password2) {
+                if (userForm.name.length !== 0) {
+                    // setShowForm(false)
+                    registerUser(userForm)
+                    setShow2(true)
+                } else {
+                    setModalText('Bạn chưa nhập tên')
+                    setShow(true)
+                }
             } else {
-                setModalText('Bạn chưa nhập tên')
+                setModalText('Hai mật khẩu không giống nhau')
                 setShow(true)
             }
         }
     }
-    const handleModal = () => {
+    const handleModal = (action) => {
         setShow2(false)
-        getUser()
+        switch (action) {
+            case true:
+                setShowForm(false)
+                setUserForm({ name: '', username: '', password: '', password2: '' })
+                getUser()
+                break;
+            case false:
+                setShowForm(true)
+                break;
+
+            default:
+                getUser()
+                setShowForm(false)
+                break;
+        }
     }
 
     const handleCancle = () => {
@@ -92,7 +112,7 @@ function User() {
             <Row className='mt-3'>
                 <Col md={12} className='d-flex justify-content-between align-items-center' >
                     <h1>Product</h1>
-                    <Button onClick={() => setShowForm(true)}>+</Button>
+                    <Button onClick={() => setShowForm(!showForm)}>+</Button>
                 </Col>
             </Row>
             <Row id='account' className='mb-5'>
@@ -110,10 +130,10 @@ function User() {
                                         <Form.Label>Tài Khoản</Form.Label>
                                         <Form.Control type="text" placeholder="Tài Khoản" defaultValue={item.username} />
                                     </Form.Group>
-                                    <Form.Group className="mb-3" >
+                                    {/* <Form.Group className="mb-3" >
                                         <Form.Label>Mật khẩu</Form.Label>
                                         <Form.Control type="password" placeholder="Mật khẩu" defaultValue={item.password} />
-                                    </Form.Group>
+                                    </Form.Group> */}
                                     <div className="w-100 d-flex justify-content-between align-items-center">
                                         <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
                                         <div>
@@ -127,10 +147,10 @@ function User() {
                     )
                 }
                 {
-                    showForm ? <Col sm={6} lg={3}>
+                    showForm ? <Col sm={12} lg={6}>
                         <Card className='w-100 mt-3' >
-                            <Card.Body >
-                                <Form>
+                            <Card.Body className="d-flex">
+                                <div className="w-50 pr-3">
                                     <Form.Group className="mb-3" >
                                         <Form.Label>Tên tài Khoản</Form.Label>
                                         <Form.Control type="text" name="name" placeholder="Tên tài Khoản" defaultValue={userForm.name} onChange={(e) => handleUserForm(e)} />
@@ -139,15 +159,27 @@ function User() {
                                         <Form.Label>Tài Khoản</Form.Label>
                                         <Form.Control type="text" name="username" placeholder="Tài Khoản" defaultValue={userForm.username} onChange={(e) => handleUserForm(e)} />
                                     </Form.Group>
+                                    {/* <Form.Group className="mb-0" >
+                                        <Form.Label>Mật khẩu cũ</Form.Label>
+                                        <Form.Control type="password" name="password" placeholder="Mật khẩu" defaultValue={userForm.password} onChange={(e) => handleUserForm(e)} />
+                                    </Form.Group> */}
+                                </div>
+                                <div className="w-50 pl-3 d-flex flex-column">
                                     <Form.Group className="mb-3" >
-                                        <Form.Label>Mật khẩu</Form.Label>
+                                        <Form.Label>Mật khẩu Mới</Form.Label>
                                         <Form.Control type="password" name="password" placeholder="Mật khẩu" defaultValue={userForm.password} onChange={(e) => handleUserForm(e)} />
                                     </Form.Group>
-                                    <div className="w-100 ">
+                                    <Form.Group className="mb-3" >
+                                        <Form.Label>Nhập lại mật khẩu mới</Form.Label>
+                                        <Form.Control type="password" name="password2" placeholder="Mật khẩu" defaultValue={userForm.password2} onChange={(e) => handleUserForm(e)} />
+                                    </Form.Group>
+                                    <div className="w-100 mt-auto d-flex justify-content-end">
                                         <Button variant="primary" onClick={() => handleSubmit()}>Tạo</Button>
                                         <Button variant="danger" className='ml-3' onClick={() => handleCancle()}>Huỷ</Button>
                                     </div>
-                                </Form>
+                                </div>
+
+
                             </Card.Body>
                         </Card>
                     </Col> : <></>
@@ -175,7 +207,7 @@ function User() {
                             <span className="sr-only">Loading...</span>
                         </div> : user.message}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={() => handleModal()}>
+                        <Button variant="primary" onClick={() => handleModal(user.user)}>
                             OK
                         </Button>
                     </Modal.Footer>

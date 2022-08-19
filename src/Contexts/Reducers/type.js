@@ -11,8 +11,6 @@ export const PRODUCT_FILTER_CATEGORY = 'PRODUCT_FILTER_CATEGORY'
 export const PRODUCT_SORT = 'PRODUCT_SORT'
 export const PRODUCT_SEARCH = 'PRODUCT_SEARCH'
 export const PRODUCT_LOADED_ALL = 'PRODUCT_LOADED_ALL'
-// export const PRODUCT_D = 'PRODUCT_SEARCH'
-
 
 export const GET_CARTS = 'GET_CARTS'
 export const ADD_CART = 'ADD_CART'
@@ -27,6 +25,7 @@ export const SET_USER_FAIL = 'SET_USER_FAIL'
 export const USER_GET = 'USER_GET'
 export const USER_FAIL = 'USER_FAIL'
 export const USER_DELETE = 'USER_DELETE'
-// export const ADD_CART = 'ADD_CART'
-// export const SAVE_CARTS = 'SAVE_CARTS'
-// export const DELETE_CART = 'DELETE_CART'
+
+
+export const GET_ORDER = 'GET_ORDER'
+export const GET_ORDER_FAIL = 'GET_ORDER_FAIL'

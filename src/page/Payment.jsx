@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import Bec from '../assets/images/BEC-TR.png'
@@ -9,12 +9,23 @@ import { CartContext } from '../Contexts/CartContext'
 import { ProductContext } from '../Contexts/ProductContext';
 
 function Payment() {
-    const { products, getProducts } = useContext(ProductContext)
+    const { products, getProductsAll } = useContext(ProductContext)
     const { cart, getCart, removeCartItem, handleCount } = useContext(CartContext)
+    const [selectPayment, setSelectPayment] = useState("")
+    const [selectShipping, setSelectShipping] = useState("")
+    const [orderForm, setOrderForm] = useState({
+        name: '',
+        phone: '',
+        adress: '',
+        note: ''
+    })
+    const handleSubmitPayment = () => {
+        
+    }
 
     useEffect(() => {
         document.title = "Payment"
-        getProducts()
+        getProductsAll()
         getCart()
     }, []);
 
@@ -24,6 +35,7 @@ function Payment() {
     if (products.loading) {
         return <Loading />
     }
+
     return (
         <Container>
             <Row>
@@ -77,7 +89,28 @@ function Payment() {
                                     placeholder="Ghi chú tại đây"
                                     style={{ height: '100px' }}
                                 />
+                                <div className='d-flex justify-content-between mt-2'>
+                                    <label className='mt-2 cursor-d w-50'>Vận chuyển</label>
+                                    <label className='mt-2 cursor-d w-50 ml-2'>Thanh toán</label>
+                                </div>
+                                <div className='d-flex mt-2'>
+                                    <Form.Group className='cursor-p w-50'>
+                                        <Form.Control as="select" aria-label="Default select example" onChange={(e) => setSelectShipping(e.target.value)}>
+                                            <option value="0">Phương thức vận chuyển</option>
+                                            <option value="Ship COD">Ship COD</option>
+                                            <option value="Nhận hàng tại của hàng">Nhận hàng tại của hàng</option>
+                                        </Form.Control>
+                                    </Form.Group>
+                                    <Form.Group className='cursor-p ml-2 w-50'>
+                                        <Form.Control as="select" aria-label="Default select example" onChange={(e) => setSelectPayment(e.target.value)}>
+                                            <option value="0">Phương thức thanh toán</option>
+                                            <option value="Nhận hàng trả tiền">Nhận hàng trả tiền</option>
+                                            <option value="Chuyển khoản">Chuyển khoản</option>
+                                        </Form.Control>
+                                    </Form.Group>
+                                </div>
                             </form>
+
                         </div>
                         <div className='w-100 d-flex justify-content-end flex-column cursor-d p-3 bg-light mt-3'>
                             <h6><strong>Thông tin giỏ hàng</strong></h6>

@@ -16,9 +16,11 @@ export const userReducer = (state, action) => {
             return state
 
         case USER_FAIL:
+            console.log(`=> USER_FAIL`, payload)
             return {
                 ...state,
-                message: payload.message
+                message: payload.message,
+                success: payload.success
             }
 
         case USER_LOGOUT:
@@ -49,4 +51,5 @@ export const userReducer = (state, action) => {
         default:
             return
     }
+
 }
