@@ -41,7 +41,7 @@ function Home() {
                 <Row className='Home__category d-flex justify-content-between mt-5'>
                     <Col md={6} className=''>
                         <div className="Home__category-box position-relative w-100 h-100 cursor-p">
-                            <img src={Bec} alt="Bec" className='h-100 position-absolute' />
+                            <img src={Bec} alt="Bec" className=' position-absolute category-img' />
                             <div className='w-100 h-50 d-flex flex-column align-items-end p-3 rounded shadow-sm position-absolute'>
                                 <h5 className='align-items-end'>Tưới tự động</h5>
                                 <span>Các sản phẩm về tưới tự động</span>
@@ -55,7 +55,7 @@ function Home() {
                                 <h5>Tưới tự động</h5>
                                 <span>Các sản phẩm về tưới tự động</span>
                             </div>
-                            <img src={ONG} alt="Ong" className='h-100 position-absolute' />
+                            <img src={ONG} alt="Ong" className=' position-absolute category-img' />
 
                         </div>
                     </Col>
@@ -81,16 +81,16 @@ function Home() {
                     }
                 </Row>
                 <Row className='mt-5 h-100'>
-                    <Col md={12} className="h-100">
+                    <Col as={Link} to="/service" md={12} className="h-100">
                         <div className='home__service position-relative'>
-                            <div className='position-absolute cursor-d'>
-                                <div className=' p-3 d-block d-flex justify-content-center flex-column h-100 shadow-sm rounded'>
+                            <div className='position-absolute'>
+                                <div className='p-3 d-block d-flex justify-content-center flex-column h-100 shadow-sm rounded'>
                                     <h5>Dịch vụ</h5>
-                                    <span className='mt-2'>Thiết kế và thi công các công trình về tưới tự động</span>
-                                    <div className='btn-service cursor-p mt-2'><span><Link to='/Service'>Tất cả dịch vụ</Link></span></div>
+                                    <span className='mt-2 w-60 w-md-100 text-dark'>Thiết kế và thi công các công trình về tưới tự động</span>
+                                    {/* <div className='btn-service w-40 cursor-p mt-2'><span><Link to='/Service'>Tất cả dịch vụ</Link></span></div> */}
                                 </div>
                             </div>
-                            <img src={Bec} alt="Bec" className='position-absolute d-none d-md-none d-lg-flex' />
+                            <img src={Bec} alt="Bec" className='position-absolute service-img' />
                         </div>
                     </Col>
                 </Row>

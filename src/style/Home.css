@@ -28,12 +28,12 @@
 }
 
 .Home__category-box>img:first-child {
-    top: 0;
+    bottom: 0;
     left: 0;
 }
 
 .Home__category-box>img:last-child {
-    top: 0;
+    bottom: 0;
     right: 0;
 }
 
@@ -63,12 +63,11 @@
     background-color: #F3F2F2;
 }
 
-.home__service img {
-    /* width: 20%; */
+/* .home__service img {
     height: 100%;
     right: 0;
     top: 0;
-}
+} */
 
 .home__service h5 {
     font-weight: bold;
@@ -77,7 +76,7 @@
 }
 
 .btn-service {
-    max-width: 300px;
+    /* max-width: 300px; */
     background-color: #006FB9;
     color: white;
     display: flex;
