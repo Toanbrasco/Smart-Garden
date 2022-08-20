@@ -7,7 +7,7 @@ import Loading from '../Component/Loading/Loading';
 import '../style/Product.css';
 
 import Products from '../assets/Data/test.json';
-import { images, numberFormat } from '../Constants.js';
+import { images, numberFormat, convertViToEn } from '../Constants.js';
 
 // Swiper
 import { FreeMode, Navigation, Thumbs } from "swiper";
@@ -22,17 +22,21 @@ import { CartContext } from '../Contexts/CartContext'
 
 function ProductDetail() {
     const { products, getProductDetail } = useContext(ProductContext)
-    // console.log(`=> products`, products)
-    const { addToCart, getCart } = useContext(CartContext)
-
     const { productname } = useParams()
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const { addToCart, getCart } = useContext(CartContext)
 
     useEffect(() => {
         document.title = "Product"
         getProductDetail(productname)
         getCart()
     }, []);
+
+    useEffect(() => {
+        getProductDetail(productname)
+        getCart()
+    }, [productname]);
+
 
     if (products.loading) {
         return <Loading />
@@ -107,9 +111,9 @@ function ProductDetail() {
                 <Col md={12}>
                     <Row>
                         {
-                            Products.map((item, index) => index < 6 &&
-                                <Col xs={6} md={4} lg={2} key={'product' + item.name}>
-                                    <Card style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
+                            products.data2.map((item, index) => index < 6 &&
+                                <Col xs={6} md={4} lg={2} key={'product' + item.name} >
+                                    <Card as={Link} to={'/product/' + convertViToEn(item.name)} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
                                         <Card.Img variant="top" className="p-4 bg-light" src={Bec} />
                                         <Card.Body className='p-2 text-center'>
                                             <Card.Title style={{ fontSize: '15px' }} className="mb-1"><strong>{item.name}</strong></Card.Title>
@@ -121,7 +125,7 @@ function ProductDetail() {
                         }
                     </Row>
                 </Col>
-            </Row>
+            </Row >
             <Row>
                 <Col md={12} className='d-flex justify-content-center align-items-center my-5'>
                     <Link to='/' className="mx-1 text-dark">Home</Link>

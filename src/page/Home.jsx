@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import Banner from '../assets/images/Banner.png'
@@ -7,13 +7,22 @@ import ONG from '../assets/images/ThungOng.png'
 import '../style/Home.css'
 import Products from '../assets/Data/test.json'
 import { convertViToEn, numberFormat } from '../Constants.js'
+import { ProductContext } from '../Contexts/ProductContext'
+import Loading from '../Component/Loading/Loading'
 
 function Home() {
-    const products = [...Products]
+    const numRandom = Math.floor(Math.random() * 58)
+    // const products = [...Products]
+    const { products, getProducts } = useContext(ProductContext)
 
     useEffect(() => {
         document.title = "Smart Garden"
+        getProducts(numRandom, 4, 0)
     }, []);
+
+    if (products.loading) {
+        return <Loading />
+    }
     return (
         <>
             <Container fluid className='p-0 w-100 position-relative'>
@@ -57,7 +66,7 @@ function Home() {
                         <span className='cursor-p'><Link to='Products'>Tất cả sản phẩm</Link></span>
                     </Col>
                     {
-                        products.map((item, index) => index < 4 &&
+                        products.data.map((item, index) => index < 4 &&
                             <Col xs={6} lg={3} className="outstanding__products mt-3" key={index} >
                                 <Card style={{ width: '100%', border: 'none' }} className='shadow-lg hover-sh cursor-p' as={Link} to={'/product/' + convertViToEn(item.name)}>
                                     <Card.Img variant="top" className="p-4" src={Bec} />
@@ -99,7 +108,7 @@ function Home() {
                                     <Card.Text>Some quick example text to build on the card title and make up the
                                         bulk of the card's content.
                                     </Card.Text>
-                                    <Card.Link href="#" className='float-right text-dark'>Xem chi tiết</Card.Link>
+                                    {/* <Card.Link href="#" className='float-right text-dark'>Xem chi tiết</Card.Link> */}
                                 </Card.Body>
                             </Card>
                         </Col>

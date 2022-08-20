@@ -99,7 +99,7 @@ function Order() {
                             <span className='w-20'>{item.name}</span>
                             <span className='w-30'>{item.adress}</span>
                             <span className='w-20'>{DayFormat(item.createdAt)}</span>
-                            <span className='w-10'>123.123.123 VND</span>
+                            <span className='w-10'>{numberFormat(totalPrice(item.cart, products))}</span>
                             <span className='w-10'>{convertVN(item.status)}</span>
                             {/* <span className='w-10'>Action</span> */}
                         </div>

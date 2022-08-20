@@ -46,11 +46,12 @@ const ProductContextProvider = ({ children }) => {
             productDispatch({ type: PRODUCT_LOADED_FAIL })
         }
     }
+
     const handleCategory = async (category, page, limit, sort) => {
         // console.log(`=> category, page, limit`, category, page, limit, sort)
         try {
             const products = await axios.get(`${UrlApi}/api/products/category?page=${page}&limit=${limit}&sort=${sort}&category=${category}`)
-            console.log(`=> products handleCategory`, products.data)
+            // console.log(`=> products handleCategory`, products.data)
             if (products.data.success) {
                 productDispatch({ type: PRODUCT_FILTER_CATEGORY, payload: products.data })
             }
@@ -63,7 +64,6 @@ const ProductContextProvider = ({ children }) => {
         // console.log('productSearch', page, "|", limit)
         try {
             const products = await axios.get(`${UrlApi}/api/products/search?page=${page}&limit=${limit}&sort=${sort}&searchtext=${searchText}`)
-            console.log(`=> products productSearch`, products.data)
             if (products.data.success) {
                 productDispatch({ type: PRODUCT_SEARCH, payload: products.data })
             }

@@ -31,7 +31,8 @@ export const productReducer = (state, action) => {
             return {
                 ...state,
                 loading: false,
-                data: payload.data
+                data: payload.data,
+                data2: payload.data2
             }
         case PRODUCT_FILTER_CATEGORY:
             return {

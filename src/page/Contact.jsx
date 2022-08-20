@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 
 
 
@@ -46,22 +46,22 @@ function Contact() {
                         </div>
                     </div>
                 </Col>
-                <Col md={4} className=' mt-4' ref={ref}>
+                <Col md={4} className='mt-4 d-flex flex-column' ref={ref}>
                     <h5 className='cursor-d'><strong>Liên hệ</strong></h5>
                     <small className='text-secondary'>Để lại thông tin chúng tôi sẽ liên hệ bạn</small>
                     <form action="" className='d-flex flex-column'>
                         <label className='mt-2 cursor-d'>Họ và tên</label>
-                        <input type="text" className='input-cus mt-2' />
+                        <input type="text" className='input-cus ' />
 
                         <label className='mt-2 cursor-d'>Email</label>
-                        <input type="Email" className='input-cus mt-2' />
+                        <input type="Email" className='input-cus ' />
 
                         <label className='mt-2 cursor-d'>Số điện thoại</label>
-                        <input type="text" className='input-cus mt-2' />
+                        <input type="text" className='input-cus ' />
 
                     </form>
-                    <div className="Btn-Payment w-25 mt-3 float-right cursor-p">
-                        <span>Submit</span>
+                    <div className="mt-auto w-100 d-flex justify-content-end cursor-p">
+                        <Button>Submit</Button>
                     </div>
                 </Col>
             </Row>

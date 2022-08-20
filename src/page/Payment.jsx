@@ -169,19 +169,19 @@ function Payment() {
                         <div className='w-100 d-flex justify-content-end flex-column cursor-d p-3 bg-light mt-3'>
                             <h6><strong>Thông tin giỏ hàng</strong></h6>
                             <div className="w-100 d-flex justify-content-between">
-                                <span>Quantity: </span>
+                                <span>Tồng số lượng: </span>
                                 <span> {totalAmount(cart, products)}</span>
                             </div>
                             {/* <div className="w-100 d-flex justify-content-between">
                                     <span>Giảm giá: </span>
                                     <span>0</span>
                                 </div> */}
-                            <div className="w-100 d-flex justify-content-between">
+                            {/* <div className="w-100 d-flex justify-content-between">
                                 <span>Discount: </span>
                                 <span>0</span>
-                            </div>
+                            </div> */}
                             <div className="w-100 d-flex justify-content-between">
-                                <span>Total: </span>
+                                <span>Giá đơn hàng: </span>
                                 <span><strong>{numberFormat(totalPrice(cart, products))}</strong></span>
                             </div>
                         </div>
