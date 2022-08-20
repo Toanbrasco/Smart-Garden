@@ -138,9 +138,5 @@ export const makeNumArr = num => new Array(num).fill("").map((_, i) => i + 1);
 
 export const UrlApi = 'https://smartgarden-server-test.herokuapp.com'
 
-// 'http://localhost:5000'
-export const SESSION_STORAGE_TOKEN_NAME = 'smart-garden'
-
-export const UrlApi = 'https://smartgarden-server-test.herokuapp.com'
-//       'http://localhost:5000'
+//'http://localhost:5000'
 export const SESSION_STORAGE_TOKEN_NAME = 'smart-garden'
