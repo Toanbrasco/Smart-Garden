@@ -11,9 +11,9 @@ import { ProductContext } from '../Contexts/ProductContext'
 import Loading from '../Component/Loading/Loading'
 
 function Home() {
-    const numRandom = Math.floor(Math.random() * 58)
+    const numRandom = Math.floor(Math.random() * 57)
     // const products = [...Products]
-    const { products, getProducts } = useContext(ProductContext)
+    const { products, getProducts, refeshProduct } = useContext(ProductContext)
 
     useEffect(() => {
         document.title = "Smart Garden"
@@ -68,7 +68,7 @@ function Home() {
                     {
                         products.data.map((item, index) => index < 4 &&
                             <Col xs={6} lg={3} className="outstanding__products mt-3" key={index} >
-                                <Card style={{ width: '100%', border: 'none' }} className='shadow-lg hover-sh cursor-p' as={Link} to={'/product/' + convertViToEn(item.name)}>
+                                <Card style={{ width: '100%', border: 'none' }} onClick={() => refeshProduct()} className='shadow-lg hover-sh cursor-p' as={Link} to={'/product/' + convertViToEn(item.name)}>
                                     <Card.Img variant="top" className="p-4" src={Bec} />
                                     <Card.Body className='px-3'>
                                         <Card.Title style={{ fontSize: '15px' }} className="mb-1 text-truncate"><strong>{item.name}</strong></Card.Title>

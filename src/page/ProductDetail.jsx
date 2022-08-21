@@ -6,7 +6,6 @@ import Loading from '../Component/Loading/Loading';
 
 import '../style/Product.css';
 
-import Products from '../assets/Data/test.json';
 import { images, numberFormat, convertViToEn } from '../Constants.js';
 
 // Swiper
@@ -22,21 +21,22 @@ import { CartContext } from '../Contexts/CartContext'
 
 function ProductDetail() {
     const { products, getProductDetail } = useContext(ProductContext)
+    console.log(`=> products asdasd`, products)
     const { productname } = useParams()
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const { addToCart, getCart } = useContext(CartContext)
+
+    // noi-ong-3/5-ra-4-dau-nho-giot
+    useEffect(() => {
+        getProductDetail(productname)
+        getCart()
+    }, [productname]);
 
     useEffect(() => {
         document.title = "Product"
         getProductDetail(productname)
         getCart()
     }, []);
-
-    useEffect(() => {
-        getProductDetail(productname)
-        getCart()
-    }, [productname]);
-
 
     if (products.loading) {
         return <Loading />

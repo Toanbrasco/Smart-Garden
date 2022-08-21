@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer } from "react";
 import axios from "axios";
 // import Data from '../assets/Data/test.json'
 import { productReducer } from './Reducers/ProductReducer'
-import { PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_LOADED_ALL, PRODUCT_SEARCH } from './Reducers/type'
+import { PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_LOADED_ALL, PRODUCT_SEARCH, PRODUCT_REFESH } from './Reducers/type'
 import { UrlApi, convertViToEn } from "../Constants";
 
 
@@ -71,7 +71,9 @@ const ProductContextProvider = ({ children }) => {
             productDispatch({ type: PRODUCT_LOADED_FAIL })
         }
     }
-
+    const refeshProduct = () => {
+        productDispatch({ type: PRODUCT_REFESH })
+    }
     const ProductContextData = {
         products,
         getProducts,
@@ -79,6 +81,7 @@ const ProductContextProvider = ({ children }) => {
         handleCategory,
         productSearch,
         getProductsAll,
+        refeshProduct,
         productDispatch
     }
 

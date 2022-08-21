@@ -23,7 +23,7 @@ import "swiper/css/pagination";
 import { ProductContext } from '../Contexts/ProductContext'
 
 function Product() {
-    const { products, getProducts, handleCategory, productSearch } = useContext(ProductContext)
+    const { products, getProducts, handleCategory, productSearch, refeshProduct } = useContext(ProductContext)
     const limit = 12
     const { totalPage } = products.pagination
 
@@ -143,7 +143,7 @@ function Product() {
         <>
             <Container>
                 <Row>
-                    <Col md={4} className="mt-3 cursor-d d-none d-md-block">
+                    <Col md={3} className="mt-3 cursor-d d-none d-md-block">
                         <h5><strong>Category</strong></h5>
                         <div className='category__list cursor-p' style={{ listStyle: 'none' }}>
                             {CategoryList.map((item, index) =>
@@ -162,7 +162,7 @@ function Product() {
                             )}
                         </div>
                     </Col>
-                    <Col md={4} className="mt-3 cursor-d d-block d-md-none">
+                    <Col md={3} className="mt-3 cursor-d d-block d-md-none">
                         <h5><strong>Category</strong></h5>
                         <div className='category__list cursor-p' style={{ listStyle: 'none' }}>
                             <Swiper spaceBetween={30}
@@ -197,7 +197,7 @@ function Product() {
                             </Swiper>
                         </div>
                     </Col>
-                    <Col md={8}>
+                    <Col md={9}>
                         <Row>
                             <Col md={12}>
                                 <div className="w-100 product__title d-flex justify-content-between mt-3 cursor-d">
@@ -217,7 +217,7 @@ function Product() {
                             {
                                 products.data.map((item, index) => index < 12 &&
                                     <Col xs={6} lg={4} key={index}>
-                                        <Card as={Link} to={'/product/' + convertViToEn(item.name)} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
+                                        <Card as={Link} to={'/product/' + convertViToEn(item.name)} onClick={() => refeshProduct()} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
                                             <Card.Img variant="top" className="p-4 bg-light" src={Bec} />
                                             <Card.Body className='px-3 text-center d-flex flex-column h-100'>
                                                 <Card.Title style={{ fontSize: '15px' }} className="mb-1 text-truncate"><strong>{item.name}</strong></Card.Title>
