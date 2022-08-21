@@ -32,6 +32,7 @@ function Product() {
     const [searchParams, setSearchParams] = useSearchParams()
     const page = searchParams.get('page') || ''
     const category = searchParams.get('category')
+    console.log(`=> category`, category)
     const search = searchParams.get('search')
 
     const [selectValue, setSelectValue] = useState(0)
@@ -94,8 +95,6 @@ function Product() {
     }
 
     useEffect(() => {
-        // getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
-        console.log(selectValue)
         if (category !== null) {
             handleCategory(category, page || 1, limit, parseInt(selectValue))
         } else {
@@ -136,24 +135,28 @@ function Product() {
         }
     }, [page])
 
-    if (products.loading || products.pagination === undefined) {
+    if (products.loading) {
         return <Loading />
     }
     return (
         <>
             <Container>
                 <Row>
-                    <Col md={3} className="mt-3 cursor-d d-none d-md-block">
+                    <Col lg={3} className="mt-3 cursor-d d-none d-lg-block">
                         <h5><strong>Category</strong></h5>
                         <div className='category__list cursor-p' style={{ listStyle: 'none' }}>
                             {CategoryList.map((item, index) =>
                                 <div key={index}>
-                                    <Link to={`/products?category=${item.title}&page=1`}><h6 onClick={() => handleCategoryProduct(item.title)}>{item.title}</h6></Link>
+                                    <Link to={`/products?category=${item.title}&page=1`}>
+                                        <h6 className={category === item.title ? 'text-primary font-weight-bold' : ''} onClick={() => handleCategoryProduct(item.title)}>{item.title}</h6>
+                                    </Link>
                                     {item.list.length !== 0 ?
                                         <ul className='mb-2'>
                                             {
                                                 item.list.map((items, index) =>
-                                                    <li key={index} onClick={() => handleCategoryProduct(items)}>{items}</li>
+                                                    <Link to={`/products?category=${items}&page=1`}>
+                                                        <li key={index} className={category === items ? 'text-primary font-weight-bold' : 'text-dark'} onClick={() => handleCategoryProduct(items)}>{items}</li>
+                                                    </Link>
                                                 )
                                             }
                                         </ul>
@@ -162,7 +165,7 @@ function Product() {
                             )}
                         </div>
                     </Col>
-                    <Col md={3} className="mt-3 cursor-d d-block d-md-none">
+                    <Col lg={3} className="mt-3 cursor-d d-block d-lg-none">
                         <h5><strong>Category</strong></h5>
                         <div className='category__list cursor-p' style={{ listStyle: 'none' }}>
                             <Swiper spaceBetween={30}
@@ -173,23 +176,31 @@ function Product() {
                                     CategoryList.map((item, index) => item.list.length !== 0 &&
                                         <SwiperSlide key={index} >
                                             <div key={index} className='py-3'>
-                                                <h6 onClick={() => handleCategory(item.title)}>{item.title}</h6>
+                                                <Link to={`/products?category=${item.title}&page=1`}>
+                                                    <h6 className={category === item.title ? 'text-primary font-weight-bold' : ''} onClick={() => handleCategoryProduct(item.title)}>{item.title}</h6>
+                                                </Link>
                                                 {item.list.length !== 0 ?
                                                     <ul className='mb-2'>
-                                                        {item.list.map((items, index) =>
-                                                            <li key={index} onClick={() => handleCategory(items)}>{items}</li>
-                                                        )}
+                                                        {
+                                                            item.list.map((items, index) =>
+                                                                <Link to={`/products?category=${items}&page=1`}>
+                                                                    <li key={index} className={category === items ? 'text-primary font-weight-bold' : 'text-dark'} onClick={() => handleCategoryProduct(items)}>{items}</li>
+                                                                </Link>
+                                                            )
+                                                        }
                                                     </ul>
                                                     : <></>}
                                             </div>
                                         </SwiperSlide>
                                     )
                                 }
-                                <SwiperSlide>
+                                <SwiperSlide className='py-3'>
                                     {CategoryList.map((item, index) => item.list.length === 0 &&
                                         <div key={index} className="w-100 h-100" data-toggle="collapse" href={`#Collapse${index}`} role="button" aria-expanded="false" aria-controls={`Collapse${index}`}>
                                             <div className='d-flex justify-content-between align-items-center' >
-                                                <h6>{item.title}</h6>
+                                                <Link to={`/products?category=${item.title}&page=1`}>
+                                                    <h6 className={category === item.title ? 'text-primary font-weight-bold' : ''} onClick={() => handleCategoryProduct(item.title)}>{item.title}</h6>
+                                                </Link>
                                             </div>
                                         </div>
                                     )}
@@ -197,12 +208,12 @@ function Product() {
                             </Swiper>
                         </div>
                     </Col>
-                    <Col md={9}>
+                    <Col lg={9}>
                         <Row>
                             <Col md={12}>
                                 <div className="w-100 product__title d-flex justify-content-between mt-3 cursor-d">
-                                    <Link to="/products"><h5 onClick={() => getProducts(1, limit, selectValue)}><strong>Product</strong></h5></Link>
-                                    <div className=' d-flex align-items-center justify-content-between'>
+                                    <Link to="/products" className='d-flex align-items-center justify-content-between'><h5 className='m-0' onClick={() => getProducts(1, limit, selectValue)}><strong>Product</strong></h5></Link>
+                                    <div className='d-flex align-items-center justify-content-between'>
                                         <span><strong>Sort By: </strong> </span>
                                         <Form.Group controlId="ControlSelect2" className='cursor-p ml-2'>
                                             <Form.Control as="select" aria-label="Default select example" defaultValue={selectValue} onChange={(e) => setSelectValue(e.target.value)}>
@@ -216,8 +227,8 @@ function Product() {
                             </Col>
                             {
                                 products.data.map((item, index) => index < 12 &&
-                                    <Col xs={6} lg={4} key={index}>
-                                        <Card as={Link} to={'/product/' + convertViToEn(item.name)} onClick={() => refeshProduct()} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
+                                    <Col xs={6} md={4} lg={4} key={index}>
+                                        <Card as={Link} to={'/product/' + convertViToEn(item.name)} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
                                             <Card.Img variant="top" className="p-4 bg-light" src={Bec} />
                                             <Card.Body className='px-3 text-center d-flex flex-column h-100'>
                                                 <Card.Title style={{ fontSize: '15px' }} className="mb-1 text-truncate"><strong>{item.name}</strong></Card.Title>
@@ -229,16 +240,16 @@ function Product() {
                             }
                             {products.data.length === 0 ?
                                 search !== null ?
-                                    <Col xs={12} lg={12} className=' mt-3'>
-                                        <div className="w-100 d-flex flex-column justify-content-center align-items-center bg-light rounded" style={{ width: '100%', height: '250px' }}>
-                                            <h5 className="mb-1 text-truncate">Không tìm thấy sản phẩm</h5>
+                                    <Col md={12} className=' mt-3'>
+                                        <div className="w-100 d-flex p-3 flex-column justify-content-center align-items-center bg-light rounded text-center" style={{ width: '100%', height: '250px' }}>
+                                            <h5 className="mb-1 text-center">Không tìm thấy sản phẩm</h5>
                                             <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts(1, limit, selectValue)} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
                                         </div>
                                     </Col> :
-                                    <Col xs={12} lg={12} className=' mt-3'>
-                                        <div className="w-100 d-flex flex-column justify-content-center align-items-center bg-light rounded" style={{ width: '100%', height: '250px' }}>
-                                            <h5 className="mb-1 text-truncate">Hiện chúng tôi Không còn sản phẩm nào loại này</h5>
-                                            <p style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts(1, limit, selectValue)} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
+                                    <Col md={12} className=' mt-3'>
+                                        <div className="w-100 d-flex p-3 flex-column justify-content-center align-items-center bg-light rounded text-center" style={{ width: '100%', height: '250px' }}>
+                                            <h5 className="mb-1 text-center">Hiện chúng tôi Không còn sản phẩm nào loại này</h5>
+                                            <p className='text-center' style={{ fontSize: '18px' }}>Vui lòng chọn các loại sản phẩm khác hoặc <span style={{ fontSize: '18px' }} onClick={() => getProducts(1, limit, selectValue)} className='cursor-p text-primary'>xem tất cả sản phẩm</span></p>
                                         </div>
                                     </Col> :
                                 <Col md={12} className="d-flex justify-content-center mt-3 mb-5">

@@ -27,10 +27,11 @@ export const productReducer = (state, action) => {
                 error: payload
             }
         case PRODUCT_DETAIL:
-            // console.log(PRODUCT_DETAIL)
+            console.log(PRODUCT_DETAIL, payload)
             return {
                 ...state,
                 loading: false,
+                loading2: false,
                 data: payload.data,
                 data2: payload.data2
             }
@@ -59,6 +60,7 @@ export const productReducer = (state, action) => {
         case PRODUCT_REFESH:
             return {
                 loading: true,
+                loading2: true,
                 data: [],
                 pagination: {},
                 error: null

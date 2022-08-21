@@ -10,11 +10,13 @@ export const ProductContext = createContext()
 const ProductContextProvider = ({ children }) => {
     const [products, productDispatch] = useReducer(productReducer, {
         loading: true,
+        loading2: true,
         data: [],
         pagination: {},
         error: null
     })
     const getProductsAll = async () => {
+        refeshProduct()
         try {
             const products = await axios.get(`${UrlApi}/api/products/all`)
             if (products.data.success) {
@@ -25,7 +27,9 @@ const ProductContextProvider = ({ children }) => {
         }
     }
     const getProducts = async (page, limit, sort) => {
+        refeshProduct()
         // console.log(`=> getProducts`, page,'|', limit,'|', sort)
+        // console.log('Get Products')
         try {
             const products = await axios.get(`${UrlApi}/api/products?page=${page}&limit=${limit}&sort=${sort}`)
             if (products.data.success) {
@@ -37,8 +41,11 @@ const ProductContextProvider = ({ children }) => {
     }
 
     const getProductDetail = async (productName) => {
+        refeshProduct()
+        // console.log('Get Products Detail', productName)
         try {
             const products = await axios.get(`${UrlApi}/api/products/detail?detail=${productName}`)
+            // console.log(`=> products Detail`, products.data)
             if (products.data.success) {
                 productDispatch({ type: PRODUCT_DETAIL, payload: products.data })
             }
@@ -48,6 +55,8 @@ const ProductContextProvider = ({ children }) => {
     }
 
     const handleCategory = async (category, page, limit, sort) => {
+        refeshProduct()
+        // console.log('Get Products Category')
         // console.log(`=> category, page, limit`, category, page, limit, sort)
         try {
             const products = await axios.get(`${UrlApi}/api/products/category?page=${page}&limit=${limit}&sort=${sort}&category=${category}`)
@@ -61,6 +70,7 @@ const ProductContextProvider = ({ children }) => {
     }
 
     const productSearch = async (searchText, page, limit, sort) => {
+        refeshProduct()
         // console.log('productSearch', page, "|", limit)
         try {
             const products = await axios.get(`${UrlApi}/api/products/search?page=${page}&limit=${limit}&sort=${sort}&searchtext=${searchText}`)
@@ -72,6 +82,7 @@ const ProductContextProvider = ({ children }) => {
         }
     }
     const refeshProduct = () => {
+        // console.log('refeshProduct')
         productDispatch({ type: PRODUCT_REFESH })
     }
     const ProductContextData = {

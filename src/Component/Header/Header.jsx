@@ -18,7 +18,7 @@ function Header() {
     const navigate = useNavigate()
 
     const { cart, getCart } = useContext(CartContext)
-    const { productSearch } = useContext(ProductContext)
+    const { refeshProduct } = useContext(ProductContext)
     // const [href, setHref] = useState('#')
     const [inputText, SetInputText] = useState('')
     const [selectValue, setSelectValue] = useState(0)
@@ -77,7 +77,7 @@ function Header() {
                                     </Nav>
                                     <Nav className="me-auto justify-content-end flex-grow-1 pe-3 h-100 text-center" style={{ backgroundColor: 'transparent' }}>
                                         <Nav.Link className='text-dark' onClick={() => handleShow()} style={{ zIndex: '10' }} eventKey="1"><FontAwesomeIcon icon={faSearch} /></Nav.Link>
-                                        <Nav.Link as={Link} to='/cart' className='text-dark position-relative' eventKey="1"><FontAwesomeIcon icon={faShoppingCart} />
+                                        <Nav.Link as={Link} to='/cart' onClick={() => refeshProduct()} className='text-dark position-relative' eventKey="1"><FontAwesomeIcon icon={faShoppingCart} />
                                             <div className='position-absolute badge-custom d-none d-lg-flex' >
                                                 <span style={cart.data.length === 0 ? { display: 'none' } : { display: 'flex' }}>{cart.data.length}</span>
                                             </div>
@@ -105,12 +105,12 @@ function Header() {
                                 <Form onSubmit={e => { e.preventDefault() }}>
                                     <Form.Group className="d-flex ">
                                         {/* <Form.Label>Search</Form.Label> */}
-                                        <Form.Control as="select" className='w-20' id='SelectSearch' onChange={(e) => setSelectValue(e.target.value)}>
+                                        <Form.Control as="select" className='searchSelect' id='SelectSearch' onChange={(e) => setSelectValue(e.target.value)}>
                                             <option value="0">Sản Phẩm</option>
                                             <option value="1">Blog</option>
                                             <option value="2">Service</option>
                                         </Form.Control>
-                                        <Form.Control type="text" placeholder="Search..." className='w-70' id='searchInput' onChange={(e) => SetInputText(e.target.value)} onkeypress="return event.keyCode != 13;" />
+                                        <Form.Control type="text" placeholder="Search..." className='searchText' id='searchInput' onChange={(e) => SetInputText(e.target.value)} onkeypress="return event.keyCode != 13;" />
                                     </Form.Group>
                                     <small className='text-danger' id='waringSearch'></small>
                                 </Form>

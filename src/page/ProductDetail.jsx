@@ -20,8 +20,7 @@ import { ProductContext } from '../Contexts/ProductContext';
 import { CartContext } from '../Contexts/CartContext'
 
 function ProductDetail() {
-    const { products, getProductDetail } = useContext(ProductContext)
-    console.log(`=> products asdasd`, products)
+    const { products, getProductDetail, refeshProduct } = useContext(ProductContext)
     const { productname } = useParams()
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const { addToCart, getCart } = useContext(CartContext)
@@ -38,14 +37,15 @@ function ProductDetail() {
         getCart()
     }, []);
 
-    if (products.loading) {
+    if (products.loading || products.loading2) {
         return <Loading />
     }
+
     return (
         <Container>
             <Row>
                 <Col md={12} className='mt-4'>
-                    <span><Link to='/'>Shop</Link> / <Link to='/products'>Products /</Link> <strong>{products.data[0].name}</strong></span>
+                    <span><Link to='/' onClick={() => refeshProduct()}>Shop</Link> / <Link to='/products' onClick={() => refeshProduct()}>Products /</Link> <strong>{products.data[0].name}</strong></span>
                 </Col>
                 <Col md={6} className='mt-3'>
                     <Swiper
@@ -113,7 +113,7 @@ function ProductDetail() {
                         {
                             products.data2.map((item, index) => index < 6 &&
                                 <Col xs={6} md={4} lg={2} key={'product' + item.name} >
-                                    <Card as={Link} to={'/product/' + convertViToEn(item.name)} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
+                                    <Card onClick={() => refeshProduct()} as={Link} to={'/product/' + convertViToEn(item.name)} style={{ width: '100%', border: 'none' }} className='hover-sh cursor-p mt-3'>
                                         <Card.Img variant="top" className="p-4 bg-light" src={Bec} />
                                         <Card.Body className='p-2 text-center'>
                                             <Card.Title style={{ fontSize: '15px' }} className="mb-1"><strong>{item.name}</strong></Card.Title>

@@ -284,6 +284,14 @@ a>h5 {
     right: 0px;
 }
 
+.FaceBook {
+    height: 120px !important;
+}
+
+.searchSelect {
+    width: 30% !important;
+}
+
 /* Responsive */
 /* // Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
@@ -334,6 +342,12 @@ a>h5 {
         height: 200px !important;
     }
 
+    .nav-link {
+        margin-top: 1rem;
+    }
+    .searchSelect {
+        width: 60% !important;
+    }
 
 }
 

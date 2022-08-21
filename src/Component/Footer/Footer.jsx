@@ -17,19 +17,19 @@ function Footer() {
                     <></> :
                     <Container bg='light' className='mt-5 pb-4 cursor-d'>
                         <Row>
-                            <Col md={12} className='pt-3 pb-3 border-bottom'>
+                            <Col md={12} className='pt-3 pb-3 border-bottom d-none d-md-block'>
                                 <img src={logoFooter} alt="Footer" width='170px' />
                             </Col>
                         </Row>
                         <Row className=''>
-                            <Col md={6} className="d-flex flex-column mt-3">
+                            <Col xs={8} sm={7} className="d-flex flex-column mt-3">
                                 <h5><strong>Thông tin</strong></h5>
                                 <span><FontAwesomeIcon icon={faEnvelope} /> Email: ABC@gmail.com</span>
                                 <span><FontAwesomeIcon icon={faPhone} /> Phone: 0123456789</span>
                                 <span><FontAwesomeIcon icon={faPhone} /> Zalo: 0123456789</span>
                                 <span><FontAwesomeIcon icon={faLocationArrow} /> Địa chỉ: 1 abc, abc, abc, HCM</span>
                             </Col>
-                            <Col md={3} className="d-flex flex-column mt-3 cursor-p">
+                            <Col xs={4} sm={5} className="d-flex flex-column mt-3 cursor-p">
                                 <h5><strong>Quick Link</strong></h5>
                                 <span><Link to="/">Home</Link></span>
                                 <span><Link to="/products">Products</Link></span>
@@ -38,9 +38,9 @@ function Footer() {
                                 {/* <span as={Link} to='/'>About</span> */}
                                 <span><Link to="/contact">Contact</Link></span>
                             </Col>
-                            <Col md={3} className="d-flex flex-column mt-3">
+                            <Col sm={12} md={4} className="d-flex flex-column mt-3">
                                 <h5><strong>FanFage</strong></h5>
-                                <div className='bg-primary w-100 h-100 d-flex justify-content-center align-items-center text-white'>
+                                <div className='FaceBook bg-primary w-100 d-flex justify-content-center align-items-center text-white'>
                                     FaceBook
                                 </div>
                             </Col>

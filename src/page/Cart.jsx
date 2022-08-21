@@ -10,7 +10,7 @@ import { ProductContext } from '../Contexts/ProductContext';
 
 
 function Cart() {
-    const { products, getProducts, getProductsAll } = useContext(ProductContext)
+    const { products, getProductsAll } = useContext(ProductContext)
     const { cart, getCart, removeCartItem, handleCount } = useContext(CartContext)
 
     useEffect(() => {
@@ -20,7 +20,7 @@ function Cart() {
     }, []);
 
 
-    if (products.loading && cart.loading) {
+    if (products.loading || cart.loading) {
         return <Loading />
     }
     // console.log(filterCart(cart, products))

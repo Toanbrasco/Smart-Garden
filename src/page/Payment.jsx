@@ -12,7 +12,6 @@ import { OrderContext } from '../Contexts/OrderContext';
 function Payment() {
     const { products, getProductsAll } = useContext(ProductContext)
     const { cart, getCart } = useContext(CartContext)
-    console.log(`=> cart`, cart)
     const { order, addOrder } = useContext(OrderContext)
     const [show, setShow] = useState(false)
     const [show2, setShow2] = useState(false)
@@ -27,7 +26,6 @@ function Payment() {
         payment: '',
     })
     
-    console.log(`=> orderForm`, orderForm)
     const handleOrderForm = event => setOrderForm({ ...orderForm, [event.target.name]: event.target.value })
 
     const handleSubmitPayment = () => {
@@ -79,9 +77,6 @@ function Payment() {
         getProductsAll()
         getCart()
     }, []);
-
-    // const cartArr = [1, 2, 3, 4]
-    const Check = false
 
     if (products.loading) {
         return <Loading />
