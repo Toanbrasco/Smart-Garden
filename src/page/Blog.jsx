@@ -7,12 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PostContext } from '../Contexts/PostContext'
 import Loading from '../Component/Loading/Loading'
 
-import { images, makeNumArr } from '../Constants'
+import { images, makeNumArr, convertViToEn } from '../Constants'
 
 
 function Blog() {
     const { posts, getBlog, blogSearch } = useContext(PostContext)
-    console.log(`=> posts`, posts)
+    // console.log(`=> posts`, posts)
     const { totalPage } = posts.pagination
 
     const limit = 6
@@ -69,7 +69,7 @@ function Blog() {
 
     }, [page, search])
 
-    if (posts.loadingBlog) {
+    if (posts.loadingBlog && posts.pagination === undefined) {
         return <Loading />
     }
     return (
@@ -83,7 +83,7 @@ function Blog() {
                 {
                     posts.dataBlog.map((item, index) =>
                         <Col key={index} sm={6} lg={4} className='mt-3'>
-                            <Link to='/'>
+                            <Link to={`/blog/${convertViToEn(item.title)}`}>
                                 <Card style={{ width: '100%', border: 'none' }} className=" h-100 cursor-p d-flex flex-column" >
                                     <Card.Img variant="top" src={images[0]} className='shadow-sm' style={{ width: '100%', border: 'none' }} />
                                     <Card.Body className="px-0">

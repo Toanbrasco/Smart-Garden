@@ -12,7 +12,7 @@ export const convertViToEn = (str, toUpperCase = false) => {
     str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
     str = str.replace(/\s/g, '-'); // Â, Ê, Ă, Ơ, Ư
     // console.log(str)
-    return str.substring(1)
+    return str
 }
 
 export const numberFormat = (value) =>
@@ -136,7 +136,8 @@ export const filterCart = (carts, product) => {
 }
 export const makeNumArr = num => new Array(num).fill("").map((_, i) => i + 1);
 
-export const UrlApi = 'http://localhost:5000'//'https://smartgarden-server-test.herokuapp.com' 
+export const UrlApi = 'https://smartgarden-server-test.herokuapp.com'
+// 'http://localhost:5000'
 
 
 export const SESSION_STORAGE_TOKEN_NAME = 'smart-garden'

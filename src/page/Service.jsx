@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PostContext } from '../Contexts/PostContext'
 import Loading from '../Component/Loading/Loading'
 
-import { images, makeNumArr } from '../Constants'
+import { images, makeNumArr, convertViToEn } from '../Constants'
 
 function Service() {
     const { posts, getService, serviceSearch } = useContext(PostContext)
@@ -80,20 +80,22 @@ function Service() {
             </Row>
             {
                 posts.dataService.map((item, index) =>
-                    <Row key={index} className='mt-5'>
-                        <Col xs={6} lg={6}>
-                            <img src={images[3]} alt="Img" className='w-100 h-100 ' />
-                        </Col>
-                        <Col xs={6} lg={6}>
-                            <Card style={{ width: '100%', border: 'none' }} className="cursor-p h-100">
-                                <Card.Body className='p-0 h-100 d-flex flex-column'>
-                                    <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
-                                    <Card.Text className="text-truncate text-truncate--2" >{item.desc}</Card.Text>
-                                    <Card.Link href="#" className='text-right text-dark mt-auto'>Xem chi tiết</Card.Link>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
+                    <Link to={`/service/${convertViToEn(item.title)}`}>
+                        <Row key={index} className='mt-5'>
+                            <Col xs={6} lg={6}>
+                                <img src={images[3]} alt="Img" className='w-100 h-100 ' />
+                            </Col>
+                            <Col xs={6} lg={6}>
+                                <Card style={{ width: '100%', border: 'none' }} className="cursor-p h-100">
+                                    <Card.Body className='p-0 h-100 d-flex flex-column'>
+                                        <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
+                                        <Card.Text className="text-truncate text-truncate--2" >{item.desc}</Card.Text>
+                                        <Card.Link href="#" className='text-right text-dark mt-auto'>Xem chi tiết</Card.Link>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Link>
                 )
             }
             <Row>

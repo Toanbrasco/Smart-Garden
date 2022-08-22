@@ -14,6 +14,7 @@ import Contact from './page/Contact.jsx'
 import Cart from './page/Cart.jsx'
 import Payment from './page/Payment.jsx'
 import Error from './page/Error.jsx'
+import News from './page/Post.jsx'
 
 import Admin from './page/Admin/Admin.jsx'
 import Dashboard from './page/Admin/Dashboard.jsx';
@@ -25,6 +26,7 @@ import Post from './page/Admin/Post.jsx';
 import AdProduct from './page/Admin/AdProduct';
 import Login from './page/Admin/Login.jsx'
 import EditProduct from './page/Admin/EditProduct';
+import PostEdit from './page/Admin/PostEdit';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -51,7 +53,9 @@ function App() {
                                     <Route path="products" element={<Products />} />
                                     <Route path="product/:productname" element={<ProductDetail />} />
                                     <Route path="blog" element={<Blog />} />
+                                    <Route path="blog/:postName" element={<News />} />
                                     <Route path="service" element={<Service />} />
+                                    <Route path="service/:postName" element={<News />} />
                                     <Route path="contact" element={<Contact />} />
                                     <Route path="cart" element={<Cart />} />
                                     <Route path="payment" element={<Payment />} />
@@ -65,6 +69,8 @@ function App() {
                                         <Route path="order" element={<Order />} />
                                         <Route path="config" element={<Config />} />
                                         <Route path="post" element={<Post />} />
+                                        <Route path="post/blog/:blogName" element={<PostEdit />} />
+                                        <Route path="post/service/:serviceName" element={<PostEdit />} />
                                         <Route path="edit-product/:productname" element={<EditProduct />} />
                                     </Route>
                                     <Route path="*" element={<Error />} />

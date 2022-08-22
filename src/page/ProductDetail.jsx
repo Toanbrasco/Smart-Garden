@@ -45,7 +45,7 @@ function ProductDetail() {
         <Container>
             <Row>
                 <Col md={12} className='mt-4'>
-                    <span><Link to='/' onClick={() => refeshProduct()}>Shop</Link> / <Link to='/products' onClick={() => refeshProduct()}>Products /</Link> <strong>{products.data[0].name}</strong></span>
+                    <span><Link to='/'>Shop</Link> / <Link to='/products'>Products /</Link> <strong>{products.data[0].name}</strong></span>
                 </Col>
                 <Col md={6} className='mt-3'>
                     <Swiper

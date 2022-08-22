@@ -103,7 +103,6 @@ function EditProduct() {
                         </div>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        {/* <Form.Label>Public</Form.Label> */}
                         <Form.Check
                             type='checkbox'
                             id={`default-checkbox`}
