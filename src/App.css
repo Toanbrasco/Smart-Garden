@@ -292,6 +292,25 @@ a>h5 {
     width: 30% !important;
 }
 
+ul>a:hover {
+    text-decoration: none;
+}
+
+ul>a>li:hover, a>h6:hover {
+    color: gray;
+}
+
+ul>a>li {
+    color: black;
+}
+
+.text-truncate.text-truncate--2 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
 /* Responsive */
 /* // Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
@@ -345,6 +364,7 @@ a>h5 {
     .nav-link {
         margin-top: 1rem;
     }
+
     .searchSelect {
         width: 60% !important;
     }

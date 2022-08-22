@@ -28,9 +28,8 @@ function Cart() {
         <Container>
             <Row>
                 <Col md={12} className='mt-4 mb-3 cursor-p'>
-                    <span><Link to='/'>Shop</Link> / Cart </span>
+                    <span><Link to='/'>Shop</Link> / <strong>Cart</strong></span>
                 </Col>
-
             </Row>
 
             <Row className='border-bottom' style={cart.data.length !== 0 ? { display: 'block' } : { display: 'none' }}>

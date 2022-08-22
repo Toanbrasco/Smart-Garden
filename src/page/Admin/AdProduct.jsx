@@ -9,7 +9,7 @@ import Loading from '../../Component/Loading/Loading'
 
 function AdProduct() {
     const { products, getProducts, handleCategory, productSearch } = useContext(ProductContext)
-    console.log(`=> products`, products)
+    // console.log(`=> products`, products)
     const [limit, setLimit] = useState(10)
     const { totalPage } = products.pagination
 

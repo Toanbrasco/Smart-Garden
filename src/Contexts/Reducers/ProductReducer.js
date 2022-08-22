@@ -27,7 +27,7 @@ export const productReducer = (state, action) => {
                 error: payload
             }
         case PRODUCT_DETAIL:
-            console.log(PRODUCT_DETAIL, payload)
+            // console.log(PRODUCT_DETAIL, payload)
             return {
                 ...state,
                 loading: false,

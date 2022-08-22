@@ -5,7 +5,7 @@ import Banner from '../../assets/images/Banner.png'
 
 function Config() {
     const [contentInput, setContentInput] = useState('Chuyên cung cấp và thi công về thiết bị tưới tự động')
-    
+
     return (
         <Container fluid bg="light">
             <Row className='mt-3'>
@@ -32,7 +32,7 @@ function Config() {
                                         <Form.Group className="mb-2" controlId="formBasicEmail">
                                             {
                                                 item.list.map((items, index) =>
-                                                    <Form.Control size="sm" className='mb-1' key={index} type="text" value={items} />
+                                                    <Form.Control size="sm" className='mb-1' key={index} type="text" defaultValue={items} />
                                                 )
                                             }
                                         </Form.Group>

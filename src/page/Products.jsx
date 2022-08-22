@@ -30,9 +30,8 @@ function Product() {
     const [pagingActive, setPagingActive] = useState(1)
     const [itemCenter, SetitemCenter] = useState(1)
     const [searchParams, setSearchParams] = useSearchParams()
-    const page = searchParams.get('page') || ''
     const category = searchParams.get('category')
-    console.log(`=> category`, category)
+    const page = searchParams.get('page') || ''
     const search = searchParams.get('search')
 
     const [selectValue, setSelectValue] = useState(0)
@@ -95,33 +94,7 @@ function Product() {
     }
 
     useEffect(() => {
-        if (category !== null) {
-            handleCategory(category, page || 1, limit, parseInt(selectValue))
-        } else {
-            if (search !== null) {
-                productSearch(search, page || 1, limit, parseInt(selectValue))
-            } else {
-                getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
-            }
-        }
-    }, [selectValue])
-
-    useEffect(() => {
         document.title = "Products"
-        if (search !== null) {
-            productSearch(search, page || 1, limit, parseInt(selectValue))
-        } else {
-            getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
-        }
-    }, []);
-
-    useEffect(() => {
-        if (search !== null) {
-            productSearch(search, page || 1, limit, parseInt(selectValue))
-        }
-    }, [search])
-
-    useEffect(() => {
         setPagingActive(parseInt(page) || 1)
         SetitemCenter(parseInt(page) || 1)
         if (category !== null) {
@@ -133,7 +106,35 @@ function Product() {
                 getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
             }
         }
-    }, [page])
+    }, [selectValue, page, search])
+
+    // useEffect(() => {
+        // if (search !== null) {
+        //     productSearch(search, page || 1, limit, parseInt(selectValue))
+        // } else {
+        //     getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
+        // }
+    // }, []);
+
+    // useEffect(() => {
+    //     if (search !== null) {
+    //         productSearch(search, page || 1, limit, parseInt(selectValue))
+    //     }
+    // }, [search])
+
+    // useEffect(() => {
+    //     setPagingActive(parseInt(page) || 1)
+    //     SetitemCenter(parseInt(page) || 1)
+    //     if (category !== null) {
+    //         handleCategory(category, page || 1, limit, parseInt(selectValue))
+    //     } else {
+    //         if (search !== null) {
+    //             productSearch(search, page || 1, limit, parseInt(selectValue))
+    //         } else {
+    //             getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
+    //         }
+    //     }
+    // }, [page])
 
     if (products.loading) {
         return <Loading />
@@ -154,8 +155,8 @@ function Product() {
                                         <ul className='mb-2'>
                                             {
                                                 item.list.map((items, index) =>
-                                                    <Link to={`/products?category=${items}&page=1`}>
-                                                        <li key={index} className={category === items ? 'text-primary font-weight-bold' : 'text-dark'} onClick={() => handleCategoryProduct(items)}>{items}</li>
+                                                    <Link key={index} to={`/products?category=${items}&page=1`}>
+                                                        <li className={category === items ? 'text-primary font-weight-bold' : ''} onClick={() => handleCategoryProduct(items)}>{items}</li>
                                                     </Link>
                                                 )
                                             }
@@ -183,8 +184,8 @@ function Product() {
                                                     <ul className='mb-2'>
                                                         {
                                                             item.list.map((items, index) =>
-                                                                <Link to={`/products?category=${items}&page=1`}>
-                                                                    <li key={index} className={category === items ? 'text-primary font-weight-bold' : 'text-dark'} onClick={() => handleCategoryProduct(items)}>{items}</li>
+                                                                <Link key={index} to={`/products?category=${items}&page=1`}>
+                                                                    <li className={category === items ? 'text-primary font-weight-bold' : ''} onClick={() => handleCategoryProduct(items)}>{items}</li>
                                                                 </Link>
                                                             )
                                                         }

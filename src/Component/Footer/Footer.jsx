@@ -22,14 +22,14 @@ function Footer() {
                             </Col>
                         </Row>
                         <Row className=''>
-                            <Col xs={8} sm={7} className="d-flex flex-column mt-3">
+                            <Col xs={8} sm={7} md={5} className="d-flex flex-column mt-3">
                                 <h5><strong>Thông tin</strong></h5>
                                 <span><FontAwesomeIcon icon={faEnvelope} /> Email: ABC@gmail.com</span>
                                 <span><FontAwesomeIcon icon={faPhone} /> Phone: 0123456789</span>
                                 <span><FontAwesomeIcon icon={faPhone} /> Zalo: 0123456789</span>
                                 <span><FontAwesomeIcon icon={faLocationArrow} /> Địa chỉ: 1 abc, abc, abc, HCM</span>
                             </Col>
-                            <Col xs={4} sm={5} className="d-flex flex-column mt-3 cursor-p">
+                            <Col xs={4} sm={5} md={3} className="d-flex flex-column mt-3 cursor-p">
                                 <h5><strong>Quick Link</strong></h5>
                                 <span><Link to="/">Home</Link></span>
                                 <span><Link to="/products">Products</Link></span>

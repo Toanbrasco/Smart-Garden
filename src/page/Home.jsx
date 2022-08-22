@@ -5,22 +5,24 @@ import Banner from '../assets/images/Banner.png'
 import Bec from '../assets/images/BEC-TR.png'
 import ONG from '../assets/images/ThungOng.png'
 import '../style/Home.css'
-import Products from '../assets/Data/test.json'
-import { convertViToEn, numberFormat } from '../Constants.js'
-import { ProductContext } from '../Contexts/ProductContext'
 import Loading from '../Component/Loading/Loading'
+import { convertViToEn, numberFormat } from '../Constants.js'
+
+import { ProductContext } from '../Contexts/ProductContext'
+import { PostContext } from '../Contexts/PostContext'
 
 function Home() {
-    const numRandom = Math.floor(Math.random() * 57)
     // const products = [...Products]
-    const { products, getProducts, refeshProduct } = useContext(ProductContext)
+    const { products, getProductsHome } = useContext(ProductContext)
+    const { posts, getBlog } = useContext(PostContext)
 
     useEffect(() => {
         document.title = "Smart Garden"
-        getProducts(numRandom, 4, 0)
+        getProductsHome()
+        getBlog(1, 3)
     }, []);
 
-    if (products.loading) {
+    if (products.loading || posts.loadingBlog) {
         return <Loading />
     }
     return (
@@ -99,20 +101,18 @@ function Home() {
                         <h5 className='cursor-d'><strong>Blog</strong></h5>
                         <span className='cursor-p'><Link to='/Blog'>All</Link></span>
                     </Col>
-                    {[1, 2, 3].map((item) =>
-                        <Col md={4} key={item} className='mt-3'>
-                            <Card style={{ width: '100%', border: 'none' }} className="cursor-p" >
-                                <Card.Img variant="top" src={Bec} className='shadow-sm p-4' />
-                                <Card.Body className='px-0'>
-                                    <Card.Title><strong>Card Title</strong></Card.Title>
-                                    <Card.Text>Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.
-                                    </Card.Text>
-                                    {/* <Card.Link href="#" className='float-right text-dark'>Xem chi tiết</Card.Link> */}
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    )}
+                    {
+                        posts.dataBlog.map((item) =>
+                            <Col md={4} key={item} className='mt-3'>
+                                <Card style={{ width: '100%', border: 'none' }} className="cursor-p" >
+                                    <Card.Img variant="top" src={Bec} className='shadow-sm p-4' />
+                                    <Card.Body className='px-0'>
+                                        <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
+                                        <Card.Text className="text-truncate text-truncate--2" >{item.desc}</Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )}
 
                 </Row>
             </Container>

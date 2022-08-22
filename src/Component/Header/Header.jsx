@@ -31,17 +31,17 @@ function Header() {
                 case 0:
                     navigate(`/products?search=${inputText}`)
                     setShow(false)
-                    console.log('case_0')
+                    // console.log('case_0')
                     break;
                 case 1:
                     navigate(`/blog?search=${inputText}`)
                     setShow(false)
-                    console.log('case_1')
+                    // console.log('case_1')
                     break;
                 case 2:
                     navigate(`/service?search=${inputText}`)
                     setShow(false)
-                    console.log('case_2')
+                    // console.log('case_2')
                     break;
 
                 default:

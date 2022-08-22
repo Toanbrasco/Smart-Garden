@@ -111,7 +111,7 @@ function User() {
         <Container fluid>
             <Row className='mt-3'>
                 <Col md={12} className='d-flex justify-content-between align-items-center' >
-                    <h1>Product</h1>
+                    <h1>User</h1>
                     <Button onClick={() => setShowForm(!showForm)}>+</Button>
                 </Col>
             </Row>

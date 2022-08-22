@@ -39,6 +39,18 @@ const ProductContextProvider = ({ children }) => {
             productDispatch({ type: PRODUCT_LOADED_FAIL })
         }
     }
+    const getProductsHome = async () => {
+        refeshProduct()
+        const random = 4
+        try {
+            const products = await axios.get(`${UrlApi}/api/products/random?random=${random}`)
+            if (products.data.success) {
+                productDispatch({ type: PRODUCT_LOADED_SUCCESS, payload: products.data })
+            }
+        } catch (error) {
+            productDispatch({ type: PRODUCT_LOADED_FAIL })
+        }
+    }
 
     const getProductDetail = async (productName) => {
         refeshProduct()
@@ -92,6 +104,7 @@ const ProductContextProvider = ({ children }) => {
         handleCategory,
         productSearch,
         getProductsAll,
+        getProductsHome,
         refeshProduct,
         productDispatch
     }
