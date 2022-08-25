@@ -49,7 +49,7 @@ const PostContextProvider = ({ children }) => {
         refeshPost()
         try {
             const response = await axios.get(`${UrlApi}/api/posts/blog/detail?detail=${blogName}`)
-            console.log(`=> response Detail`, response.data)
+            // console.log(`=> response Detail`, response.data)
             if (response.data.success) {
                 postDispatch({ type: BLOG_DETAIL, payload: response.data })
             } else {
@@ -89,6 +89,7 @@ const PostContextProvider = ({ children }) => {
             postDispatch({ type: POST_GET_FAIL })
         }
     }
+
     const serviceSearch = async (searchText, page, limit) => {
         refeshPost()
         try {
@@ -103,6 +104,8 @@ const PostContextProvider = ({ children }) => {
             postDispatch({ type: POST_GET_FAIL })
         }
     }
+
+    
     const refeshPost = () => {
         console.log('refeshPost')
         postDispatch({ type: POST_REFESH })

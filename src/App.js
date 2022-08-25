@@ -27,6 +27,8 @@ import AdProduct from './page/Admin/AdProduct';
 import Login from './page/Admin/Login.jsx'
 import EditProduct from './page/Admin/EditProduct';
 import PostEdit from './page/Admin/PostEdit';
+import QrCode from './page/Admin/QrCode';
+import UploadPost from './page/Admin/UploadPost'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -36,6 +38,7 @@ import CartContextProvider from './Contexts/CartContext'
 import UserartContextProvider from './Contexts/UserContext'
 import OrderContextProvider from './Contexts/OrderContext';
 import PostContextProvider from './Contexts/PostContext';
+import ImageContextProvider from './Contexts/ImageContext';
 
 function App() {
     // const PageArr = ['Products', 'ProductDetail', 'Blog', 'Service', 'Contact', 'Cart']
@@ -46,36 +49,41 @@ function App() {
                     <UserartContextProvider>
                         <OrderContextProvider>
                             <PostContextProvider>
-                                <Header></Header>
-                                <Routes>
-                                    <Route exact path="/" element={<Home />} >
-                                    </Route>
-                                    <Route path="products" element={<Products />} />
-                                    <Route path="product/:productname" element={<ProductDetail />} />
-                                    <Route path="blog" element={<Blog />} />
-                                    <Route path="blog/:postName" element={<News />} />
-                                    <Route path="service" element={<Service />} />
-                                    <Route path="service/:postName" element={<News />} />
-                                    <Route path="contact" element={<Contact />} />
-                                    <Route path="cart" element={<Cart />} />
-                                    <Route path="payment" element={<Payment />} />
-                                    <Route path="post" element={<Post />} />
-                                    <Route path="login" element={<Login />} />
-                                    <Route path="/admin" element={<Admin />} >
-                                        <Route index element={<Dashboard />} />
-                                        <Route path="products" element={<AdProduct />} />
-                                        <Route path="product-upload" element={<UploadProduct />} />
-                                        <Route path="user" element={<User />} />
-                                        <Route path="order" element={<Order />} />
-                                        <Route path="config" element={<Config />} />
+                                <ImageContextProvider>
+                                    <Header></Header>
+                                    <Routes>
+                                        <Route exact path="/" element={<Home />} >
+                                        </Route>
+                                        <Route path="products" element={<Products />} />
+                                        <Route path="product/:productname" element={<ProductDetail />} />
+                                        <Route path="blog" element={<Blog />} />
+                                        <Route path="blog/:postName" element={<News />} />
+                                        <Route path="service" element={<Service />} />
+                                        <Route path="service/:postName" element={<News />} />
+                                        <Route path="contact" element={<Contact />} />
+                                        <Route path="cart" element={<Cart />} />
+                                        <Route path="payment" element={<Payment />} />
                                         <Route path="post" element={<Post />} />
-                                        <Route path="post/blog/:blogName" element={<PostEdit />} />
-                                        <Route path="post/service/:serviceName" element={<PostEdit />} />
-                                        <Route path="edit-product/:productname" element={<EditProduct />} />
-                                    </Route>
-                                    <Route path="*" element={<Error />} />
-                                </Routes>
-                                <Footer></Footer>
+                                        <Route path="login" element={<Login />} />
+                                        <Route path="/admin" element={<Admin />} >
+                                            <Route index element={<Dashboard />} />
+                                            <Route path="products" element={<AdProduct />} />
+                                            <Route path="product-upload" element={<UploadProduct />} />
+                                            <Route path="user" element={<User />} />
+                                            <Route path="order" element={<Order />} />
+                                            <Route path="config" element={<Config />} />
+                                            <Route path="post" element={<Post />} />
+                                            <Route path="post/blog/:blogName" element={<PostEdit />} />
+                                            <Route path="post/blog/upload" element={<UploadPost />} />
+                                            <Route path="post/service/:serviceName" element={<PostEdit />} />
+                                            <Route path="post/service/upload" element={<UploadPost />} />
+                                            <Route path="edit-product/:productname" element={<EditProduct />} />
+                                            <Route path="qrcode" element={<QrCode />} />
+                                        </Route>
+                                        <Route path="*" element={<Error />} />
+                                    </Routes>
+                                    <Footer></Footer>
+                                </ImageContextProvider >
                             </PostContextProvider>
                         </OrderContextProvider>
                     </UserartContextProvider>

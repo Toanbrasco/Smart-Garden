@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap'
 import Logo from '../../assets/images/Logo.png'
 import { personImage } from '../../Constants'
 
-import { faBars, faBox, faChevronLeft, faChevronRight, faClipboardCheck, faGauge, faNewspaper, faUser, faWrench, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBox, faChevronLeft, faChevronRight, faClipboardCheck, faGauge, faNewspaper, faUser, faWrench, faArrowRightFromBracket,faQrcode } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Link, Navigate, Outlet } from "react-router-dom"
@@ -27,7 +27,8 @@ function Admin() {
         { name: 'Post', icon: faNewspaper, component: 2, path: ['post', 'blog-upload', 'services-upload'] },
         { name: 'Config', icon: faWrench, component: 1, path: 'config' },
         { name: 'Order', icon: faClipboardCheck, component: 1, path: 'order' },
-        { name: 'User', icon: faUser, component: 1, path: 'user' }
+        { name: 'User', icon: faUser, component: 1, path: 'user' },
+        { name: 'QRCode', icon: faQrcode, component: 1, path: 'qrcode' }
     ]
     const handleNav = () => {
         switch (navSize) {

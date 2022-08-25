@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, DELETE_PRODUCT, PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SEARCH, PRODUCT_LOADED_ALL, PRODUCT_REFESH } from './type'
+import { ADD_PRODUCT, DELETE_PRODUCT, PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_SEARCH, PRODUCT_LOADED_ALL, PRODUCT_REFESH, ADD_PRODUCT_FAIL } from './type'
 import { convertViToEn } from '../../Constants'
 
 export const productReducer = (state, action) => {
@@ -52,7 +52,10 @@ export const productReducer = (state, action) => {
             }
 
         case ADD_PRODUCT:
-            return [...state, payload.product]
+            return {
+                ...state,
+                message: payload.message
+            }
 
         case DELETE_PRODUCT:
             return state.filter(product => product.id !== payload.id)

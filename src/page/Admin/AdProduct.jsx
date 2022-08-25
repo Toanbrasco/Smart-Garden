@@ -19,7 +19,6 @@ function AdProduct() {
     const [selectValue, setSelectValue] = useState(0)
 
     const [Sort, setSort] = useState(0)
-    console.log(`=> Sort`, Sort)
 
     const page = searchParams.get('page') || ''
     const category = searchParams.get('category')
@@ -204,7 +203,7 @@ function AdProduct() {
                         <span>sản phẩm</span>
                     </div>
                     <div className='d-flex justify-content-center align-items-center'>
-                        <Form.Group className="mr-3" controlId="formBasicEmail">
+                        <Form.Group className="mr-3">
                             <Form.Control type="text" placeholder="Search..." onChange={(e) => setSearchText(e.target.value)} id='searchInput' />
                         </Form.Group>
                         <Button onClick={() => handleSearch()}><FontAwesomeIcon icon={faMagnifyingGlass} /></Button>

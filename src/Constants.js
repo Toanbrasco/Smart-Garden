@@ -18,9 +18,16 @@ export const convertViToEn = (str, toUpperCase = false) => {
 export const numberFormat = (value) =>
     new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(value);
 
-export const DayFormat = (date) => {
+export const DayFormat = (date, type) => {
     const value = new Date(date);
-    return `${value.toLocaleDateString("vi-VN")} | ${value.toLocaleTimeString("vi-VN")}`
+    switch (type) {
+        case "DATE":
+            return `${value.toLocaleDateString("vi-VN")}`
+        case "TIME":
+            return ` ${value.toLocaleTimeString("vi-VN")}`
+        default:
+            return `${value.toLocaleDateString("vi-VN")} | ${value.toLocaleTimeString("vi-VN")}`
+    }
 }
 // value.toLocaleString('en-GB', { year: 'numeric', day: 'numeric', month: 'numeric', hour12: false }).replace('T', " | ").slice(0, -5)
 
@@ -136,8 +143,8 @@ export const filterCart = (carts, product) => {
 }
 export const makeNumArr = num => new Array(num).fill("").map((_, i) => i + 1);
 
-export const UrlApi = 'https://smartgarden-server-test.herokuapp.com'
-// 'http://localhost:5000'
+export const UrlApi = 'http://localhost:5000'
+// 'https://smartgarden-server-test.herokuapp.com'
 
 
 export const SESSION_STORAGE_TOKEN_NAME = 'smart-garden'

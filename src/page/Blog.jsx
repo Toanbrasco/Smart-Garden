@@ -4,6 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { PostContext } from '../Contexts/PostContext'
 import Loading from '../Component/Loading/Loading'
 
@@ -69,7 +70,7 @@ function Blog() {
 
     }, [page, search])
 
-    if (posts.loadingBlog && posts.pagination === undefined) {
+    if (posts.loadingBlog) {
         return <Loading />
     }
     return (
@@ -88,7 +89,7 @@ function Blog() {
                                     <Card.Img variant="top" src={images[0]} className='shadow-sm' style={{ width: '100%', border: 'none' }} />
                                     <Card.Body className="px-0">
                                         <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
-                                        <Card.Text className="text-truncate text-truncate--2" >{item.desc}</Card.Text>
+                                        <Card.Text className="text-truncate text-truncate--3 text-justify" >{item.desc}</Card.Text>
                                     </Card.Body>
                                     <div className="mt-auto d-flex justify-content-end">
                                         <Card.Link className='text-dark'>Xem chi tiết</Card.Link>

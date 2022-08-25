@@ -1,9 +1,13 @@
 import React, { useEffect, useContext } from 'react'
 // import { Link } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap'
-import parse from 'html-react-parser';
-import { PostContext } from '../Contexts/PostContext'
 import { Link, useLocation, useParams } from 'react-router-dom'
+import { Container, Row, Col } from 'react-bootstrap'
+import { PostContext } from '../Contexts/PostContext'
+import parse from 'html-react-parser';
+
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import Loading from '../Component/Loading/Loading';
 import { DayFormat } from '../Constants'
 
@@ -41,10 +45,10 @@ function Post() {
                             {parse(posts.dataBlog[0].content)}
                         </Col>
                         <Col md={12} className='mt-3 mb-5 d-flex justify-content-between align-items-center'>
-                            <Link to='/blog' className='text-dark'>Các bài viết khác</Link>
-                            <div className='font-weight-bold'>
+                            <Link to='/blog' className='text-dark'><FontAwesomeIcon icon={faAngleLeft} /> <u>Các bài viết khác</u></Link>
+                            <div className=''>
                                 <span><strong>Viết ngày: </strong></span>
-                                {DayFormat(posts.dataBlog[0].createdAt)}
+                                {DayFormat(posts.dataBlog[0].createdAt, "DATE")}
                             </div>
                         </Col>
                     </Row>
@@ -63,7 +67,7 @@ function Post() {
                             <Link to='/service' className='text-dark'>Các Dịch vụ khác </Link>
                             <div className=''>
                                 <span><strong>Viết ngày: </strong></span>
-                                {DayFormat(posts.dataService[0].createdAt)}
+                                {DayFormat(posts.dataService[0].createdAt, "DATE")}
                             </div>
                         </Col>
                     </Row>

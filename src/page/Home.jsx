@@ -108,7 +108,7 @@ function Home() {
                                     <Card.Img variant="top" src={Bec} className='shadow-sm p-4' />
                                     <Card.Body className='px-0'>
                                         <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
-                                        <Card.Text className="text-truncate text-truncate--2" >{item.desc}</Card.Text>
+                                        <Card.Text className="text-truncate text-truncate--3 text-justify" >{item.desc}</Card.Text>
                                     </Card.Body>
                                 </Card>
                             </Col>

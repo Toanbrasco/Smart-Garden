@@ -2,7 +2,10 @@ import React, { createContext, useEffect, useReducer } from "react";
 import axios from "axios";
 // import Data from '../assets/Data/test.json'
 import { productReducer } from './Reducers/ProductReducer'
-import { PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL, PRODUCT_LOADED_ALL, PRODUCT_SEARCH, PRODUCT_REFESH } from './Reducers/type'
+import {
+    PRODUCT_FILTER_CATEGORY, PRODUCT_LOADED_SUCCESS, PRODUCT_LOADED_FAIL, PRODUCT_DETAIL,
+    PRODUCT_LOADED_ALL, PRODUCT_SEARCH, PRODUCT_REFESH, ADD_PRODUCT, ADD_PRODUCT_FAIL
+} from './Reducers/type'
 import { UrlApi, convertViToEn } from "../Constants";
 
 
@@ -18,12 +21,12 @@ const ProductContextProvider = ({ children }) => {
     const getProductsAll = async () => {
         refeshProduct()
         try {
-            const products = await axios.get(`${UrlApi}/api/products/all`)
-            if (products.data.success) {
-                productDispatch({ type: PRODUCT_LOADED_ALL, payload: products.data })
+            const response = await axios.get(`${UrlApi}/api/products/all`)
+            if (response.data.success) {
+                productDispatch({ type: PRODUCT_LOADED_ALL, payload: response.data })
             }
         } catch (error) {
-            productDispatch({ type: PRODUCT_LOADED_FAIL })
+            productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
         }
     }
     const getProducts = async (page, limit, sort) => {
@@ -31,24 +34,24 @@ const ProductContextProvider = ({ children }) => {
         // console.log(`=> getProducts`, page,'|', limit,'|', sort)
         // console.log('Get Products')
         try {
-            const products = await axios.get(`${UrlApi}/api/products?page=${page}&limit=${limit}&sort=${sort}`)
-            if (products.data.success) {
-                productDispatch({ type: PRODUCT_LOADED_SUCCESS, payload: products.data })
+            const response = await axios.get(`${UrlApi}/api/products?page=${page}&limit=${limit}&sort=${sort}`)
+            if (response.data.success) {
+                productDispatch({ type: PRODUCT_LOADED_SUCCESS, payload: response.data })
             }
         } catch (error) {
-            productDispatch({ type: PRODUCT_LOADED_FAIL })
+            productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
         }
     }
     const getProductsHome = async () => {
         refeshProduct()
         const random = 4
         try {
-            const products = await axios.get(`${UrlApi}/api/products/random?random=${random}`)
-            if (products.data.success) {
-                productDispatch({ type: PRODUCT_LOADED_SUCCESS, payload: products.data })
+            const response = await axios.get(`${UrlApi}/api/products/random?random=${random}`)
+            if (response.data.success) {
+                productDispatch({ type: PRODUCT_LOADED_SUCCESS, payload: response.data })
             }
         } catch (error) {
-            productDispatch({ type: PRODUCT_LOADED_FAIL })
+            productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
         }
     }
 
@@ -56,13 +59,13 @@ const ProductContextProvider = ({ children }) => {
         refeshProduct()
         // console.log('Get Products Detail', productName)
         try {
-            const products = await axios.get(`${UrlApi}/api/products/detail?detail=${productName}`)
+            const response = await axios.get(`${UrlApi}/api/products/detail?detail=${productName}`)
             // console.log(`=> products Detail`, products.data)
-            if (products.data.success) {
-                productDispatch({ type: PRODUCT_DETAIL, payload: products.data })
+            if (response.data.success) {
+                productDispatch({ type: PRODUCT_DETAIL, payload: response.data })
             }
         } catch (error) {
-            productDispatch({ type: PRODUCT_LOADED_FAIL })
+            productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
         }
     }
 
@@ -71,13 +74,13 @@ const ProductContextProvider = ({ children }) => {
         // console.log('Get Products Category')
         // console.log(`=> category, page, limit`, category, page, limit, sort)
         try {
-            const products = await axios.get(`${UrlApi}/api/products/category?page=${page}&limit=${limit}&sort=${sort}&category=${category}`)
+            const response = await axios.get(`${UrlApi}/api/products/category?page=${page}&limit=${limit}&sort=${sort}&category=${category}`)
             // console.log(`=> products handleCategory`, products.data)
-            if (products.data.success) {
-                productDispatch({ type: PRODUCT_FILTER_CATEGORY, payload: products.data })
+            if (response.data.success) {
+                productDispatch({ type: PRODUCT_FILTER_CATEGORY, payload: response.data })
             }
         } catch (error) {
-            productDispatch({ type: PRODUCT_LOADED_FAIL })
+            productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
         }
     }
 
@@ -85,14 +88,38 @@ const ProductContextProvider = ({ children }) => {
         refeshProduct()
         // console.log('productSearch', page, "|", limit)
         try {
-            const products = await axios.get(`${UrlApi}/api/products/search?page=${page}&limit=${limit}&sort=${sort}&searchtext=${searchText}`)
-            if (products.data.success) {
-                productDispatch({ type: PRODUCT_SEARCH, payload: products.data })
+            const response = await axios.get(`${UrlApi}/api/products/search?page=${page}&limit=${limit}&sort=${sort}&searchtext=${searchText}`)
+            if (response.data.success) {
+                productDispatch({ type: PRODUCT_SEARCH, payload: response.data })
             }
         } catch (error) {
-            productDispatch({ type: PRODUCT_LOADED_FAIL })
+            productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
         }
     }
+
+    const addProduct = async newProduct => {
+        console.log(`=> newProduct`, newProduct)
+        try {
+            const response = await axios.post(`${UrlApi}/api/products`, newProduct)
+            return response.data
+            // if (response.data.success) {
+            //     productDispatch({ type: ADD_PRODUCT, payload: response.data })
+            // } else {
+            //     productDispatch({ type: ADD_PRODUCT, payload: response.data })
+            // }
+        } catch (error) {
+            productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
+        }
+    }
+    const updateProduct = async ProductUpdate => {
+        try {
+            const response = await axios.post(`${UrlApi}/api/products`, ProductUpdate)
+            return response.data
+        } catch (error) {
+            productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
+        }
+    }
+
     const refeshProduct = () => {
         // console.log('refeshProduct')
         productDispatch({ type: PRODUCT_REFESH })
@@ -106,6 +133,8 @@ const ProductContextProvider = ({ children }) => {
         getProductsAll,
         getProductsHome,
         refeshProduct,
+        addProduct,
+        updateProduct,
         productDispatch
     }
 

@@ -10,7 +10,6 @@ function Login() {
     const toggleShowA = () => setShowA(!showA);
     const navigate = useNavigate()
 
-    console.log(`=> user`, user)
     const [loginForm, setLoginForm] = useState({
         username: '',
         password: ''

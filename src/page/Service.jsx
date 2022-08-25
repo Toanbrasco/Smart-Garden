@@ -89,7 +89,7 @@ function Service() {
                                 <Card style={{ width: '100%', border: 'none' }} className="cursor-p h-100">
                                     <Card.Body className='p-0 h-100 d-flex flex-column'>
                                         <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
-                                        <Card.Text className="text-truncate text-truncate--2" >{item.desc}</Card.Text>
+                                        <Card.Text className="text-truncate text-truncate--4 text-justify" >{item.desc}</Card.Text>
                                         <Card.Link href="#" className='text-right text-dark mt-auto'>Xem chi tiết</Card.Link>
                                     </Card.Body>
                                 </Card>

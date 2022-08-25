@@ -7,17 +7,14 @@ import JoditEditor from 'jodit-react';
 import { PostContext } from '../../Contexts/PostContext'
 import Loading from '../../Component/Loading/Loading';
 
-function PostEdit() {
+function UploadPost() {
     const { posts, getBlogDetail, getServiceDetail } = useContext(PostContext)
     console.log(`=> posts1`, posts)
     console.log(`=> posts2`, posts.dataBlog)
     const Location = useLocation().pathname
-    const { blogName, serviceName } = useParams()
 
     const [content, setContent] = useState('')
     const [titleUpload, setTitleUpload] = useState('')
-
-
 
     const editor = useRef(null);
     const config = {
@@ -25,16 +22,14 @@ function PostEdit() {
         height: 'auto',
         placeholder: 'Nội dung...'
     }
-
+    console.log(Location.includes('/blog/'))
     useEffect(() => {
         if (Location.includes('/blog/')) {
             document.title = "Blog"
             setTitleUpload('Blog')
-            getBlogDetail(blogName)
         } else {
             document.title = "Service"
             setTitleUpload('Service')
-            getServiceDetail(serviceName)
         }
     }, []);
 
@@ -48,7 +43,7 @@ function PostEdit() {
                 <Col md={12}>
                     <Form.Group className="mt-3" controlId="formBasicEmail">
                         <Form.Label>Tên bài viết</Form.Label>
-                        <Form.Control type="text" placeholder="Tên bài viết" defaultValue={titleUpload === "Blog" ? posts.dataBlog[0].title : posts.dataService[0].title} />
+                        <Form.Control type="text" placeholder="Tên bài viết" />
                     </Form.Group>
                     <Form.Group className="mt-3" controlId="formBasicEmail">
                         <Form.Label>Mô tả bài viết</Form.Label>
@@ -56,7 +51,6 @@ function PostEdit() {
                             as="textarea"
                             placeholder="Mô tả bài viết"
                             style={{ height: '200px' }}
-                            defaultValue={titleUpload === "Blog" ? posts.dataBlog[0].desc : posts.dataService[0].desc}
                         />
                     </Form.Group>
                 </Col>
@@ -66,7 +60,7 @@ function PostEdit() {
                     </Form.Group>
                     <JoditEditor
                         ref={editor}
-                        value={titleUpload === "Blog" ? posts.dataBlog[0].content : posts.dataService[0].content}
+                        value={content}
                         config={config}
                         tabIndex={1} // tabIndex of textarea
                         onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
@@ -75,9 +69,9 @@ function PostEdit() {
                 </Col>
                 <Col md={12}>
                     <Form.Group className="my-3">
-                        <Form.Check type="checkbox" label="isPublic" defaultValue={titleUpload === "Blog" ? posts.dataBlog[0].isPublic : posts.dataService[0].isPublic} />
+                        <Form.Check type="checkbox" label="isPublic" />
                     </Form.Group>
-                    <Button>Update</Button>
+                    <Button>Upload</Button>
                 </Col>
             </Row>
 
@@ -85,4 +79,4 @@ function PostEdit() {
     )
 }
 
-export default PostEdit
+export default UploadPost
