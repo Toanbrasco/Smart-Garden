@@ -1,14 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Container, Row, Col, Table, Form, Button } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare, faCheck, faXmark, faAngleLeft, faAngleRight, faArrowDownLong, faArrowUpLong, faMagnifyingGlass, faRotateRight } from '@fortawesome/free-solid-svg-icons'
+import { Container, Row, Col, Table, Form, Button, Modal } from 'react-bootstrap'
 import { Link, useSearchParams } from 'react-router-dom'
-import { makeNumArr, convertViToEn } from '../../Constants'
-import { ProductContext } from '../../Contexts/ProductContext'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare, faCheck, faXmark, faAngleLeft, faAngleRight, faArrowDownLong, faArrowUpLong, faMagnifyingGlass, faRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons'
+
+import { makeNumArr, numberFormat } from '../../Constants'
 import Loading from '../../Component/Loading/Loading'
 
+import { ProductContext } from '../../Contexts/ProductContext'
+import { ImageContext } from '../../Contexts/ImageContext'
+
 function AdProduct() {
-    const { products, getProducts, handleCategory, productSearch } = useContext(ProductContext)
+    const { products, getProducts, handleCategory, productSearch, deleteProduct } = useContext(ProductContext)
+    const { deleteImage } = useContext(ImageContext)
     // console.log(`=> products`, products)
     const [limit, setLimit] = useState(10)
     const { totalPage } = products.pagination
@@ -17,13 +22,48 @@ function AdProduct() {
     const [itemCenter, SetitemCenter] = useState(1)
     const [searchParams, setSearchParams] = useSearchParams()
     const [selectValue, setSelectValue] = useState(0)
-
+    const [show, setShow] = useState(false)
+    const [show2, setShow2] = useState(false)
     const [Sort, setSort] = useState(0)
+    const [modalText, setModalText] = useState('')
+    const [infoRemove, setInfoRemove] = useState(
+        {
+            name: '',
+            images: [],
+            id: ''
+        }
+    )
+    console.log(`=> infoRemove`, infoRemove)
 
     const page = searchParams.get('page') || ''
     const category = searchParams.get('category')
     const search = searchParams.get('search')
 
+
+    const removeProduct = async (images, id) => {
+        const { success, imageMessage } = await deleteImage(images)
+        if (success) {
+            const { success, message } = await deleteProduct(id)
+            if (success) {
+                setModalText(message)
+                setShow(true)
+            } else {
+                setModalText(message)
+                setShow(true)
+            }
+        } else {
+            setModalText(imageMessage)
+            setShow(true)
+        }
+    }
+    const confirmRemove = (name, images, id) => {
+        setInfoRemove({ ...infoRemove, name: name, images: images, id: id })
+        setShow2(true)
+    }
+    const handleConfirm = () => {
+        setShow2(false)
+        removeProduct(infoRemove.images, infoRemove.id)
+    }
 
     const handlePageParam = (num) => {
         if (category !== null) {
@@ -75,36 +115,8 @@ function AdProduct() {
             }
         }
     }
-    useEffect(() => {
-        // getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
-        // console.log(selectValue)
-        if (category !== null) {
-            handleCategory(category, page || 1, limit, parseInt(Sort))
-        } else {
-            if (search !== null) {
-                productSearch(search, page || 1, limit, parseInt(Sort))
-            } else {
-                getProducts(parseInt(page) || 1, limit, parseInt(Sort))
-            }
-        }
-    }, [Sort, limit])
 
-    useEffect(() => {
-        document.title = "Products"
-        if (search !== null) {
-            productSearch(search, page || 1, limit, parseInt(Sort))
-        } else {
-            getProducts(parseInt(page) || 1, limit, parseInt(Sort))
-        }
-    }, []);
-
-    useEffect(() => {
-        if (search !== null) {
-            productSearch(search, page || 1, limit, parseInt(Sort))
-        }
-    }, [search])
-
-    useEffect(() => {
+    const handleGetData = () => {
         setPagingActive(parseInt(page) || 1)
         SetitemCenter(parseInt(page) || 1)
         if (category !== null) {
@@ -116,7 +128,12 @@ function AdProduct() {
                 getProducts(parseInt(page) || 1, limit, parseInt(Sort))
             }
         }
-    }, [page])
+    }
+
+    useEffect(() => {
+        document.title = "Products"
+        handleGetData()
+    }, [page, search, Sort, limit])
     const handleSort = (text) => {
         switch (text) {
             case 'NAME':
@@ -176,12 +193,45 @@ function AdProduct() {
             setSearchParams({ search: searchText, page: 1 })
         }
     }
+    const handleClose = () => {
+        setShow(false)
+        handleGetData()
+    }
+
 
     if (products.loading || products.pagination === undefined) {
         return <Loading />
     }
     return (
         <Container fluid bg="light">
+            <Modal show={show} onHide={() => setShow(false)} animation={false} backdrop="static">
+                <Modal.Header closeButton>
+                    <Modal.Title>Smart Garden</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{modalText}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => handleClose()}>
+                        Ok
+                    </Button>
+                    {/* <Button variant="primary" onClick={() => setShow(false)}>
+                Save Changes
+            </Button> */}
+                </Modal.Footer>
+            </Modal>
+            <Modal show={show2} onHide={() => setShow2(false)} animation={false} backdrop="static">
+                <Modal.Header closeButton>
+                    <Modal.Title>Smart Garden</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Bạn chắc chắn xoá sản phẩm {infoRemove.name}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => handleConfirm()}>
+                        Ok
+                    </Button>
+                    <Button variant="danger" onClick={() => setShow2(false)}>
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <Row className='mt-3'>
                 <Col md={12} className='d-flex align-items-center' >
                     <h2 className='m-0'>Product</h2>
@@ -247,7 +297,7 @@ function AdProduct() {
                                 <th>Category</th>
                                 <th>type</th>
                                 <th>Public</th>
-                                <th>Action</th>
+                                <th className='d-flex justify-content-around align-items-center'>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -256,13 +306,16 @@ function AdProduct() {
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{item.name}</td>
-                                        <td>{item.price.base}</td>
+                                        <td>{numberFormat(item.price.base)}</td>
                                         <td>{item.price.discount}</td>
                                         <td>{item.category.main} </td>
                                         <td>{item.category.detail}</td>
                                         <td>{item.type}</td>
                                         <td>{item.isPublic ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faXmark} />}</td>
-                                        <td><Link to={'/admin/edit-product/' + convertViToEn(item.name)}> <FontAwesomeIcon icon={faPenToSquare} /></Link></td>
+                                        <td className='d-flex justify-content-around align-items-center'>
+                                            <Link to={`/admin/edit-product/${item._id}`}> <FontAwesomeIcon icon={faPenToSquare} /></Link>
+                                            <FontAwesomeIcon className="text-danger cursor-p" icon={faTrash} onClick={() => confirmRemove(item.name, item.images, item._id)} />
+                                        </td>
                                     </tr>
                                 )
                             }

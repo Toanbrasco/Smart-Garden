@@ -13,11 +13,13 @@ export const ProductContext = createContext()
 const ProductContextProvider = ({ children }) => {
     const [products, productDispatch] = useReducer(productReducer, {
         loading: true,
-        loading2: true,
+        loadingDetail: true,
         data: [],
         pagination: {},
         error: null
     })
+    // loading2: true,
+    // console.log(`=> products Context`, products)
     const getProductsAll = async () => {
         refeshProduct()
         try {
@@ -30,6 +32,7 @@ const ProductContextProvider = ({ children }) => {
         }
     }
     const getProducts = async (page, limit, sort) => {
+        console.log('Get Products')
         refeshProduct()
         // console.log(`=> getProducts`, page,'|', limit,'|', sort)
         // console.log('Get Products')
@@ -57,10 +60,10 @@ const ProductContextProvider = ({ children }) => {
 
     const getProductDetail = async (productName) => {
         refeshProduct()
-        // console.log('Get Products Detail', productName)
+        console.log('Get Products Detail', productName)
         try {
             const response = await axios.get(`${UrlApi}/api/products/detail?detail=${productName}`)
-            // console.log(`=> products Detail`, products.data)
+            console.log(`=> products Detail`, products)
             if (response.data.success) {
                 productDispatch({ type: PRODUCT_DETAIL, payload: response.data })
             }
@@ -113,7 +116,15 @@ const ProductContextProvider = ({ children }) => {
     }
     const updateProduct = async ProductUpdate => {
         try {
-            const response = await axios.post(`${UrlApi}/api/products`, ProductUpdate)
+            const response = await axios.put(`${UrlApi}/api/products`, ProductUpdate)
+            return response.data
+        } catch (error) {
+            productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
+        }
+    }
+    const deleteProduct = async (id) => {
+        try {
+            const response = await axios.delete(`${UrlApi}/api/products/${id}`,)
             return response.data
         } catch (error) {
             productDispatch({ type: PRODUCT_LOADED_FAIL, payload: error })
@@ -135,6 +146,7 @@ const ProductContextProvider = ({ children }) => {
         refeshProduct,
         addProduct,
         updateProduct,
+        deleteProduct,
         productDispatch
     }
 

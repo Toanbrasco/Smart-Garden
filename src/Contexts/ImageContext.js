@@ -35,8 +35,9 @@ const ImageContextProvider = ({ children }) => {
             return error
         }
     }
-    
+
     const updateImage = async (data) => {
+        console.log(`=> data`, [...data])
         try {
             const response = await axios.post(`${UrlApi}/image/update`, data)
             console.log(`=> response update image`, response.data)
@@ -47,15 +48,12 @@ const ImageContextProvider = ({ children }) => {
         }
     }
 
-    const deleteImage = async (_id) => {
+    const deleteImage = async (images) => {
+        console.log(`=> images`, images)
         try {
-            const response = await axios.delete(`${UrlApi}/api/image/${_id}`)
+            const response = await axios.post(`${UrlApi}/image/delete`, { images: images })
             console.log(`=> response delete image`, response.data)
-            if (response.data.success) {
-                imageDispatch({ type: ORDER_MESSAGE, payload: response.data })
-            } else {
-                imageDispatch({ type: ORDER_MESSAGE, payload: response.data })
-            }
+            return response.data
         } catch (error) {
             imageDispatch({ type: GET_ORDER_FAIL })
         }
