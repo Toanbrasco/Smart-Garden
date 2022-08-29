@@ -1,36 +1,44 @@
 import React, { useState, useContext } from 'react'
 import { Col, Container, Form, Row, Button, Modal } from 'react-bootstrap'
-import { CategoryList } from '../../Constants.js'
+
 import Dropzone from '../../Component/Dropzone/Dropzone'
+import { CategoryList, makeNumArr } from '../../Constants.js'
+
 import { ProductContext } from '../../Contexts/ProductContext.js'
 import { ImageContext } from '../../Contexts/ImageContext'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 function UploadProdcut() {
     const { products, addProduct } = useContext(ProductContext)
     const { image, addImage } = useContext(ImageContext)
     const arr = ['Thiết bị tưới', 'Ong']
-    
-    const addNewRow = () => {
-        const addZone = document.getElementById('addZone')
-        const div = document.createElement("div")
-        const input = document.createElement("input")
-        const input2 = document.createElement("input")
-        div.classList.add('d-flex', 'flex-sm-row', 'flex-column', 'mt-3')
-        input.type = 'text'
-        input.placeholder = 'Tên thông số'
-        input.classList.add('form-control')
-        input.id = 'paramaterName'
-        input2.type = 'text'
-        input2.placeholder = 'Thông số'
-        input2.classList.add('form-control')
-        input2.id = 'paramater'
-        div.append(input)
-        div.append(input2)
-        addZone.append(div)
-    }
+
+    // const addNewRow = () => {
+    //     const addZone = document.getElementById('addZone')
+    //     const div = document.createElement("div")
+    //     const input = document.createElement("input")
+    //     const input2 = document.createElement("input")
+    //     div.classList.add('d-flex', 'flex-sm-row', 'flex-column', 'mt-3')
+    //     input.type = 'text'
+    //     input.placeholder = 'Tên thông số'
+    //     input.classList.add('form-control')
+    //     input.id = 'paramaterName'
+    //     input2.type = 'text'
+    //     input2.placeholder = 'Thông số'
+    //     input2.classList.add('form-control')
+    //     input2.id = 'paramater'
+    //     div.append(input)
+    //     div.append(input2)
+    //     addZone.append(div)
+    // }
     const [show, setShow] = useState(false)
     const [modalText, setModalText] = useState('')
     const [validFiles, setValidFiles] = useState([])
+    const [element, setElement] = useState([1])
+    const [elementCount, setElementCount] = useState(2)
+
     const [productForm, setProductForm] = useState({
         name: '',
         desc: '',
@@ -48,6 +56,30 @@ function UploadProdcut() {
         type: arr[0],
     })
 
+    const addNewRow = () => {
+        setElementCount(elementCount + 1)
+        const arr = makeNumArr(elementCount)
+        setElement(arr)
+    }
+    const RemoveRowInfo2 = (index) => {
+        const info = element
+        info.splice(index, 1)
+        setElementCount(info.length + 1)
+        setElement(info)
+    }
+
+    const handleinfo = () => {
+        let info = []
+        const name = document.querySelectorAll('#paramaterName')
+        const paramater = document.querySelectorAll('#paramater')
+        name.forEach((item, index) => {
+            if (item.value.trim() !== '' || paramater[index].value.trim() !== '') {
+                info.push({ title: item.value.trim(), paramater: paramater[index].value.trim() })
+            }
+        })
+        console.log(`=> info`, info)
+        return info
+    }
     const checkCategory = () => {
         let num = 0
         CategoryList.forEach((item, index) => {
@@ -68,15 +100,6 @@ function UploadProdcut() {
     }
     const handleChecked = e => setProductForm({ ...productForm, [e.target.name]: e.target.checked })
 
-    const handleinfo = () => {
-        let info = []
-        const name = document.querySelectorAll('#paramaterName')
-        const paramater = document.querySelectorAll('#paramater')
-        name.forEach((item, index) => {
-            info.push({ title: item.value.trim() || '', paramater: paramater[index].value.trim() || '' })
-        })
-        return info
-    }
 
     const handleSubmit = async () => {
         if (productForm.name.length > 5) {
@@ -165,12 +188,17 @@ function UploadProdcut() {
                     <Form.Group className="mb-3" >
                         <Form.Label>Thông số sản phẩm</Form.Label>
                         <div id='addZone'>
-                            <div className="d-flex flex-sm-row flex-column" id='info-row'>
-                                <Form.Control type="text" placeholder="Tên thông số" id='paramaterName' />
-                                <Form.Control type="text" placeholder="Thông số" id='paramater' />
-                            </div>
+                            {
+                                element.map((item, index) =>
+                                    <div key={index} className="d-flex flex-sm-row flex-column mt-1" id='info-row'>
+                                        <Form.Control type="text" placeholder="Tên thông số" id='paramaterName' />
+                                        <Form.Control type="text" placeholder="Thông số" id='paramater' />
+                                        <Button variant='danger' onClick={() => RemoveRowInfo2(index)}><FontAwesomeIcon icon={faTrash} /></Button>
+                                    </div>
+                                )
+                            }
                         </div>
-                        <button className="btn btn-primary mt-3" onClick={() => addNewRow()}>Add</button>
+                        <Button variant='primary' className=" mt-3" onClick={() => addNewRow()}>Add</Button>
                     </Form.Group>
                     <div className=" mb-3 d-flex flex-sm-row flex-column">
                         <Form.Group>
@@ -181,6 +209,7 @@ function UploadProdcut() {
                                         <option key={index} value={item}>{item}</option>
                                     )
                                 }
+
                             </Form.Control>
                         </Form.Group>
                         <Form.Group className='ml-2'>

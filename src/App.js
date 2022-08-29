@@ -15,6 +15,7 @@ import Cart from './page/Cart.jsx'
 import Payment from './page/Payment.jsx'
 import Error from './page/Error.jsx'
 import News from './page/Post.jsx'
+import Infomation from './page/Infomation';
 
 import Admin from './page/Admin/Admin.jsx'
 import Dashboard from './page/Admin/Dashboard.jsx';
@@ -65,6 +66,7 @@ function App() {
                                         <Route path="payment" element={<Payment />} />
                                         <Route path="post" element={<Post />} />
                                         <Route path="login" element={<Login />} />
+                                        <Route path="infomation" element={<Infomation />} />
                                         <Route path="/admin" element={<Admin />} >
                                             <Route index element={<Dashboard />} />
                                             <Route path="products" element={<AdProduct />} />

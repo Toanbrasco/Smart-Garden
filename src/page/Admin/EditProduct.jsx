@@ -1,14 +1,19 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { Col, Container, Form, Row, Modal, Button } from 'react-bootstrap'
-import { CategoryList, UrlApi } from '../../Constants.js'
 import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import parse from 'html-react-parser';
+
+import { CategoryList, UrlApi, makeNumArr } from '../../Constants.js'
+
 import Dropzone from '../../Component/Dropzone/Dropzone'
 import Loading from '../../Component/Loading/Loading.jsx'
 
 import { ProductContext } from '../../Contexts/ProductContext.js'
 import { ImageContext } from '../../Contexts/ImageContext'
-import axios from 'axios'
-import { faLessThan } from '@fortawesome/free-solid-svg-icons'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 function EditProduct() {
     const { products, getProductDetail, addProduct, updateProduct, refeshProduct, productDispatch } = useContext(ProductContext)
@@ -23,6 +28,9 @@ function EditProduct() {
     const [imageOld, setImageOld] = useState({})
     const [show, setShow] = useState(false)
     const [modalText, setModalText] = useState('')
+    const [element, setElement] = useState([])
+    const [elementCount, setElementCount] = useState(1)
+    const [refesh, setRefesh] = useState(0)
 
     // console.log(`=> imageOld`, imageOld)
 
@@ -46,30 +54,34 @@ function EditProduct() {
     console.log(`=> productForm after get`, productForm)
 
     const addNewRow = () => {
-        const addZone = document.getElementById('addZone')
-        const div = document.createElement("div")
-        const input = document.createElement("input")
-        const input2 = document.createElement("input")
-        div.classList.add('d-flex', 'flex-sm-row', 'flex-column', 'mt-1')
-        input.type = 'text'
-        input.placeholder = 'Tên thông số'
-        input.classList.add('form-control')
-        input.id = 'paramaterName'
-        input2.type = 'text'
-        input2.placeholder = 'Thông số'
-        input2.classList.add('form-control')
-        input2.id = 'paramater'
-        div.append(input)
-        div.append(input2)
-        addZone.append(div)
+        setElementCount(elementCount + 1)
+        const arr = makeNumArr(elementCount)
+        setElement(arr)
     }
+
+    const RemoveRowInfo = (index) => {
+        const info = productForm.info
+        info.splice(index, 1)
+        setProductForm({ ...productForm, info: info })
+        setRefesh(refesh + 1)
+    }
+    const RemoveRowInfo2 = (index) => {
+        const info = element
+        info.splice(index, 1)
+        setElementCount(info.length + 1)
+        setElement(info)
+    }
+
     const handleinfo = () => {
         let info = []
         const name = document.querySelectorAll('#paramaterName')
         const paramater = document.querySelectorAll('#paramater')
         name.forEach((item, index) => {
-            info.push({ title: item.value.trim() || '', paramater: paramater[index].value.trim() || '' })
+            if (item.value.trim() !== '' || paramater[index].value.trim() !== '') {
+                info.push({ title: item.value.trim(), paramater: paramater[index].value.trim() })
+            }
         })
+        console.log(`=> info`, info)
         return info
     }
     const setInfoToProductForm = () => {
@@ -111,7 +123,7 @@ function EditProduct() {
                 }
             }
         })
-        console.log(`=> detail`, detail)
+        // console.log(`=> detail`, detail)
         return detail
     }
     // console.log(`=>  detailCategory()`, detailCategory())
@@ -125,14 +137,7 @@ function EditProduct() {
             })
             data.append('Old', products.data[0].images)
             data.append('New', imageOld)
-            // console.log('Image Old', products.data[0].images, 'Image New', imageOld)
-            const newInfo = handleinfo()
-            // console.log(`=> newInfo`, newInfo)
-            setProductForm({ ...productForm, info: newInfo })
-            // console.log('productForm', productForm)
             const { imageSuccess, images, imageMessage } = await updateImage(data)
-            console.log(`=> images`, images)
-            console.log(`=> imageSuccess`, imageSuccess)
             if (imageSuccess) {
                 const newInfo = handleinfo()
                 let productUpdate = {}
@@ -141,7 +146,6 @@ function EditProduct() {
                 } else {
                     productUpdate = { ...productForm, images: images, info: newInfo, category: { ...productForm.category, detail: detailCategory() } }
                 }
-                console.log(`=> productUpdate`, productUpdate)
                 const { success, message } = await updateProduct(productUpdate)
                 if (success) {
                     setModalText(message)
@@ -166,14 +170,16 @@ function EditProduct() {
 
     const handleClose = () => {
         setShow(false)
+        setElementCount(1)
+        setElement([])
         getDetail(id)
     }
     const getDetail = async (id) => {
         refeshProduct()
-        console.log('Get Products Detail', id)
+        // console.log('Get Products Detail', id)
         try {
             const response = await axios.get(`${UrlApi}/api/products/id?id=${id}`)
-            console.log(`=> products Detail`, response.data)
+            // console.log(`=> products Detail`, response.data)
             if (response.data.success) {
                 setProductForm(response.data.data[0])
                 setImageOld(response.data.data[0].images)
@@ -250,14 +256,25 @@ function EditProduct() {
                         <div id='addZone'>
                             {
                                 productForm.info.map((item, index) =>
-                                    <div key={index} className="d-flex flex-sm-row flex-column mt-1" id='info-row'>
-                                        <Form.Control type="text" placeholder="Tên thông số" id='paramaterName' defaultValue={item.title} />
+                                    <div key={item.title} className="d-flex flex-sm-row flex-column mt-1" id='info-row'>
+                                        < Form.Control type="text" placeholder="Tên thông số" id='paramaterName' defaultValue={item.title} />
                                         <Form.Control type="text" placeholder="Thông số" id='paramater' defaultValue={item.paramater} />
+                                        <Button variant='danger' onClick={() => RemoveRowInfo(index)}><FontAwesomeIcon icon={faTrash} /></Button>
+                                    </div>
+                                )
+                            }
+                            {
+                                element.map((item, index) =>
+                                    <div key={index} className="d-flex flex-sm-row flex-column mt-1" id='info-row'>
+                                        <Form.Control type="text" placeholder="Tên thông số" id='paramaterName' />
+                                        <Form.Control type="text" placeholder="Thông số" id='paramater' />
+                                        <Button variant='danger' onClick={() => RemoveRowInfo2(index)}><FontAwesomeIcon icon={faTrash} /></Button>
                                     </div>
                                 )
                             }
                         </div>
-                        <button className="btn btn-primary mt-3" onClick={() => addNewRow()}>Add</button>
+                        <Button variant='primary' className="mt-3" onClick={() => addNewRow()}>Add</Button>
+                        {/* <Button variant='danger' className="mt-3" onClick={() => handleinfo()}>Add</Button>  */}
                     </Form.Group>
                     <div className=" mb-3 d-flex flex-sm-row flex-column">
                         <Form.Group>

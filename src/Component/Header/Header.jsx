@@ -59,7 +59,7 @@ function Header() {
     return (
         <>
             {
-                Location.includes('/admin') || Location.includes('/login') ? <></> :
+                Location.includes('/admin') || Location.includes('/login') || Location.includes('/infomation')? <></> :
                     <>
                         <Navbar bg="light" expand="lg" className='p-0 Header' collapseOnSelect >
                             <Container className="position-relative w-100 h-100 d-flex justify-content-md-between " style={{ zIndex: '10' }}>
