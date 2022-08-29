@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap'
 import Logo from '../../assets/images/Logo.png'
 import { personImage } from '../../Constants'
 
-import { faBars, faBox, faChevronLeft, faChevronRight, faClipboardCheck, faGauge, faNewspaper, faUser, faWrench, faArrowRightFromBracket,faQrcode } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBox, faChevronLeft, faChevronRight, faClipboardCheck, faGauge, faNewspaper, faUser, faWrench, faArrowRightFromBracket, faQrcode } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Link, Navigate, Outlet } from "react-router-dom"
@@ -23,8 +23,8 @@ function Admin() {
     const arrMenu = [
         // { name: 'Home', icon: faHome },
         // { name: 'Table', icon: faTableList },
-        { name: 'Product', icon: faBox, component: 2, path: ['products', 'product-upload'] },
-        { name: 'Post', icon: faNewspaper, component: 2, path: ['post', 'blog-upload', 'services-upload'] },
+        { name: 'Product', icon: faBox, component: 2, path: [{ name: 'Products', link: 'products' }, { name: 'Product Upload', link: 'product-upload' }] },
+        { name: 'Post', icon: faNewspaper, component: 2, path: [{ name: 'Post', link: 'post' }, { name: 'Blog Upload', link: 'post/blog/upload' }, { name: 'Service Upload', link: 'post/service/upload' }] },
         { name: 'Config', icon: faWrench, component: 1, path: 'config' },
         { name: 'Order', icon: faClipboardCheck, component: 1, path: 'order' },
         { name: 'User', icon: faUser, component: 1, path: 'user' },
@@ -131,7 +131,7 @@ function Admin() {
                                     <div className='p-3 d-flex flex-column bg-white rounded shadow cursor-p'>
                                         {
                                             item.path.map((item, index) =>
-                                                <Link key={index} to={item} className='text-capitalize'>{item}</Link>
+                                                <Link key={index} to={item.link} className='text-capitalize'>{item.name}</Link>
                                             )
                                         }
                                     </div>

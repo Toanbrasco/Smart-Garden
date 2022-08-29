@@ -144,7 +144,8 @@ export const filterCart = (carts, product) => {
 export const makeNumArr = num => new Array(num).fill("").map((_, i) => i + 1);
 
 export const UrlApi = 'https://smartgarden-server-test.herokuapp.com'
-//  'http://localhost:5000'
+// 'http://localhost:5000'
+
 
 
 

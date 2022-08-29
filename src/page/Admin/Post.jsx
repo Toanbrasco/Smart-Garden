@@ -1,19 +1,93 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Container, Row, Col, Button, Card } from 'react-bootstrap'
+import { Container, Row, Col, Button, Card, Modal } from 'react-bootstrap'
+
 import { Link } from 'react-router-dom'
-import Loading from '../../Component/Loading/Loading.jsx'
 import { images, DayFormat, convertViToEn } from '../../Constants.js'
+
+import Loading from '../../Component/Loading/Loading.jsx'
+
 import { PostContext } from '../../Contexts/PostContext'
+import { ImageContext } from '../../Contexts/ImageContext.js'
 
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Post() {
-    const { posts, getBlog, getService } = useContext(PostContext)
-    // console.log(`=> post`, posts)
+    const { posts, getBlog, getService, deleteBlog, deleteService } = useContext(PostContext)
+    const { deleteImage } = useContext(ImageContext)
+    const [infoRemovePost, setInfoRemovePost] = useState({
+        id: '',
+        name: ''
+    })
+    console.log(`=> infoRemovePost`, infoRemovePost)
+    const [typePost, setTypePost] = useState()
+    const [modalText, setModalText] = useState('')
+    const [show, setShow] = useState(false)
+    const [show2, setShow2] = useState(false)
 
-    const handleRemoveUser = () => {
+    const handleConfirm = () => {
+        setShow2(false)
+        handleRemovePost(infoRemovePost.image, infoRemovePost.id)
+    }
 
+    const handleRemovePost = async (image, id) => {
+        const { success, imageMessage } = await deleteImage([image])
+        if (success) {
+            switch (typePost) {
+                case "BLOG":
+                    const { blogSuccess, blogMessage } = await deleteBlog(id)
+                    if (blogSuccess) {
+                        setModalText(blogMessage)
+                        setShow(true)
+                    } else {
+                        setModalText(blogMessage)
+                        setShow(true)
+                    }
+                    break;
+
+                case "SERVICE":
+                    const { serviceSuccess, serviceMessage } = await deleteService(id)
+                    if (serviceSuccess) {
+                        setModalText(serviceMessage)
+                        setShow(true)
+                    } else {
+                        setModalText(serviceMessage)
+                        setShow(true)
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        } else {
+            setModalText(imageMessage)
+            setShow(true)
+        }
+    }
+    // const handleRemovePost = (id, name, type) => {
+    const confirmRemovePost = (id, name, type) => {
+        switch (type) {
+            case "BLOG":
+                setTypePost("BLOG")
+                setInfoRemovePost({ name: name, id: id })
+                setShow2(true)
+                break;
+
+
+            case "SERVICE":
+                setTypePost("SERVICE")
+                setInfoRemovePost({ name: name, id: id })
+                setShow2(true)
+                break;
+
+            default:
+                break;
+        }
+    }
+    const handleClose = () => {
+        setShow(false)
+        getBlog(0, 0)
+        getService(0, 0)
     }
 
     useEffect(() => {
@@ -28,6 +102,34 @@ function Post() {
 
     return (
         <Container fluid bg="light">
+            <Modal show={show} onHide={() => setShow(false)} animation={false} backdrop="static">
+                <Modal.Header closeButton>
+                    <Modal.Title>Smart Garden</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{modalText}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => handleClose()}>
+                        Ok
+                    </Button>
+                    {/* <Button variant="primary" onClick={() => setShow(false)}>
+                Save Changes
+            </Button> */}
+                </Modal.Footer>
+            </Modal>
+            <Modal show={show2} onHide={() => setShow2(false)} animation={false} backdrop="static">
+                <Modal.Header closeButton>
+                    <Modal.Title>Smart Garden</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Bạn chắc chắn xoá {typePost === "BLOG" ? 'bài viết' : 'dịch vụ'} {infoRemovePost.name}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => handleConfirm()}>
+                        Ok
+                    </Button>
+                    <Button variant="danger" onClick={() => setShow2(false)}>
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <Row>
                 <Col md={12} className='d-flex justify-content-between align-items-center mt-3 ' >
                     <h3>Blog</h3>
@@ -49,8 +151,8 @@ function Post() {
                                     <div className="w-100 d-flex justify-content-between align-items-center mt-auto">
                                         <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
                                         <div>
-                                            <Button as={Link} to={`blog/${convertViToEn(item.title)}`} variant="primary" className=''><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                            <Button variant="danger" className='ml-2' onClick={() => handleRemoveUser(item._id, 'SHOW_MODAL')}><FontAwesomeIcon icon={faTrash} /></Button>
+                                            <Button as={Link} to={`blog/${convertViToEn(item._id)}`} variant="primary" className=''><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                            <Button variant="danger" className='ml-2' onClick={() => confirmRemovePost(item._id, item.title, 'BLOG')}><FontAwesomeIcon icon={faTrash} /></Button>
                                         </div>
                                     </div>
                                 </Card.Footer>
@@ -64,7 +166,7 @@ function Post() {
             <Row>
                 <Col md={12} className='d-flex justify-content-between align-items-center mt-3' >
                     <h3>Service</h3>
-                    <Button  as={Link} to={`service/upload`}>+</Button>
+                    <Button as={Link} to={`service/upload`}>+</Button>
                 </Col>
             </Row>
             <Row className='mb-5'>
@@ -81,8 +183,8 @@ function Post() {
                                     <div className="w-100 d-flex justify-content-between align-items-center">
                                         <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
                                         <div>
-                                            <Button as={Link} to={`service/${convertViToEn(item.title)}`} variant="primary" className=''><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                            <Button variant="danger" className='ml-2' onClick={() => handleRemoveUser(item._id, 'SHOW_MODAL')}><FontAwesomeIcon icon={faTrash} /></Button>
+                                            <Button as={Link} to={`service/${convertViToEn(item._id)}`} variant="primary" className=''><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                            <Button variant="danger" className='ml-2' onClick={() => confirmRemovePost(item._id, item.title, 'SERVICE')}><FontAwesomeIcon icon={faTrash} /></Button>
                                         </div>
                                     </div>
                                 </Card.Footer>

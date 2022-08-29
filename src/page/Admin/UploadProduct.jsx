@@ -14,25 +14,7 @@ function UploadProdcut() {
     const { products, addProduct } = useContext(ProductContext)
     const { image, addImage } = useContext(ImageContext)
     const arr = ['Thiết bị tưới', 'Ong']
-
-    // const addNewRow = () => {
-    //     const addZone = document.getElementById('addZone')
-    //     const div = document.createElement("div")
-    //     const input = document.createElement("input")
-    //     const input2 = document.createElement("input")
-    //     div.classList.add('d-flex', 'flex-sm-row', 'flex-column', 'mt-3')
-    //     input.type = 'text'
-    //     input.placeholder = 'Tên thông số'
-    //     input.classList.add('form-control')
-    //     input.id = 'paramaterName'
-    //     input2.type = 'text'
-    //     input2.placeholder = 'Thông số'
-    //     input2.classList.add('form-control')
-    //     input2.id = 'paramater'
-    //     div.append(input)
-    //     div.append(input2)
-    //     addZone.append(div)
-    // }
+    
     const [show, setShow] = useState(false)
     const [modalText, setModalText] = useState('')
     const [validFiles, setValidFiles] = useState([])

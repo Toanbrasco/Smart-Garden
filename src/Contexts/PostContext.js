@@ -45,10 +45,10 @@ const PostContextProvider = ({ children }) => {
             postDispatch({ type: POST_GET_FAIL })
         }
     }
-    const getBlogDetail = async (blogName) => {
+    const getBlogDetail = async (idBlog) => {
         refeshPost()
         try {
-            const response = await axios.get(`${UrlApi}/api/posts/blog/detail?detail=${blogName}`)
+            const response = await axios.get(`${UrlApi}/api/posts/blog/id?id=${idBlog}`)
             // console.log(`=> response Detail`, response.data)
             if (response.data.success) {
                 postDispatch({ type: BLOG_DETAIL, payload: response.data })
@@ -60,10 +60,10 @@ const PostContextProvider = ({ children }) => {
         }
     }
 
-    const getServiceDetail = async (serviceName) => {
+    const getServiceDetail = async (idService) => {
         refeshPost()
         try {
-            const response = await axios.get(`${UrlApi}/api/posts/service/detail?detail=${serviceName}`)
+            const response = await axios.get(`${UrlApi}/api/posts/service/id?id=${idService}`)
             if (response.data.success) {
                 postDispatch({ type: SERVICE_DETAIL, payload: response.data })
             } else {
@@ -104,8 +104,63 @@ const PostContextProvider = ({ children }) => {
             postDispatch({ type: POST_GET_FAIL })
         }
     }
+    const blogAdd = async (Blog) => {
+        try {
+            const response = await axios.post(`${UrlApi}/api/posts/blog`, Blog)
+            // console.log(`=> response blog`, response.data)
+            return response.data
+        } catch (error) {
+            postDispatch({ type: POST_GET_FAIL })
+        }
+    }
+    const serviceAdd = async (Service) => {
+        try {
+            const response = await axios.post(`${UrlApi}/api/posts/service`, Service)
+            // console.log(`=> response blog`, response.data)
+            return response.data
+        } catch (error) {
+            postDispatch({ type: POST_GET_FAIL })
+        }
+    }
+    const deleteBlog = async (id) => {
+        try {
+            const response = await axios.delete(`${UrlApi}/api/posts/blog/${id}`)
+            // console.log(`=> response blog`, response.data)
+            return { blogSuccess: response.data.success, blogMessage: response.data.message }
+        } catch (error) {
+            postDispatch({ type: POST_GET_FAIL })
+        }
+    }
+    const deleteService = async (id) => {
+        try {
+            const response = await axios.delete(`${UrlApi}/api/posts/service/${id}`)
+            // console.log(`=> response blog`, response.data)
+            return { serviceSuccess: response.data.success, serviceMessage: response.data.message }
+        } catch (error) {
+            postDispatch({ type: POST_GET_FAIL })
+        }
+    }
 
-    
+    const updateBlog = async (updateBlog) => {
+        console.log(`=> updateBlog`, updateBlog)
+        try {
+            const response = await axios.put(`${UrlApi}/api/posts/blog`, updateBlog)
+            // console.log(`=> response blog`, response.data)
+            return { blogSuccess: response.data.success, blogMessage: response.data.message }
+        } catch (error) {
+            postDispatch({ type: POST_GET_FAIL })
+        }
+    }
+    const updateService = async (updateService) => {
+        try {
+            const response = await axios.put(`${UrlApi}/api/posts/service`, updateService)
+            // console.log(`=> response blog`, response.data)
+            return { serviceSuccess: response.data.success, serviceMessage: response.data.message }
+        } catch (error) {
+            postDispatch({ type: POST_GET_FAIL })
+        }
+    }
+
     const refeshPost = () => {
         console.log('refeshPost')
         postDispatch({ type: POST_REFESH })
@@ -119,6 +174,12 @@ const PostContextProvider = ({ children }) => {
         blogSearch,
         getBlogDetail,
         getServiceDetail,
+        blogAdd,
+        serviceAdd,
+        deleteBlog,
+        deleteService,
+        updateService,
+        updateBlog,
         postDispatch,
     }
 

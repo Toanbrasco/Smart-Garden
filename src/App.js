@@ -75,9 +75,9 @@ function App() {
                                             <Route path="order" element={<Order />} />
                                             <Route path="config" element={<Config />} />
                                             <Route path="post" element={<Post />} />
-                                            <Route path="post/blog/:blogName" element={<PostEdit />} />
+                                            <Route path="post/blog/:idBlog" element={<PostEdit />} />
                                             <Route path="post/blog/upload" element={<UploadPost />} />
-                                            <Route path="post/service/:serviceName" element={<PostEdit />} />
+                                            <Route path="post/service/:idService" element={<PostEdit />} />
                                             <Route path="post/service/upload" element={<UploadPost />} />
                                             <Route path="edit-product/:id" element={<EditProduct />} />
                                             <Route path="qrcode" element={<QrCode />} />
