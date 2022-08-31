@@ -10,16 +10,19 @@ import { convertViToEn, numberFormat } from '../Constants.js'
 
 import { ProductContext } from '../Contexts/ProductContext'
 import { PostContext } from '../Contexts/PostContext'
+import { ConfigContext } from '../Contexts/ConfigContext'
 
 function Home() {
     // const products = [...Products]
     const { products, getProductsHome } = useContext(ProductContext)
     const { posts, getBlog } = useContext(PostContext)
+    const { config, getConfig } = useContext(ConfigContext)
 
     useEffect(() => {
         document.title = "Smart Garden"
         getProductsHome()
         getBlog(1, 3)
+        getConfig()
     }, []);
 
     if (products.loading || posts.loadingBlog) {
@@ -34,8 +37,7 @@ function Home() {
                     </Col>
                     <Col className='Banner__title w-100 h-100 position-absolute d-flex flex-column justify-content-center cursor-d' >
                         <h1>Smart Garden</h1>
-                        <span>Chuyên cung cấp và thi công về thiết bị tưới tự động
-                        </span>
+                        <span>{config.data.title}</span>
                     </Col>
                 </Row>
             </Container>
@@ -69,7 +71,7 @@ function Home() {
                     </Col>
                     {
                         products.data.map((item, index) => index < 4 &&
-                            <Col xs={6} lg={3} className="outstanding__products mt-3" key={index} >
+                            <Col xs={6} lg={3} className="outstanding__products mt-3" key={item.name} >
                                 <Card style={{ width: '100%', border: 'none' }} className='shadow-lg hover-sh cursor-p' as={Link} to={'/product/' + convertViToEn(item.name)}>
                                     <Card.Img variant="top" className="p-4" src={Bec} />
                                     <Card.Body className='px-3'>
@@ -103,7 +105,7 @@ function Home() {
                     </Col>
                     {
                         posts.dataBlog.map((item) =>
-                            <Col md={4} key={item} className='mt-3'>
+                            <Col md={4} key={item.title} className='mt-3'>
                                 <Card as={Link} to={`/blog/${convertViToEn(item.title)}`} style={{ width: '100%', border: 'none' }} className="cursor-p" >
                                     <Card.Img variant="top" src={Bec} className='shadow-sm p-4' />
                                     <Card.Body className='px-0'>

@@ -21,9 +21,12 @@ import "swiper/css/thumbs";
 import "swiper/css/pagination";
 
 import { ProductContext } from '../Contexts/ProductContext'
+import { ConfigContext } from '../Contexts/ConfigContext'
 
 function Product() {
     const { products, getProducts, handleCategory, productSearch, refeshProduct } = useContext(ProductContext)
+    const { config, getConfig } = useContext(ConfigContext)
+    console.log(`=> config`, config)
     const limit = 12
     const { totalPage } = products.pagination
 
@@ -97,6 +100,7 @@ function Product() {
         document.title = "Products"
         setPagingActive(parseInt(page) || 1)
         SetitemCenter(parseInt(page) || 1)
+        getConfig()
         if (category !== null) {
             handleCategory(category, page || 1, limit, parseInt(selectValue))
         } else {
@@ -108,35 +112,7 @@ function Product() {
         }
     }, [selectValue, page, search])
 
-    // useEffect(() => {
-        // if (search !== null) {
-        //     productSearch(search, page || 1, limit, parseInt(selectValue))
-        // } else {
-        //     getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
-        // }
-    // }, []);
-
-    // useEffect(() => {
-    //     if (search !== null) {
-    //         productSearch(search, page || 1, limit, parseInt(selectValue))
-    //     }
-    // }, [search])
-
-    // useEffect(() => {
-    //     setPagingActive(parseInt(page) || 1)
-    //     SetitemCenter(parseInt(page) || 1)
-    //     if (category !== null) {
-    //         handleCategory(category, page || 1, limit, parseInt(selectValue))
-    //     } else {
-    //         if (search !== null) {
-    //             productSearch(search, page || 1, limit, parseInt(selectValue))
-    //         } else {
-    //             getProducts(parseInt(page) || 1, limit, parseInt(selectValue))
-    //         }
-    //     }
-    // }, [page])
-
-    if (products.loading) {
+    if (products.loading && config.loading) {
         return <Loading />
     }
     return (
@@ -146,7 +122,7 @@ function Product() {
                     <Col lg={3} className="mt-3 cursor-d d-none d-lg-block">
                         <h5><strong>Category</strong></h5>
                         <div className='category__list cursor-p' style={{ listStyle: 'none' }}>
-                            {CategoryList.map((item, index) =>
+                            {config.data.category.map((item, index) =>
                                 <div key={index}>
                                     <Link to={`/products?category=${item.title}&page=1`}>
                                         <h6 className={category === item.title ? 'text-primary font-weight-bold' : ''} onClick={() => handleCategoryProduct(item.title)}>{item.title}</h6>
@@ -174,7 +150,7 @@ function Product() {
                                 modules={[Pagination]}
                                 className="mySwiper">
                                 {
-                                    CategoryList.map((item, index) => item.list.length !== 0 &&
+                                    config.data.category.map((item, index) => item.list.length !== 0 &&
                                         <SwiperSlide key={index} >
                                             <div key={index} className='py-3'>
                                                 <Link to={`/products?category=${item.title}&page=1`}>
@@ -196,7 +172,7 @@ function Product() {
                                     )
                                 }
                                 <SwiperSlide className='py-3'>
-                                    {CategoryList.map((item, index) => item.list.length === 0 &&
+                                    {config.data.category.map((item, index) => item.list.length === 0 &&
                                         <div key={index} className="w-100 h-100" data-toggle="collapse" href={`#Collapse${index}`} role="button" aria-expanded="false" aria-controls={`Collapse${index}`}>
                                             <div className='d-flex justify-content-between align-items-center' >
                                                 <Link to={`/products?category=${item.title}&page=1`}>

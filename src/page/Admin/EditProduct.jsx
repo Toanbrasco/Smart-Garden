@@ -11,6 +11,7 @@ import Loading from '../../Component/Loading/Loading.jsx'
 
 import { ProductContext } from '../../Contexts/ProductContext.js'
 import { ImageContext } from '../../Contexts/ImageContext'
+import { ConfigContext } from '../../Contexts/ConfigContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -18,6 +19,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 function EditProduct() {
     const { products, getProductDetail, addProduct, updateProduct, refeshProduct, productDispatch } = useContext(ProductContext)
     const { image, addImage, updateImage } = useContext(ImageContext)
+    const { config, getConfig } = useContext(ConfigContext)
     // console.log(`=> products`, products)
     const arr = ['Thiết bị tưới', 'Ong']
     const { id } = useParams()
@@ -101,7 +103,7 @@ function EditProduct() {
     const handleChecked = e => setProductForm({ ...productForm, [e.target.name]: e.target.checked })
     const checkCategory = () => {
         let num = 0
-        CategoryList.forEach((item, index) => {
+        config.data.category.forEach((item, index) => {
             if (item.title === productForm.category.main) {
                 num = index
             }
@@ -110,15 +112,15 @@ function EditProduct() {
     }
     const detailCategory = () => {
         let detail = 'BASE'
-        CategoryList.forEach((item, index) => {
+        config.data.category.forEach((item, index) => {
             if (item.title === productForm.category.main) {
                 // if (productForm.category.detail.length === 0) {
-                if (!CategoryList[index].list.includes(productForm.category.detail)) {
+                if (!config.data.category[index].list.includes(productForm.category.detail)) {
                     if (item.list.length === 0) {
                         detail = ''
                     }
                     else {
-                        detail = CategoryList[index].list[0]
+                        detail = config.data.category[index].list[0]
                     }
                 }
             }
@@ -193,6 +195,7 @@ function EditProduct() {
     useEffect(() => {
         document.title = "Edit Product"
         getDetail(id)
+        getConfig()
     }, [])
 
     if (products.loadingDetail) return <Loading />
@@ -291,20 +294,20 @@ function EditProduct() {
                             <Form.Label>Danh mục</Form.Label>
                             <Form.Control as="select" name="main" defaultValue={productForm.category.main} onChange={handleCategory}>
                                 {
-                                    CategoryList.map((item, index) =>
+                                    config.data.category.map((item, index) =>
                                         <option key={index} value={item.title}>{item.title}</option>
                                     )
                                 }
                             </Form.Control>
                         </Form.Group>
                         {
-                            CategoryList[checkCategory()].list.length === 0 ? <></> :
+                            config.data.category[checkCategory()].list.length === 0 ? <></> :
                                 //  productForm.category.detail === '' ? <></> :
                                 <Form.Group className='ml-2'>
                                     <Form.Label>Danh mục con</Form.Label>
                                     <Form.Control as="select" name="detail" className='text-dark' defaultValue={productForm.category.detail} onChange={handleCategory}>
                                         {
-                                            CategoryList[checkCategory()].list.map((item, index) =>
+                                            config.data.category[checkCategory()].list.map((item, index) =>
                                                 <option key={index} value={item}>{item}</option>
                                             )
                                         }

@@ -1,23 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap'
 
+import { ConfigContext } from '../Contexts/ConfigContext'
+import Loading from '../Component/Loading/Loading';
 
 
 function Contact() {
+    const { config, getConfig } = useContext(ConfigContext)
     const Map = 'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg'
     const [height, setHeight] = useState(0)
-    // console.log(`=> height`, height)
     const ref = useRef(null)
 
 
     useEffect(() => {
         document.title = "Contact"
+        getConfig()
     }, []);
 
     useEffect(() => {
         setHeight(ref.current.clientHeight)
-    }, [])
+    }, [ref])
+    if (config.loading) {
+        return <Loading />
+    }
     return (
         <Container>
             <Row>
@@ -33,13 +39,21 @@ function Contact() {
                         </div>
                         <div className='position-absolute w-100 h-100'>
                             <div className='d-flex flex-column h-100 justify-content-md-center map-infor'>
-                                <div className='d-flex flex-column p-3 bg-white  '>
-                                    <span><strong>Dịa chỉ</strong></span>
+                                <div className='d-flex flex-column p-3 bg-white '>
+                                    {
+                                        config.data.info.map((item, index) => item.contact === true &&
+                                            <div className='d-flex flex-column'>
+                                                <strong>{item.title}</strong>
+                                                <span className='mt-0'>{item.info}</span>
+                                            </div>
+                                        )
+                                    }
+                                    {/* <strong>Dịa chỉ</strong>
                                     <span>1 abc, abc, abc, HCM</span>
                                     <span><strong>Email</strong></span>
                                     <span>ABc@gmail.com</span>
                                     <span><strong>Phone</strong></span>
-                                    <span>012345679</span>
+                                    <span>012345679</span> */}
                                 </div>
 
                             </div>
@@ -60,7 +74,7 @@ function Contact() {
                         <input type="text" className='input-cus ' />
 
                     </form>
-                    <div className="mt-auto w-100 d-flex justify-content-end cursor-p">
+                    <div className="mt-3 w-100 d-flex justify-content-end cursor-p">
                         <Button>Submit</Button>
                     </div>
                 </Col>

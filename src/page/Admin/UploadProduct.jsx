@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Col, Container, Form, Row, Button, Modal } from 'react-bootstrap'
 
 import Dropzone from '../../Component/Dropzone/Dropzone'
@@ -6,15 +6,19 @@ import { CategoryList, makeNumArr } from '../../Constants.js'
 
 import { ProductContext } from '../../Contexts/ProductContext.js'
 import { ImageContext } from '../../Contexts/ImageContext'
+import { ConfigContext } from '../../Contexts/ConfigContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import Loading from '../../Component/Loading/Loading'
 
 function UploadProdcut() {
     const { products, addProduct } = useContext(ProductContext)
     const { image, addImage } = useContext(ImageContext)
+    const { config, getConfig } = useContext(ConfigContext)
+    console.log(`=> config`, config)
     const arr = ['Thiết bị tưới', 'Ong']
-    
+
     const [show, setShow] = useState(false)
     const [modalText, setModalText] = useState('')
     const [validFiles, setValidFiles] = useState([])
@@ -32,11 +36,14 @@ function UploadProdcut() {
         isPublic: true,
         info: [],
         category: {
-            main: CategoryList[0].title,
-            detail: CategoryList[0].list[0]
+            main: '',
+            // config.data.category[0].title,
+            detail: ''
+            //  config.data.category[0].list[0]
         },
         type: arr[0],
     })
+    console.log(`=> productForm`, productForm)
 
     const addNewRow = () => {
         setElementCount(elementCount + 1)
@@ -64,11 +71,12 @@ function UploadProdcut() {
     }
     const checkCategory = () => {
         let num = 0
-        CategoryList.forEach((item, index) => {
+        config.data.category.forEach((item, index) => {
             if (item.title === productForm.category.main) {
                 num = index
             }
         })
+        console.log(`=> num`, num)
         return num
     }
     const handleProductForm = (e) => {
@@ -118,6 +126,14 @@ function UploadProdcut() {
         }
     }
 
+    useEffect(() => {
+        getConfig()
+        setProductForm({ ...productForm, category: { ...productForm.category, main: config.data.category[0].title, detail: config.data.category[0].list[0] } })
+    }, [])
+
+    if (config.loading) {
+        return <Loading />
+    }
     return (
         <Container fluid bg="light">
             <Modal show={show} onHide={() => setShow(false)} animation={false}>
@@ -198,18 +214,18 @@ function UploadProdcut() {
                             <Form.Label>Danh mục</Form.Label>
                             <Form.Control as="select" name="main" defaultValue={productForm.category.main} onChange={handleCategory}>
                                 {
-                                    CategoryList.map((item, index) =>
+                                    config.data.category.map((item, index) =>
                                         <option key={index} value={item.title}>{item.title}</option>
                                     )
                                 }
                             </Form.Control>
                         </Form.Group>
-                        {CategoryList[checkCategory()].list.length === 0 ? <></> :
+                        {config.data.category[checkCategory()].list.length === 0 ? <></> :
                             <Form.Group className='ml-2'>
                                 <Form.Label>Danh mục con</Form.Label>
                                 <Form.Control as="select" name="detail" className='text-dark' defaultValue={productForm.category.detail} onChange={handleCategory}>
                                     {
-                                        CategoryList[checkCategory()].list.map((item, index) =>
+                                        config.data.category[checkCategory()].list.map((item, index) =>
                                             <option key={index} value={item}>{item}</option>
                                         )
                                     }

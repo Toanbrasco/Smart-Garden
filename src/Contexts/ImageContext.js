@@ -58,6 +58,14 @@ const ImageContextProvider = ({ children }) => {
             imageDispatch({ type: GET_ORDER_FAIL })
         }
     }
+    const deleteImageID = async (id) => {
+        try {
+            const response = await axios.delete(`${UrlApi}/image/${id}`)
+            return response.data
+        } catch (error) {
+            imageDispatch({ type: GET_ORDER_FAIL })
+        }
+    }
 
 
 
@@ -67,6 +75,7 @@ const ImageContextProvider = ({ children }) => {
         addImage,
         updateImage,
         deleteImage,
+        deleteImageID,
         imageDispatch
     }
 

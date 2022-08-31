@@ -44,3 +44,7 @@ export const SERVICE_UPLOAD = 'SERVICE_UPLOAD'
 export const SERVICE_DETAIL = 'SERVICE_DETAIL'
 export const POST_GET_FAIL = 'POST_GET_FAIL'
 export const POST_REFESH = 'POST_REFESH'
+
+export const CONFIG_GET = 'CONFIG_GET'
+export const CONFIG_FAIL = 'CONFIG_FAIL'
+export const CONFIG_REFESH = 'CONFIG_REFESH'

@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import Logo from '../../assets/images/Logo.png'
-import { personImage } from '../../Constants'
 
-import { faBars, faBox, faChevronLeft, faChevronRight, faClipboardCheck, faGauge, faNewspaper, faUser, faWrench, faArrowRightFromBracket, faQrcode } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBox, faChevronLeft, faChevronRight, faClipboardCheck, faGauge, faNewspaper, faUser, faWrench, faArrowRightFromBracket, faQrcode, faImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Link, Navigate, Outlet } from "react-router-dom"
-// import Dashboard from './Dashboard'
 
 import { UserContext } from '../../Contexts/UserContext'
 import Loading from '../../Component/Loading/Loading'
@@ -28,7 +26,8 @@ function Admin() {
         { name: 'Config', icon: faWrench, component: 1, path: 'config' },
         { name: 'Order', icon: faClipboardCheck, component: 1, path: 'order' },
         { name: 'User', icon: faUser, component: 1, path: 'user' },
-        { name: 'QRCode', icon: faQrcode, component: 1, path: 'qrcode' }
+        { name: 'QRCode', icon: faQrcode, component: 1, path: 'qrcode' },
+        { name: 'Image', icon: faImage, component: 1, path: 'image' }
     ]
     const handleNav = () => {
         switch (navSize) {

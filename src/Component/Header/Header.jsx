@@ -1,12 +1,17 @@
-import { faClose, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, Container, Form, Modal, Nav, Navbar } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Logo from '../../assets/images/Logo.png';
+
 import './Header.css';
+import { UrlApi } from '../../Constants';
+
+import { faClose, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { CartContext } from '../../Contexts/CartContext'
 import { ProductContext } from '../../Contexts/ProductContext'
+import { ConfigContext } from '../../Contexts/ConfigContext'
+import Loading from '../Loading/Loading';
 
 function Header() {
     const Location = useLocation().pathname
@@ -19,6 +24,7 @@ function Header() {
 
     const { cart, getCart } = useContext(CartContext)
     const { refeshProduct } = useContext(ProductContext)
+    const { config, getConfig } = useContext(ConfigContext)
     // const [href, setHref] = useState('#')
     const [inputText, SetInputText] = useState('')
     const [selectValue, setSelectValue] = useState(0)
@@ -55,16 +61,29 @@ function Header() {
 
     useEffect(() => {
         getCart()
+        getConfig()
     }, [])
+    
+    if (config.loading) {
+        return <Loading />
+    }
     return (
         <>
             {
-                Location.includes('/admin') || Location.includes('/login') || Location.includes('/infomation')? <></> :
+                Location.includes('/admin') || Location.includes('/login') || Location.includes('/infomation') ? <></> :
                     <>
                         <Navbar bg="light" expand="lg" className='p-0 Header' collapseOnSelect >
                             <Container className="position-relative w-100 h-100 d-flex justify-content-md-between " style={{ zIndex: '10' }}>
-                                <Navbar.Brand className='brand d-none d-md-none d-lg-flex position-absolute translate-middle w-100 h-100 m-0 mr-0 p-0 justify-content-center'><Link to='/'><img className='img-brand' src={Logo} alt="Logo"></img></Link></Navbar.Brand>
-                                <Navbar.Brand className='d-lg-none d-md-flex m-0 mr-0 h-100 p-0' ><Link to='/'><img className='img-brand' src={Logo} alt="Logo"></img></Link></Navbar.Brand>
+                                <Navbar.Brand className='brand d-none d-md-none d-lg-flex position-absolute translate-middle w-100 h-100 m-0 mr-0 p-0 justify-content-center'>
+                                    <Link to='/'>
+                                        <img className='img-brand' src={`${UrlApi}/image/${config.data.logo}`} alt="Logo"></img>
+                                    </Link>
+                                </Navbar.Brand>
+                                <Navbar.Brand className='d-lg-none d-md-flex m-0 mr-0 h-100 p-0' >
+                                    <Link to='/'>
+                                        <img className='img-brand' src={`${UrlApi}/image/${config.data.logo}`} alt="Logo"></img>
+                                    </Link>
+                                </Navbar.Brand>
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                                 <Navbar.Collapse id="basic-navbar-nav" className="bg-light">
                                     <Nav className="mr-auto h-100 text-center" style={{ zIndex: '10' }}>

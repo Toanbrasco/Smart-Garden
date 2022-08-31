@@ -24,6 +24,7 @@ textarea {
     /* margin: 0px 15px 0px 15px; */
 }
 
+
 .cursor-d {
     cursor: default;
 }
@@ -310,6 +311,7 @@ ul>a>li {
     -webkit-box-orient: vertical;
     white-space: normal;
 }
+
 .text-truncate.text-truncate--3 {
     display: -webkit-box !important;
     -webkit-line-clamp: 3;
