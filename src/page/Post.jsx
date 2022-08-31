@@ -13,17 +13,17 @@ import { DayFormat } from '../Constants'
 
 
 function Post() {
-    const { posts, getBlogDetail, getServiceDetail } = useContext(PostContext)
+    const { posts, getBlogDetailName, getServiceDetailName } = useContext(PostContext)
     const Location = useLocation().pathname
     const { postName } = useParams()
 
     useEffect(() => {
         if (Location.includes('/blog/')) {
             document.title = "Blog"
-            getBlogDetail(postName)
+            getBlogDetailName(postName)
         } else {
             document.title = "Service"
-            getServiceDetail(postName)
+            getServiceDetailName(postName)
         }
     }, []);
 

@@ -94,7 +94,6 @@ function PostEdit() {
                     const { imageSuccess, images, imageMessage } = await updateImage(data)
                     if (imageSuccess) {
                         if (Location.includes('/blog/')) {
-                            console.log(`=> images`, images)
                             const { blogSuccess, blogMessage } = await updateBlog({ ...postForm, image: images[0], content: content })
                             if (blogSuccess) {
                                 setModalText(blogMessage)
@@ -132,7 +131,11 @@ function PostEdit() {
     }
     const handleCloseModal = () => {
         setShow(false)
-        getBlogDetail(idBlog)
+        if (Location.includes('/blog/')) {
+            getBlogDetail(idBlog)
+        } else {
+            getServiceDetail(idService)
+        }
     }
 
     useEffect(() => {

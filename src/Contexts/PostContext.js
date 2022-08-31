@@ -73,6 +73,34 @@ const PostContextProvider = ({ children }) => {
             postDispatch({ type: POST_GET_FAIL })
         }
     }
+    const getBlogDetailName = async (blogName) => {
+        refeshPost()
+        try {
+            const response = await axios.get(`${UrlApi}/api/posts/blog/detail?detail=${blogName}`)
+            // console.log(`=> response Detail`, response.data)
+            if (response.data.success) {
+                postDispatch({ type: BLOG_DETAIL, payload: response.data })
+            } else {
+                postDispatch({ type: POST_GET_FAIL, payload: response.data })
+            }
+        } catch (error) {
+            postDispatch({ type: POST_GET_FAIL })
+        }
+    }
+
+    const getServiceDetailName = async (serviceName) => {
+        refeshPost()
+        try {
+            const response = await axios.get(`${UrlApi}/api/posts/service/detail?detail=${serviceName}`)
+            if (response.data.success) {
+                postDispatch({ type: SERVICE_DETAIL, payload: response.data })
+            } else {
+                postDispatch({ type: POST_GET_FAIL, payload: response.data })
+            }
+        } catch (error) {
+            postDispatch({ type: POST_GET_FAIL })
+        }
+    }
 
     const getService = async (page, limit) => {
         refeshPost()
@@ -174,6 +202,8 @@ const PostContextProvider = ({ children }) => {
         blogSearch,
         getBlogDetail,
         getServiceDetail,
+        getBlogDetailName,
+        getServiceDetailName,
         blogAdd,
         serviceAdd,
         deleteBlog,

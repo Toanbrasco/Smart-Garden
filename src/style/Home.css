@@ -1,7 +1,7 @@
 .Banner__title {
     width: 100%;
     text-align: center;
-    /* top: calc(50% - 95px); */
+    top: 0;
     left: 0;
     color: white;
 }
