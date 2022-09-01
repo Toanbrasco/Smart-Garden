@@ -5,6 +5,7 @@ import Banner from '../../assets/images/Banner.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
+
 import Loading from '../../Component/Loading/Loading'
 import axios from 'axios'
 

@@ -1,20 +1,33 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { Container, Row, Col, Card, Button, Modal } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Modal, OverlayTrigger, Tooltip, Toast } from 'react-bootstrap'
 
 import { ImageContext } from '../../Contexts/ImageContext'
 import { UrlApi, DayFormat } from '../../Constants'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faCopy } from '@fortawesome/free-solid-svg-icons'
+
+import Dropzone from '../../Component/Dropzone/Dropzone'
 
 function Images() {
-    const { image, getImage, deleteImageID } = useContext(ImageContext)
+    const { image, getImage, deleteImageID, addImage } = useContext(ImageContext)
     console.log(`=> image`, image)
     const [show, setShow] = useState(false)
+    const [showToast, setShowToast] = useState(false);
     const [modalText, setModalText] = useState('')
+    const [validFiles, setValidFiles] = useState([])
 
     const RemoveImageId = async (id) => {
         const { imageMessage } = await deleteImageID(id)
+        setModalText(imageMessage)
+        setShow(true)
+    }
+    const handleSubmit = async () => {
+        const data = new FormData()
+        Array.from(validFiles).forEach(item => {
+            data.append('file', item)
+        })
+        const { imageMessage } = await addImage(data)
         setModalText(imageMessage)
         setShow(true)
     }
@@ -22,12 +35,17 @@ function Images() {
         setShow(false)
         getImage()
     }
+    const handleCopy = (image) => {
+        navigator.clipboard.writeText(`${UrlApi}/image/${image}`)
+        setShowToast(true)
+    }
+    const toggleShowB = () => setShowToast(!showToast);
 
     useEffect(() => {
         getImage()
     }, [])
     return (
-        <Container fluid className='mb-5'>
+        <Container fluid className='mb-5' >
             <Modal show={show} onHide={() => setShow(false)} animation={false} backdrop='static'>
                 <Modal.Header closeButton>
                     <Modal.Title>Smart Garden</Modal.Title>
@@ -42,7 +60,37 @@ function Images() {
             </Button> */}
                 </Modal.Footer>
             </Modal>
+            <div className="w-100 d-flex justify-content-center" style={{
+                position: 'fixed',
+                top: 50,
+                right: 0,
+                zIndex: 10
+            }}>
+                <Toast onClose={toggleShowB} show={showToast} animation={false} closeButton={true} delay={1500} autohide>
+                    <Toast.Header>
+                        {/* <img
+                            src={UrlApi + '/image/Logo.png'}
+                            className="rounded mr-2 w-100"
+                            alt=""
+                        /> */}
+                        <strong className="mr-auto">SmartGarden</strong>
+                        {/* <small>11 mins ago</small> */}
+                    </Toast.Header>
+                    <Toast.Body className="bg-white">Đã copy đường dẫn</Toast.Body>
+                </Toast>
+            </div>
+            <Row className='mt-3'>
+                <Col md={12} className='' >
+                    <h1>Image</h1>
+                </Col>
+            </Row>
             <Row>
+                <Col md={12} >
+                    <Dropzone validFiles={validFiles} handleValidFiles={(files) => setValidFiles(files)} upload={handleSubmit} btn={true} />
+                </Col>
+                <Col md={12} className='mt-3'>
+                    <h5>Tất cả hình ảnh</h5>
+                </Col>
                 {image.data.map((item, index) =>
                     <Col key={index} sm={6} lg={3} className='mt-3'>
                         {/* <Link to='blog-detail'> */}
@@ -57,7 +105,23 @@ function Images() {
                                     <div className="w-100 d-flex justify-content-between align-items-center mt-auto">
                                         <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
                                         <div>
-                                            {/* <Button as={Link} to={`blog/${convertViToEn(item._id)}`} variant="primary" className=''><FontAwesomeIcon icon={faPenToSquare} /></Button> */}
+                                            {/* <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}>
+                                                <span className="d-inline-block">
+                                                    <Button variant="primary" className='' onClick={() => handleCopy(item.name)}><FontAwesomeIcon icon={faCopy} /></Button>
+                                                    
+                                                </span>
+                                            </OverlayTrigger> */}
+                                            <OverlayTrigger
+                                                key='top'
+                                                placement='top'
+                                                overlay={
+                                                    <Tooltip id={`tooltip-'top'`}>
+                                                        Copy đường dẫn hình ảnh
+                                                    </Tooltip>
+                                                }
+                                            >
+                                                <Button variant="primary" className='' onClick={() => handleCopy(item.name)}><FontAwesomeIcon icon={faCopy} /></Button>
+                                            </OverlayTrigger>
                                             <Button variant="danger" className='ml-2' onClick={() => RemoveImageId(item._id)}><FontAwesomeIcon icon={faTrash} /></Button>
                                         </div>
                                     </div>

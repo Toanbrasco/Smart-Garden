@@ -5,13 +5,11 @@ import { Container, Row, Col, Button } from 'react-bootstrap'
 import { ConfigContext } from '../Contexts/ConfigContext'
 import Loading from '../Component/Loading/Loading';
 
-
 function Contact() {
     const { config, getConfig } = useContext(ConfigContext)
     const Map = 'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg'
     const [height, setHeight] = useState(0)
-    const ref = useRef(null)
-
+    const Myref = useRef(null)
 
     useEffect(() => {
         document.title = "Contact"
@@ -19,8 +17,8 @@ function Contact() {
     }, []);
 
     useEffect(() => {
-        setHeight(ref.current.clientHeight)
-    }, [ref])
+        setHeight(Myref.current.clientHeight)
+    }, [Myref])
     if (config.loading) {
         return <Loading />
     }
@@ -36,6 +34,7 @@ function Contact() {
                     <div className='position-relative w-100 h-100'>
                         <div className='w-100 h-100 position-absolute img-map'>
                             <img src={Map} alt="Map" className='w-100 h-100 ' />
+                           
                         </div>
                         <div className='position-absolute w-100 h-100'>
                             <div className='d-flex flex-column h-100 justify-content-md-center map-infor'>
@@ -60,7 +59,7 @@ function Contact() {
                         </div>
                     </div>
                 </Col>
-                <Col md={4} className='mt-4 d-flex flex-column' ref={ref}>
+                <Col md={4} className='mt-4 d-flex flex-column' ref={Myref}>
                     <h5 className='cursor-d'><strong>Liên hệ</strong></h5>
                     <small className='text-secondary'>Để lại thông tin chúng tôi sẽ liên hệ bạn</small>
                     <form action="" className='d-flex flex-column'>
