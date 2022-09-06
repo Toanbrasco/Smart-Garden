@@ -6,7 +6,7 @@ import Bec from '../assets/images/BEC-TR.png'
 import ONG from '../assets/images/ThungOng.png'
 import '../style/Home.css'
 import Loading from '../Component/Loading/Loading'
-import { convertViToEn, numberFormat } from '../Constants.js'
+import { convertViToEn, numberFormat, UrlApi } from '../Constants.js'
 
 import { ProductContext } from '../Contexts/ProductContext'
 import { PostContext } from '../Contexts/PostContext'
@@ -106,12 +106,14 @@ function Home() {
                     {
                         posts.dataBlog.map((item) =>
                             <Col md={4} key={item.title} className='mt-3'>
-                                <Card as={Link} to={`/blog/${convertViToEn(item.title)}`} style={{ width: '100%', border: 'none' }} className="cursor-p" >
-                                    <Card.Img variant="top" src={Bec} className='shadow-sm p-4' />
-                                    <Card.Body className='px-0'>
-                                        <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
-                                        <Card.Text className="text-truncate text-truncate--3 text-justify" >{item.desc}</Card.Text>
-                                    </Card.Body>
+                                <Card as={Link} to={`/blog/${convertViToEn(item.title)}`} style={{ width: '100%', border: 'none' }} className="cursor-p h-100 d-flex flex-column align-self-stretch" >
+                                    <Card.Img variant="top" src={UrlApi + `/image/` + item.image} className='' />
+                                    <div className="mt-auto">
+                                        <Card.Body className='px-0'>
+                                            <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
+                                            <Card.Text className="text-truncate text-truncate--3 text-justify" >{item.desc}</Card.Text>
+                                        </Card.Body>
+                                    </div>
                                 </Card>
                             </Col>
                         )}

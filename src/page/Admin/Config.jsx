@@ -392,17 +392,17 @@ function Config() {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col lg={12}>
                             <div className="w-100 d-flex justify-content-between align-items-center my-3">
                                 <h5>Map</h5>
                                 <Button size='sm' variant='primary' onClick={() => handleUpdateconfig('MAP')}>Upadate Map</Button>
                             </div>
-                            {/* <Form.Group className="my-2">
+                            <Form.Group className="my-2">
                                 <Form.Control size="sm" type="text" value={''} />
-                            </Form.Group> */}
+                            </Form.Group>
                         </Col>
-                    </Row>
+                    </Row> */}
                 </Col>
             </Row >
         </Container >

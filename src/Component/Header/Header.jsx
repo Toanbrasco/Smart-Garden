@@ -63,7 +63,7 @@ function Header() {
         getCart()
         getConfig()
     }, [])
-    
+
     if (config.loading) {
         return <Loading />
     }
@@ -74,14 +74,14 @@ function Header() {
                     <>
                         <Navbar bg="light" expand="lg" className='p-0 Header' collapseOnSelect >
                             <Container className="position-relative w-100 h-100 d-flex justify-content-md-between " style={{ zIndex: '10' }}>
-                                <Navbar.Brand className='brand d-none d-md-none d-lg-flex position-absolute translate-middle w-100 h-100 m-0 mr-0 p-0 justify-content-center'>
-                                    <Link to='/'>
-                                        <img className='img-brand' src={`${UrlApi}/image/${config.data.logo}`} alt="Logo"></img>
+                                <Navbar.Brand className='brand d-none d-md-none d-lg-flex position-absolute translate-middle w-100 h-100 m-0 mr-0 p-0 justify-content-center align-items-center' >
+                                    <Link to='/' >
+                                        <img className='img-brand' style={{ width: '100px', height: '45px' }} src={`${UrlApi}/image/${config.data.logo}`} alt="Logo"></img>
                                     </Link>
                                 </Navbar.Brand>
-                                <Navbar.Brand className='d-lg-none d-md-flex m-0 mr-0 h-100 p-0' >
+                                <Navbar.Brand className='d-lg-none d-flex m-0 mr-0 h-100 p-0 align-items-center'>
                                     <Link to='/'>
-                                        <img className='img-brand' src={`${UrlApi}/image/${config.data.logo}`} alt="Logo"></img>
+                                        <img className='img-brand' style={{ width: '80px', height: '35px' }} src={`${UrlApi}/image/${config.data.logo}`} alt="Logo"></img>
                                     </Link>
                                 </Navbar.Brand>
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

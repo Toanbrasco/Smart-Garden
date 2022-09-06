@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PostContext } from '../Contexts/PostContext'
 import Loading from '../Component/Loading/Loading'
 
-import { images, makeNumArr, convertViToEn } from '../Constants'
+import { images, makeNumArr, convertViToEn, UrlApi } from '../Constants'
 
 
 function Blog() {
@@ -85,14 +85,17 @@ function Blog() {
                     posts.dataBlog.map((item, index) =>
                         <Col key={index} sm={6} lg={4} className='mt-3'>
                             <Link to={`/blog/${convertViToEn(item.title)}`}>
-                                <Card style={{ width: '100%', border: 'none' }} className=" h-100 cursor-p d-flex flex-column" >
-                                    <Card.Img variant="top" src={images[0]} className='shadow-sm' style={{ width: '100%', border: 'none' }} />
-                                    <Card.Body className="px-0">
-                                        <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
-                                        <Card.Text className="text-truncate text-truncate--3 text-justify" >{item.desc}</Card.Text>
-                                    </Card.Body>
-                                    <div className="mt-auto d-flex justify-content-end">
-                                        <Card.Link className='text-dark'>Xem chi tiết</Card.Link>
+                                <Card style={{ width: '100%', border: 'none' }} className=" h-100 cursor-p d-flex flex-column align-self-stretch flex-grow-1" >
+                                    <Card.Img variant="top" src={UrlApi + `/image/` + item.image} className='shadow-sm' style={{ width: '100%', border: 'none' }} />
+                                    <div className="mt-auto">
+                                        <Card.Body className="px-0">
+                                            <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
+                                            <Card.Text className="text-truncate text-truncate--3 text-justify" >{item.desc}</Card.Text>
+                                        </Card.Body>
+                                        <div className="mt-auto d-flex justify-content-end">
+                                            <Card.Link className='text-dark'>Xem chi tiết</Card.Link>
+                                        </div>
+
                                     </div>
                                 </Card>
                             </Link>
