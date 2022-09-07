@@ -42,7 +42,7 @@ function Footer() {
     return (
         <div className="Footer ">
             {
-                Location.includes('/admin') || Location.includes('/cart') || Location.includes('/contact') || Location.includes('/products/') === true || Location.includes('/login') === true
+                Location.includes('/admin') || Location.includes('/cart') || Location.includes('/contact') || Location.includes('/product/') === true || Location.includes('/login') === true
                     || Location.includes('/payment') === true || Location.includes('/infomation') ?
                     <></> :
                     <Container bg='light' className='mt-5 pb-4 cursor-d'>
@@ -70,13 +70,13 @@ function Footer() {
                                 <span><Link to="/contact">Contact</Link></span>
                             </Col>
                             <Col sm={12} md={4} className="d-flex flex-column mt-3" ref={ref}>
-                                <h5><strong>FanFage</strong></h5>
+                                {/* <h5><strong>FanFage</strong></h5>
                                 <div className="fb-page"
                                     data-href={config.data.facebook}
                                     data-width={width}
                                     data-hide-cover="false"
                                     data-show-facepile="false">
-                                </div>
+                                </div> */}
                                 {/* <div className='FaceBook bg-primary w-100 d-flex justify-content-center align-items-center text-white'>
                                     FaceBook
                                 </div> */}

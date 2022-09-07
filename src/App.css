@@ -152,6 +152,10 @@ span>a:hover {
     width: 70% !important;
 }
 
+.w-80 {
+    width: 80% !important;
+}
+
 .vh-80 {
     height: 80vh !important;
 }
@@ -377,6 +381,13 @@ ul>a>li {
         width: 60% !important;
     }
 
+    .w-xs-100 {
+        width: 100% !important;
+    }
+
+    .container-dropzone {
+        height: 200px !important;
+    }
 }
 
 /* // Small devices (landscape phones, 576px and up) */
@@ -416,6 +427,15 @@ ul>a>li {
     .map-infor span {
         margin-top: 0px;
         font-size: 15px;
+    }
+
+    .category-img {
+        height: 85% !important;
+        bottom: 0px;
+    }
+
+    .Home__category>div {
+        height: 150px !important;
     }
 }
 

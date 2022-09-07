@@ -212,9 +212,6 @@ function EditProduct() {
                     <Button variant="primary" onClick={() => handleClose()}>
                         Ok
                     </Button>
-                    {/* <Button variant="primary" onClick={() => setShow(false)}>
-                Save Changes
-            </Button> */}
                 </Modal.Footer>
             </Modal>
             <Row className='mt-3'>
@@ -224,9 +221,6 @@ function EditProduct() {
             </Row>
             <Row className='mb-5'>
                 <Col md={12}>
-                    {/* <div
-                        style={{ height: '100%', width: '100%', backgroundColor: 'lightgray' }}>
-                    </div> */}
                     <Dropzone validFiles={validFiles} handleValidFiles={(files) => setValidFiles(files)}
                         upload={handleSubmit} imgOld={products.data[0].images} updateImgOld={(img) => setImageOld(img)} btn={false} />
                 </Col>
@@ -259,7 +253,7 @@ function EditProduct() {
                         <div id='addZone'>
                             {
                                 productForm.info.map((item, index) =>
-                                    <div key={item.title} className="d-flex flex-sm-row flex-column mt-1" id='info-row'>
+                                    <div key={item.title} className="d-flex flex-row mt-1" id='info-row'>
                                         < Form.Control type="text" placeholder="Tên thông số" id='paramaterName' defaultValue={item.title} />
                                         <Form.Control type="text" placeholder="Thông số" id='paramater' defaultValue={item.paramater} />
                                         <Button variant='danger' onClick={() => RemoveRowInfo(index)}><FontAwesomeIcon icon={faTrash} /></Button>
@@ -268,7 +262,7 @@ function EditProduct() {
                             }
                             {
                                 element.map((item, index) =>
-                                    <div key={index} className="d-flex flex-sm-row flex-column mt-1" id='info-row'>
+                                    <div key={index} className="d-flex flex-row mt-1" id='info-row'>
                                         <Form.Control type="text" placeholder="Tên thông số" id='paramaterName' />
                                         <Form.Control type="text" placeholder="Thông số" id='paramater' />
                                         <Button variant='danger' onClick={() => RemoveRowInfo2(index)}><FontAwesomeIcon icon={faTrash} /></Button>
@@ -277,7 +271,6 @@ function EditProduct() {
                             }
                         </div>
                         <Button variant='primary' className="mt-3" onClick={() => addNewRow()}>Add</Button>
-                        {/* <Button variant='danger' className="mt-3" onClick={() => handleinfo()}>Add</Button>  */}
                     </Form.Group>
                     <div className=" mb-3 d-flex flex-sm-row flex-column">
                         <Form.Group>
@@ -290,7 +283,7 @@ function EditProduct() {
                                 }
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group className='ml-2'>
+                        <Form.Group className='m-0 ml-sm-2'>
                             <Form.Label>Danh mục</Form.Label>
                             <Form.Control as="select" name="main" defaultValue={productForm.category.main} onChange={handleCategory}>
                                 {
@@ -302,8 +295,7 @@ function EditProduct() {
                         </Form.Group>
                         {
                             config.data.category[checkCategory()].list.length === 0 ? <></> :
-                                //  productForm.category.detail === '' ? <></> :
-                                <Form.Group className='ml-2'>
+                                <Form.Group className='m-0 ml-sm-2'>
                                     <Form.Label>Danh mục con</Form.Label>
                                     <Form.Control as="select" name="detail" className='text-dark' defaultValue={productForm.category.detail} onChange={handleCategory}>
                                         {
@@ -313,11 +305,8 @@ function EditProduct() {
                                         }
                                     </Form.Control>
                                 </Form.Group>
-                        }
-                        {/* <Form.Control type="text" placeholder="Chi tiết" className='ml-2' name="detail" defaultValue={productForm.category.detail} onChange={handleCategory} /> */}
-                    </div>
+                        }</div>
                     <Form.Group className="mb-3" >
-                        {/* <Form.Label>Public</Form.Label> */}
                         <Form.Check
                             type='checkbox'
                             id={`default-checkbox`}

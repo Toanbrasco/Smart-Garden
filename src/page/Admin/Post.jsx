@@ -111,9 +111,6 @@ function Post() {
                     <Button variant="primary" onClick={() => handleClose()}>
                         Ok
                     </Button>
-                    {/* <Button variant="primary" onClick={() => setShow(false)}>
-                Save Changes
-            </Button> */}
                 </Modal.Footer>
             </Modal>
             <Modal show={show2} onHide={() => setShow2(false)} animation={false} backdrop="static">
@@ -140,7 +137,6 @@ function Post() {
                 {
                     posts.dataBlog.map((item, index) =>
                         <Col key={index} sm={6} lg={3} className='mt-3'>
-                            {/* <Link to='blog-detail'> */}
                             <Card style={{ width: '100%' }} className='h-100 d-flex flex-column align-self-stretch flex-grow-1'>
                                 <Card.Img variant="top" src={UrlApi + `/image/${item.image}`} />
                                 <div className='mt-auto'>
@@ -149,9 +145,11 @@ function Post() {
                                         <Card.Text className="text-truncate text-truncate--3 text-justify" >{item.desc}</Card.Text>
                                     </Card.Body>
                                     <Card.Footer className='mt-auto'>
-                                        <div className="w-100 d-flex justify-content-between align-items-center mt-auto">
-                                            <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
-                                            <div>
+                                        <div className="w-100 d-flex flex-xl-row flex-column justify-content-between align-items-center">
+                                            <div className="w-100">
+                                                <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
+                                            </div>
+                                            <div className='w-100 d-flex justify-content-end'>
                                                 <Button as={Link} to={`blog/${convertViToEn(item._id)}`} variant="primary" className=''><FontAwesomeIcon icon={faPenToSquare} /></Button>
                                                 <Button variant="danger" className='ml-2' onClick={() => confirmRemovePost(item._id, item.title, 'BLOG')}><FontAwesomeIcon icon={faTrash} /></Button>
                                             </div>
@@ -182,10 +180,12 @@ function Post() {
                                         <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
                                         <Card.Text className="text-truncate text-truncate--3 text-justify" >{item.desc}</Card.Text>
                                     </Card.Body>
-                                    <Card.Footer>
-                                        <div className="w-100 d-flex justify-content-between align-items-center">
-                                            <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
-                                            <div>
+                                    <Card.Footer className=''>
+                                        <div className="w-100 d-flex flex-xl-row flex-column justify-content-between align-items-center">
+                                            <div className="w-100">
+                                                <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
+                                            </div>
+                                            <div className='w-100 d-flex justify-content-end'>
                                                 <Button as={Link} to={`service/${convertViToEn(item._id)}`} variant="primary" className=''><FontAwesomeIcon icon={faPenToSquare} /></Button>
                                                 <Button variant="danger" className='ml-2' onClick={() => confirmRemovePost(item._id, item.title, 'SERVICE')}><FontAwesomeIcon icon={faTrash} /></Button>
                                             </div>

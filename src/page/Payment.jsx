@@ -25,7 +25,7 @@ function Payment() {
         shipping: '',
         payment: '',
     })
-    
+
     const handleOrderForm = event => setOrderForm({ ...orderForm, [event.target.name]: event.target.value })
 
     const handleSubmitPayment = () => {
@@ -96,24 +96,27 @@ function Payment() {
                 <Col md={7} className=' order-md-2 mt-4'>
                     {
                         filterCart(cart, products).map((item, index) =>
-                            <div key={index} className="w-100 d-flex border-bottom cursor-d">
-                                <div className='col-img-bec w-20 '>
-                                    <img className='w-100 p-xs-0 p-md-3' src={Bec} alt="Bec" />
+                            <div key={index} className="w-100 d-flex align-items-center border-bottom">
+                                <div className='col-img-bec w-20'>
+                                    <img className='w-100 p-xs-0 p-sm-2 p-md-3' src={Bec} alt="Bec" />
                                 </div>
-                                <div className='w-40 d-flex align-items-start flex-column justify-content-center p-3'>
-                                    <span className="m-0">{item.name}</span>
-                                    <small>{item.category.main}</small>
-                                </div>
-                                <div className="w-20 d-flex justify-content-center align-items-center">
-                                    {/* <div className="btn-nav" onClick={() => handleCount(item._id, 1)}><span>-</span></div> */}
-                                    <div className=""><span>{item.count}</span></div>
-                                    {/* <div className="btn-nav" onClick={() => handleCount(item._id, 0)}><span>+</span></div> */}
-                                </div>
-                                <div className='w-30 d-flex align-items-center justify-content-end'>
-                                    <span className='m-0'>{numberFormat(item.price.base * item.count)}</span>
-                                </div>
-                                <div className='w-10 d-flex align-items-center justify-content-end cursor-p'>
-                                    {/* <div onClick={() => removeCartItem(item._id)}>X</div> */}
+                                <div className='d-flex flex-column flex-sm-row w-80'>
+                                    <div className="w-100 d-flex">
+                                        <div className='w-100 w-xs-100 d-flex align-items-start flex-column justify-content-center p-3'>
+                                            <span className="m-0">{item.name} </span>
+                                            <small>{item.category.main}</small>
+                                        </div>
+                                    </div>
+                                    <div className='w-100 d-flex justify-content-between px-3'>
+                                        <div className=" d-flex justify-content-center align-items-center">
+                                            {/* <div className="btn-nav" onClick={() => handleCount(item._id, 1)}><span>-</span></div> */}
+                                            <div className="btn-nav"><span>SL: {item.count}</span></div>
+                                            {/* <div className="btn-nav" onClick={() => handleCount(item._id, 0)}><span>+</span></div> */}
+                                        </div>
+                                        <div className=' d-flex align-items-center justify-content-end'>
+                                            <span className='m-0'>{numberFormat(item.price.base * item.count)}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )

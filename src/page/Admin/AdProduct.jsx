@@ -297,7 +297,7 @@ function AdProduct() {
                                 <th>Category</th>
                                 <th>type</th>
                                 <th>Public</th>
-                                <th className='d-flex justify-content-around align-items-center'>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -312,7 +312,7 @@ function AdProduct() {
                                         <td>{item.category.detail}</td>
                                         <td>{item.type}</td>
                                         <td>{item.isPublic ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faXmark} />}</td>
-                                        <td className='d-flex justify-content-around align-items-center'>
+                                        <td className=' d-flex justify-content-around align-items-center'>
                                             <Link to={`/admin/edit-product/${item._id}`}> <FontAwesomeIcon icon={faPenToSquare} /></Link>
                                             <FontAwesomeIcon className="text-danger cursor-p" icon={faTrash} onClick={() => confirmRemove(item.name, item.images, item._id)} />
                                         </td>

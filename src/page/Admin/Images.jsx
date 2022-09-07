@@ -55,9 +55,6 @@ function Images() {
                     <Button variant="primary" onClick={() => handleCloseModal()}>
                         Ok
                     </Button>
-                    {/* <Button variant="primary" onClick={() => setShow(false)}>
-                Save Changes
-            </Button> */}
                 </Modal.Footer>
             </Modal>
             <div className="w-100 d-flex justify-content-center" style={{
@@ -68,13 +65,7 @@ function Images() {
             }}>
                 <Toast onClose={toggleShowB} show={showToast} animation={false} closeButton={true} delay={1500} autohide>
                     <Toast.Header>
-                        {/* <img
-                            src={UrlApi + '/image/Logo.png'}
-                            className="rounded mr-2 w-100"
-                            alt=""
-                        /> */}
                         <strong className="mr-auto">SmartGarden</strong>
-                        {/* <small>11 mins ago</small> */}
                     </Toast.Header>
                     <Toast.Body className="bg-white">Đã copy đường dẫn</Toast.Body>
                 </Toast>
@@ -92,25 +83,17 @@ function Images() {
                     <h5>Tất cả hình ảnh</h5>
                 </Col>
                 {image.data.map((item, index) =>
-                    <Col key={index} sm={6} lg={3} className='mt-3'>
+                    <Col key={index} xs={6} md={4} lg={3} className='mt-3'>
                         {/* <Link to='blog-detail'> */}
                         <Card style={{ width: '100%' }} className='h-100 d-flex flex-column align-self-stretch flex-grow-1'>
                             <Card.Img variant="top" src={UrlApi + `/image/${item.name}`} />
                             <div className='mt-auto'>
-                                {/* <Card.Body >
-                                <Card.Title style={{ fontSize: '15px' }} className='text-truncate'>{item.title}</Card.Title>
-                                <Card.Text className="text-truncate text-truncate--3 text-justify" >{item.desc}</Card.Text>
-                            </Card.Body> */}
-                                <Card.Footer className='mt-auto'>
-                                    <div className="w-100 d-flex justify-content-between align-items-center mt-auto">
-                                        <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
-                                        <div>
-                                            {/* <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}>
-                                                <span className="d-inline-block">
-                                                    <Button variant="primary" className='' onClick={() => handleCopy(item.name)}><FontAwesomeIcon icon={faCopy} /></Button>
-                                                    
-                                                </span>
-                                            </OverlayTrigger> */}
+                                <Card.Footer className='mt-auto p-1 p-sm-3'>
+                                    <div className="w-100 d-flex flex-xl-row flex-column justify-content-between align-items-center mt-auto">
+                                        <div className='w-100'>
+                                            <span>Ngày tạo:<br /> {DayFormat(item.createdAt)}</span>
+                                        </div>
+                                        <div className='w-100 d-flex justify-content-end'>
                                             <OverlayTrigger
                                                 key='top'
                                                 placement='top'
@@ -122,7 +105,7 @@ function Images() {
                                             >
                                                 <Button variant="primary" className='' onClick={() => handleCopy(item.name)}><FontAwesomeIcon icon={faCopy} /></Button>
                                             </OverlayTrigger>
-                                            <Button variant="danger" className='ml-2' onClick={() => RemoveImageId(item._id)}><FontAwesomeIcon icon={faTrash} /></Button>
+                                            <Button variant="danger" className='ml-2 ml-sm-2 mt-sm-0' onClick={() => RemoveImageId(item._id)}><FontAwesomeIcon icon={faTrash} /></Button>
                                         </div>
                                     </div>
                                 </Card.Footer>

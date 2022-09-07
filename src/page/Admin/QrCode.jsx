@@ -27,22 +27,22 @@ function QrCode() {
                 <Col md={12} className='d-flex justify-content-between align-items-center mt-3 ' >
                     <h3>QR Code</h3>
                 </Col>
-                <Col md={3}>
+                <Col sm={3}>
                     <QRCode
                         id='qrcode'
-                        className='border'
+                        className='border w-100 h-auto'
                         value={value}
-                        size={290}
+                        // size={290}
                         level={'H'}
                         includeMargin={true}
                     />
                 </Col>
-                <Col md={9}>
-                    <Form.Group className="mb-2">
+                <Col sm={9}>
+                    <Form.Group className="mb-2 w-100">
                         <Form.Label>Nội dung QR code</Form.Label>
-                        <Form.Control size="sm" type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} />
+                        <Form.Control size="sm" type="text" className='w-100' defaultValue={value} onChange={(e) => setValue(e.target.value)} />
                     </Form.Group>
-                    <Form.Group className="mb-2">
+                    <Form.Group className="mb-2 w-100">
                         <Form.Label>Nội dung QR code</Form.Label>
                         <Button variant='primary' className='ml-3' onClick={downloadQR} ><FontAwesomeIcon icon={faDownload} /></Button>
                     </Form.Group>

@@ -34,7 +34,7 @@ function Cart() {
 
             <Row className='border-bottom' style={cart.data.length !== 0 ? { display: 'block' } : { display: 'none' }}>
                 <Col md={12} lg={9} className='mt-1'>
-                    <div className="w-100 d-flex ">
+                    {/* <div className="w-100 d-flex ">
                         <div className='col-img-bec w-20 '>
                             <span>Product</span>
                         </div>
@@ -50,6 +50,29 @@ function Cart() {
                         <div className='w-10 d-flex align-items-center justify-content-end cursor-p'>
                             <div></div>
                         </div>
+                    </div> */}
+                    <div className="w-100 d-flex align-items-center">
+                        <div className='col-img-bec w-20'>
+                            <span>Product</span>
+                        </div>
+                        <div className='d-flex flex-column flex-sm-row w-80'>
+                            <div className="w-100 d-flex">
+                                <div className='w-100 w-xs-100 d-flex align-items-start flex-column justify-content-center p-3'>
+
+                                </div>
+                            </div>
+                            <div className='w-100 d-flex justify-content-between'>
+                                <div className="w-40 d-flex justify-content-center align-items-center">
+                                    <span>Quantity</span>
+                                </div>
+                                <div className='w-50 d-flex align-items-center justify-content-end'>
+                                    <span className='m-0'>Price</span>
+                                </div>
+                                <div className='w-10 d-flex align-items-center justify-content-end cursor-p'>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </Col>
                 <Col md={0} lg={3} className='mt-1'>
@@ -60,13 +83,13 @@ function Cart() {
                 cart.data.length !== 0 ?
                     <Row>
                         <Col lg={9} className=''>
-                            {
+                            {/* {
                                 filterCart(cart, products).map((item, index) =>
                                     <div key={index} className="w-100 d-flex border-bottom">
                                         <div className='col-img-bec w-20 '>
                                             <img className='w-100 p-xs-0 p-sm-2 p-md-3' src={Bec} alt="Bec" />
                                         </div>
-                                        <div className='w-40 d-flex align-items-start flex-column justify-content-center p-3'>
+                                        <div className='w-40 w-xs-100 d-flex align-items-start flex-column justify-content-center p-3'>
                                             <span className="m-0">{item.name} </span>
                                             <small>{item.category.main}</small>
                                         </div>
@@ -83,7 +106,36 @@ function Cart() {
                                         </div>
                                     </div>
                                 )
-                            }
+                            } */}
+                            {
+                                filterCart(cart, products).map((item, index) =>
+                                    <div key={index} className="w-100 d-flex align-items-center border-bottom">
+                                        <div className='col-img-bec w-20'>
+                                            <img className='w-100 p-xs-0 p-sm-2 p-md-3' src={Bec} alt="Bec" />
+                                        </div>
+                                        <div className='d-flex flex-column flex-sm-row w-80'>
+                                            <div className="w-100 d-flex">
+                                                <div className='w-100 w-xs-100 d-flex align-items-start flex-column justify-content-center p-3'>
+                                                    <span className="m-0">{item.name} </span>
+                                                    <small>{item.category.main}</small>
+                                                </div>
+                                            </div>
+                                            <div className='w-100 d-flex justify-content-between'>
+                                                <div className="w-40 d-flex justify-content-center align-items-center">
+                                                    <div className="btn-nav" onClick={() => handleCount(item._id, 1)}><span>-</span></div>
+                                                    <div className="btn-nav"><span>{item.count}</span></div>
+                                                    <div className="btn-nav" onClick={() => handleCount(item._id, 0)}><span>+</span></div>
+                                                </div>
+                                                <div className='w-50 d-flex align-items-center justify-content-end'>
+                                                    <span className='m-0'>{numberFormat(item.price.base * item.count)}</span>
+                                                </div>
+                                                <div className='w-10 d-flex align-items-center justify-content-end cursor-p'>
+                                                    <div onClick={() => removeCartItem(item._id)}>X</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                         </Col>
                         <Col lg={3} className='position-relative mt-lg-0 mt-3'>
                             <div className='sticky-top'>

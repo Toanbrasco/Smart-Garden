@@ -94,7 +94,6 @@ function UploadProdcut() {
     const handleSubmit = async () => {
         if (productForm.name.length > 5) {
             if (validFiles.length !== 0) {
-                // setProductForm({ ...productForm, info: newInfo })
                 const data = new FormData()
                 Array.from(validFiles).forEach(item => {
                     data.append('file', item)
@@ -102,8 +101,6 @@ function UploadProdcut() {
                 const { imageSuccess, images, imageMessage } = await addImage(data)
                 if (imageSuccess) {
                     const newInfo = handleinfo()
-                    // setProductForm({ ...productForm, images: images })
-                    // console.log(`=> productForm`, productForm)
                     const { success, message } = await addProduct({ ...productForm, images: images, info: newInfo })
                     if (success) {
                         setModalText(message)
@@ -145,9 +142,6 @@ function UploadProdcut() {
                     <Button variant="primary" onClick={() => setShow(false)}>
                         Ok
                     </Button>
-                    {/* <Button variant="primary" onClick={() => setShow(false)}>
-                Save Changes
-            </Button> */}
                 </Modal.Footer>
             </Modal>
             <Row className='mt-3'>
@@ -188,7 +182,7 @@ function UploadProdcut() {
                         <div id='addZone'>
                             {
                                 element.map((item, index) =>
-                                    <div key={index} className="d-flex flex-sm-row flex-column mt-1" id='info-row'>
+                                    <div key={index} className="d-flex flex-row mt-1" id='info-row'>
                                         <Form.Control type="text" placeholder="Tên thông số" id='paramaterName' />
                                         <Form.Control type="text" placeholder="Thông số" id='paramater' />
                                         <Button variant='danger' onClick={() => RemoveRowInfo2(index)}><FontAwesomeIcon icon={faTrash} /></Button>
@@ -196,7 +190,7 @@ function UploadProdcut() {
                                 )
                             }
                         </div>
-                        <Button variant='primary' className=" mt-3" onClick={() => addNewRow()}>Add</Button>
+                        <Button variant='primary' className="mt-3" onClick={() => addNewRow()}>Add</Button>
                     </Form.Group>
                     <div className=" mb-3 d-flex flex-sm-row flex-column">
                         <Form.Group>
@@ -210,7 +204,7 @@ function UploadProdcut() {
 
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group className='ml-2'>
+                        <Form.Group className='m-0 ml-sm-2'>
                             <Form.Label>Danh mục</Form.Label>
                             <Form.Control as="select" name="main" defaultValue={productForm.category.main} onChange={handleCategory}>
                                 {
@@ -220,22 +214,21 @@ function UploadProdcut() {
                                 }
                             </Form.Control>
                         </Form.Group>
-                        {config.data.category[checkCategory()].list.length === 0 ? <></> :
-                            <Form.Group className='ml-2'>
-                                <Form.Label>Danh mục con</Form.Label>
-                                <Form.Control as="select" name="detail" className='text-dark' defaultValue={productForm.category.detail} onChange={handleCategory}>
-                                    {
-                                        config.data.category[checkCategory()].list.map((item, index) =>
-                                            <option key={index} value={item}>{item}</option>
-                                        )
-                                    }
-                                </Form.Control>
-                            </Form.Group>
+                        {
+                            config.data.category[checkCategory()].list.length === 0 ? <></> :
+                                <Form.Group className='m-0 ml-sm-2'>
+                                    <Form.Label>Danh mục con</Form.Label>
+                                    <Form.Control as="select" name="detail" className='text-dark' defaultValue={productForm.category.detail} onChange={handleCategory}>
+                                        {
+                                            config.data.category[checkCategory()].list.map((item, index) =>
+                                                <option key={index} value={item}>{item}</option>
+                                            )
+                                        }
+                                    </Form.Control>
+                                </Form.Group>
                         }
-                        {/* <Form.Control type="text" placeholder="Chi tiết" className='ml-2' name="detail" defaultValue={productForm.category.detail} onChange={handleCategory} /> */}
                     </div>
                     <Form.Group className="mb-3" >
-                        {/* <Form.Label>Public</Form.Label> */}
                         <Form.Check
                             type='checkbox'
                             id={`default-checkbox`}

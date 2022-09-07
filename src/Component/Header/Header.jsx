@@ -72,8 +72,8 @@ function Header() {
             {
                 Location.includes('/admin') || Location.includes('/login') || Location.includes('/infomation') ? <></> :
                     <>
-                        <Navbar bg="light" expand="lg" className='p-0 Header' collapseOnSelect >
-                            <Container className="position-relative w-100 h-100 d-flex justify-content-md-between " style={{ zIndex: '10' }}>
+                        <Navbar bg="light" expand="lg" className='Header px-2 px-md-0' collapseOnSelect >
+                            <Container className=" position-relative w-100 h-100 d-flex justify-content-md-between " style={{ zIndex: '10' }}>
                                 <Navbar.Brand className='brand d-none d-md-none d-lg-flex position-absolute translate-middle w-100 h-100 m-0 mr-0 p-0 justify-content-center align-items-center' >
                                     <Link to='/' >
                                         <img className='img-brand' style={{ width: '100px', height: '45px' }} src={`${UrlApi}/image/${config.data.logo}`} alt="Logo"></img>
