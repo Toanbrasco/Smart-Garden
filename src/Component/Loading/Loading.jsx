@@ -16,7 +16,7 @@ function Loading() {
     useEffect(() => {
         const timeOut = setTimeout(() => {
             setSwitchComponet(true)
-        }, 7000)
+        }, 10000)
         return () => {
             clearTimeout(timeOut);
         };
