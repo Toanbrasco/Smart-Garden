@@ -41,15 +41,12 @@ const UserContextProvider = ({ children }) => {
     const loginUser = async userForm => {
         try {
             const response = await axios.post(`${UrlApi}/api/auth/login`, userForm)
-            // console.log(`=> response login`, response.data)
             if (response.data.success) {
                 sessionStorage.setItem(SESSION_STORAGE_TOKEN_NAME, response.data.accessToken)
-
                 await loadUser()
-                // console.log(response.data)
-                // return response.data
             } else {
                 userDispatch({ type: USER_FAIL, payload: response.data })
+                return response.data
             }
         } catch (error) {
             if (error.response.data) { userDispatch({ type: USER_FAIL, payload: error.response.data }) }

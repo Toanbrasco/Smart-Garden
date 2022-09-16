@@ -19,12 +19,14 @@ function Login() {
         // console.log(`=> event`, event.target)
         setLoginForm({ ...loginForm, [event.target.name]: event.target.value })
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (loginForm.username.length !== 0 || loginForm.password.length !== 0) {
-            loginUser(loginForm)
-        }
-        if (user.message) {
-            setShowA(true)
+            const { success } = await loginUser(loginForm)
+            if (!success) {
+                setShowA(true)
+            } else {
+                setShowA(false)
+            }
         }
     }
     if (user.isAuthenticated) {
